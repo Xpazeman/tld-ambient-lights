@@ -1,0 +1,25 @@
+{
+	"emitters": [
+		{
+			"position":"2.5, 1.8, -1.8",
+			"orientation":"east"
+		},
+		{
+			"position":"2.5, 1.8, 1.7",
+			"orientation":"east",
+			"cover": 0.5
+		},
+		{
+			"position":"-2.4, 1.8, 1.7",
+			"orientation":"west",
+			"cover": 0.3
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1
+	}
+}

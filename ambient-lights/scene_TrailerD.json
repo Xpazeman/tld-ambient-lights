@@ -1,0 +1,48 @@
+{
+	"emitters": [
+		{
+			"position":"1.6, 1.7, -2.0",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"position":"3.9, 1.7, -2.0",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"position":"-4.7, 1.7, -2.0",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"position":"-2.4, 1.7, -2.0",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"position":"1.6, 1.7, 2.0",
+			"orientation":"north",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"position":"3.9, 1.7, 2.0",
+			"orientation":"north",
+			"size": 0.6,
+			"cover": 0
+		}
+		
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1
+	}
+}

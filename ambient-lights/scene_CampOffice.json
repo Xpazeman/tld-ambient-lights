@@ -1,0 +1,49 @@
+{
+	"emitters": [
+		{
+			"description":"South wall bottom floor",
+			"position":"-5.7, 1.8, 1.7",
+			"orientation":"south"
+		},
+		{
+			"description":"Stove Top Floor",
+			"position":"-5.7, 5.7, 0.4",
+			"orientation":"south"
+		},
+		{
+			"description":"Near stove with curtains",
+			"position":"3.9, 1.8, -3.1",
+			"orientation":"east",
+			"cover":0.5
+		},
+		{
+			"description":"Over workbench",
+			"position":"-0.3, 1.8, -4.8",
+			"orientation":"east",
+			"size":0.7
+		},
+		{
+			"description":"Under stairs bottom floor",
+			"position":"6.9, 1.8, -2.0",
+			"orientation":"north"
+		},
+		{
+			"description":"Stairs top floor",
+			"position":"6.9, 5.7, 0.4",
+			"orientation":"north"
+		},
+		{
+			"description":"Door wall near stairs",
+			"position":"1.2, 1.8, 4",
+			"orientation":"west"
+		},
+		{
+			"description":"Door wall near hanger",
+			"position":"-4.1, 1.8, 4",
+			"orientation":"west"
+		}
+	],
+	"periods":{
+		
+	}
+}

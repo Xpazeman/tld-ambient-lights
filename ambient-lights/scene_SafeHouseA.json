@@ -1,0 +1,35 @@
+{
+	"emitters": [
+		{
+			"position":"-3.2, 1.5, 8.9",
+			"orientation":"south"
+		},
+		{
+			"position":"-3.2, 4.0, 8.9",
+			"orientation":"south"
+		},
+		{
+			"position":"-5.6, 1.4, 1.8",
+			"orientation":"east"
+		},
+		{
+			"position":"-5.6, 1.4, 5.9",
+			"orientation":"east"
+		},
+		{
+			"position":"-4.6, 1.5, -1.5",
+			"orientation":"north"
+		},
+		{
+			"position":"-2.3, 1.5, 0.5",
+			"orientation":"north"
+		},
+		{
+			"position":"-0.7, 1.4, 7.2",
+			"orientation":"west"
+		}
+	],
+	"periods":{
+		
+	}
+}

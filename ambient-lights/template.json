@@ -1,0 +1,39 @@
+{
+	"emitters": [
+		{
+			"description":"",
+			"position":"",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"",
+			"position":"",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"",
+			"position":"",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"",
+			"position":"",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1
+	}
+}

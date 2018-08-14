@@ -1,0 +1,52 @@
+{
+	"emitters": [
+		{
+			"position":"2.5, 1.8, 1.6",
+			"orientation":"west",
+			"cover": 0.5
+		},
+		{
+			"position":"2.5, 1.8, -1.8",
+			"orientation":"west"
+		},
+		{
+			"position":"-2.4, 1.8, 1.7",
+			"orientation":"east",
+			"cover": 0.3
+		},
+		{
+			"position":"-2.4, 1.8, -1.7",
+			"orientation":"east"
+		}
+	],
+	"periods":{
+		"morning":{
+			"start_hour": 800,
+			"end_hour": 1100,
+			"change_duration": 15,
+
+			"weathers":{
+				"clear":{
+					"orientations":{
+						"east":{
+							"color": "165,100,85",
+							"intensity": 1.3,
+							"range": 18.0,
+							"shadows": "none"
+						},
+
+						"west":{
+							"color": "135,95,125",
+							"intensity": 0.8,
+							"range": 9.0,
+							"shadows": "none"
+						}
+					}
+				}
+			}
+		}
+	},
+	"options":{
+		"override_shadows":"none"
+	}
+}

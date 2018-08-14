@@ -1,0 +1,53 @@
+{
+	"emitters": [
+		{
+			"description":"Offices S",
+			"position":"5.2, 4.7, -6.9",
+			"orientation":"south",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"Ceiling Stairs",
+			"position":"-7.1, 4.6, 2.6",
+			"orientation":"east",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"Ceiling Stairs",
+			"position":"-7.1, 4.6, 6.9",
+			"orientation":"east",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"Door to winding river",
+			"position":"-74.6, -5.9, -16.8",
+			"orientation":"west",
+			"size": 0.6,
+			"cover": 0.7
+		},
+		{
+			"description":"Offices NW",
+			"position":"-10.2, 4.7, -10.4",
+			"orientation":"west",
+			"size": 4,
+			"cover": 0
+		},
+		{
+			"description":"Offices SW",
+			"position":"-0.1, 4.7, -10.4",
+			"orientation":"west",
+			"size": 4,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1
+	}
+}

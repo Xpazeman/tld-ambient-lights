@@ -1,0 +1,137 @@
+{
+	"emitters": [
+		{
+			"description":"Entrance",
+			"position":"6.3, 2.0, -1.8",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Entrance",
+			"position":"6.3,2.0,0.9",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Ceiling Stairs",
+			"position":"-8.0, 14.3, -2.7",
+			"orientation":"east",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"Ceiling Stairs",
+			"position":"-12.6, 14.3, -2.7",
+			"orientation":"east",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"Bigroom SE",
+			"position":"21.5, 5.5, -27.4",
+			"orientation":"east",
+			"size": 3,
+			"cover": 0.5
+		},
+		{
+			"description":"Bigroom SE",
+			"position":"15.9, 5.5, -27.4",
+			"orientation":"east",
+			"size": 3,
+			"cover": 0
+		},
+		{
+			"description":"Bigroom SE",
+			"position":"10.2, 5.5, -27.4",
+			"orientation":"east",
+			"size": 3,
+			"cover": 0.3
+		},
+		{
+			"description":"Bigroom NE",
+			"position":"-17.7, 5.5, -27.4",
+			"orientation":"east",
+			"size": 3,
+			"cover": 0.2
+		},
+		{
+			"description":"Bigroom NE",
+			"position":"-23.2, 5.5, -27.4",
+			"orientation":"east",
+			"size": 3,
+			"cover": 0
+		},
+		{
+			"description":"Bigroom SW",
+			"position":"21.5, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0.3
+		},
+		{
+			"description":"Bigroom SW",
+			"position":"10.3, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0
+		},
+		{
+			"description":"Bigroom SW",
+			"position":"5.0, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0.4
+		},
+		{
+			"description":"Bigroom W",
+			"position":"5.0, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0.4
+		},
+		{
+			"description":"Bigroom W",
+			"position":"-0.8, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0.2
+		},
+		{
+			"description":"Bigroom W",
+			"position":"-6.1, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0.3
+		},
+		{
+			"description":"Bigroom NW",
+			"position":"-11.9, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0
+		},
+		{
+			"description":"Bigroom NW",
+			"position":"-17.5, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0.3
+		},
+		{
+			"description":"Bigroom NW",
+			"position":"-23.1, 5.5, -49.3",
+			"orientation":"west",
+			"size": 3,
+			"cover": 0.6
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1
+	}
+}

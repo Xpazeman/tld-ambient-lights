@@ -1,0 +1,145 @@
+{
+	"emitters": [
+		{
+			"description":"Kitchen Stove",
+			"position":"2.6, 1.5, 9.8",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Kitchen Sink",
+			"position":"-2.5, 1.5, 9.8",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Kitchen Table",
+			"position":"-3.7, 1.5, 5.3",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description":"Bathroom",
+			"position":"3.7, 1.5, 2.5",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description":"Living Rockingchair",
+			"position":"-10.5, 1.5, -3.7",
+			"orientation":"east",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"Living Fireplace",
+			"position":"-9.4, 1.5, -0.6",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Living Table",
+			"position":"-6.7, 1.5, -6.1",
+			"orientation":"north",
+			"size": 1.5,
+			"cover": 0
+		},
+
+		{
+			"description":"Study Double",
+			"position":"6.5, 1.5, -6.1",
+			"orientation":"north",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description":"Study Single",
+			"position":"9.5, 1.5, -4.7",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description":"Landing Stairs",
+			"position":"3.7, 5.1, 2.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Landing Hall",
+			"position":"-3.7, 5.1, 2.6",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Landing Playground",
+			"position":"0.0, 5.0, -6.1",
+			"orientation":"north",
+			"size": 1.5,
+			"cover": 0
+		},
+
+		{
+			"description":"Upper Bathroom",
+			"position":"-3.7, 5.1, 8.1",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description":"Room 1",
+			"position":"3.7, 5.1, 2.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description":"Room 2 Double",
+			"position":"6.5, 5.1, -6.1",
+			"orientation":"north",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description":"Room 2 Single",
+			"position":"9.5, 5.1, -0.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description":"Room 3 Double",
+			"position":"-6.7, 5.1, -6.1",
+			"orientation":"north",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description":"Room 3 Single",
+			"position":"-9.5, 5.1, -0.7",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1
+	}
+}

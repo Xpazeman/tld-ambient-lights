@@ -1,0 +1,55 @@
+{
+	"early_dawn": {
+		"start_hour": 620,
+		"end_hour": 705,
+		"change_duration": 40
+	},
+
+	"dawn":{
+		"start_hour": 705,
+		"end_hour": 800,
+		"change_duration": 30
+	},
+
+	"morning":{
+		"start_hour": 800,
+		"end_hour": 1100,
+		"change_duration": 30
+	},
+
+	"midday":{
+		"start_hour": 1100,
+		"end_hour": 1300,
+		"change_duration": 30
+	},
+
+	"afternoon":{
+		"start_hour": 1300,
+		"end_hour": 1800,
+		"change_duration": 60
+	},
+
+	"dusk":{
+		"start_hour": 1800,
+		"end_hour": 1900,
+		"change_duration": 30
+	},
+
+	"after_dusk":{
+		"start_hour": 1900,
+		"end_hour": 1930,
+		"change_duration": 30
+	},
+
+	"early_night":{
+		"start_hour": 1930,
+		"end_hour": 2401,
+		"change_duration": 30
+	},
+
+	"night":{
+		"start_hour": 0,
+		"end_hour": 620,
+		"change_duration": 60
+	}
+}
