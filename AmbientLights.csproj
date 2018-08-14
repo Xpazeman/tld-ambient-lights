@@ -56,13 +56,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AmbientLight.cs" />
-    <Compile Include="AmbientLightConfig.cs" />
-    <Compile Include="AmbientLightControl.cs" />
-    <Compile Include="AmbientLightUtils.cs" />
-    <Compile Include="Patches.cs" />
+    <Compile Include="src\AmbientLight.cs" />
+    <Compile Include="src\AmbientLightConfig.cs" />
+    <Compile Include="src\AmbientLightControl.cs" />
+    <Compile Include="src\AmbientLightUtils.cs" />
+    <Compile Include="src\Patches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeWeather.cs" />
+    <Compile Include="src\TimeWeather.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

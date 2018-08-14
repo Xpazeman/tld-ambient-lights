@@ -4,4 +4,5 @@
 *.ide-shm
 *.ide-wal
 *.CopyComplete
-obj/Debug/AmbientLights.csproj.FileListAbsolute.txt
+obj/*
+bin/*
