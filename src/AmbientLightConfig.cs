@@ -11,6 +11,7 @@ namespace AmbientLights
         public static float intensity_multiplier = 1f;
         public static float range_multiplier = 1f;
         public static int night_brightness = 2;
+        public static bool verbose = true;
     }
 
     public class AmbientPeriodItem

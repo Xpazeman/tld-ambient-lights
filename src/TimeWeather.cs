@@ -14,15 +14,11 @@ namespace AmbientLights
 
             int now_time = AmbientLightUtils.GetCurrentTimeFormatted();
 
-            //Debug.Log("[ambient-lights] time: " + nowTime);
-
             foreach (KeyValuePair<string, AmbientPeriodItem> prd in AmbientLightControl.periods_data)
             {
                 if (now_time >= prd.Value.start_hour && now_time < prd.Value.end_hour)
                 {
                     period_name = prd.Key;
-
-                    //Debug.Log("[ambient-lights] HIT: "+periodName);
                 }
             }
 
@@ -133,26 +129,22 @@ namespace AmbientLights
 
             if (weather_set != null)
             {
-                //Debug.Log("[ambient-lights] "+Utils.SerializeObject(weatherSet));
-
                 if (weather_set.orientations.ContainsKey(light_set))
                 {
-                    //Debug.Log("[ambient-lights] " + lightSet + " orientation");
                     set = weather_set.orientations[light_set];
                 }
                 else if (weather_set.orientations.ContainsKey("default"))
                 {
-                    //Debug.Log("[ambient-lights] Default orientation");
                     set = weather_set.orientations["default"];
                 }
                 else
                 {
-                    Debug.Log("[ambient-lights] No orientation found.");
+                    Debug.Log("[ambient-lights] ERROR: No orientation found.");
                 }
             }
             else
             {
-                Debug.Log("[ambient-lights] No WeatherSet found.");
+                Debug.Log("[ambient-lights] ERROR: No WeatherSet found.");
             }
 
             return set;

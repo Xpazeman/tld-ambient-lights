@@ -37,7 +37,7 @@ namespace AmbientLights
 
         public static void ResetAmbientLights()
         {
-            Debug.Log("[ambient-lights]: Light data cleared.");
+            Debug.Log("[ambient-lights] Light data cleared.");
 
             light_list.Clear();
 
@@ -78,7 +78,7 @@ namespace AmbientLights
                 }
                 else
                 {
-                    Debug.Log("[ambient-lights] No lighting data for scene " + current_scene);
+                    Debug.Log("[ambient-lights] No lighting data for scene " + current_scene + " found. Using game default.");
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace AmbientLights
                 }
                 else
                 {
-                    Debug.Log("[ambient-lights]: No global periods data found");
+                    Debug.Log("[ambient-lights] ERROR: No global periods data found");
                 }
 
                 if (File.Exists(@"mods/ambient-lights/global_sets.json"))
@@ -102,7 +102,7 @@ namespace AmbientLights
                 }
                 else
                 {
-                    Debug.Log("[ambient-lights]: No global sets data found");
+                    Debug.Log("[ambient-lights] ERROR: No global sets data found");
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace AmbientLights
 
         public static void SetupLights()
         {
-            Debug.Log("[ambient-lights] Setting up "+ config.emitters.Count+" light sources.");
+            Debug.Log("[ambient-lights] Setting up "+ config.emitters.Count+" light sources for scene.");
 
             foreach (AmbientConfigEmitter emitter in config.emitters)
             {
@@ -192,9 +192,12 @@ namespace AmbientLights
                     current_weather = weather_name;
                     current_period = period_name;
 
-                    Debug.Log("[ambient-lights] * Light period change:");
-                    Debug.Log("[ambient-lights] Period: " + current_period);
-                    Debug.Log("[ambient-lights] Weather: " + current_weather);
+                    if (AmbientLightsOptions.verbose)
+                    {
+                        Debug.Log("[ambient-lights] * Light period change:");
+                        Debug.Log("[ambient-lights] Period: " + current_period);
+                        Debug.Log("[ambient-lights] Weather: " + current_weather);
+                    }
 
                     foreach (var light in light_list)
                     {

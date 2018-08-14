@@ -25,8 +25,6 @@ namespace AmbientLights
             Light light = light_go.AddComponent<Light>();
             light_source = light;
 
-            //light_source.type = LightType.Directional;
-
             light_go.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             light_go.transform.position = lightPos;
 
@@ -53,10 +51,7 @@ namespace AmbientLights
                 start_set = target_set;
                 instant_apply = true;
             }
-
-            LightTracking x = light_source.GetComponent<LightTracking>();
-            //Debug.Log("[ambient-lights] Tracking? " + Utils.SerializeObject(x));
-
+            
             if (set.intensity != 0)
             {
                 light_source.enabled = true;
@@ -79,6 +74,7 @@ namespace AmbientLights
             {
                 if (set.shadows.ToLower() == "hard")
                 {
+                    //Hard shadows don't work well
                     //light_source.shadows = LightShadows.Hard;
                     light_source.shadows = LightShadows.Soft;
                 }
@@ -115,6 +111,8 @@ namespace AmbientLights
                 SetLightIntensity(t_intensity);
                 SetLightRange(t_range);
                 SetLightColor(t_color);
+
+                DebugLightSet();
             }
         }
 
@@ -125,6 +123,8 @@ namespace AmbientLights
                 SetLightIntensity(target_set.intensity);
                 SetLightRange(target_set.range);
                 SetLightColor(AmbientLightUtils.ParseColor32(target_set.color));
+
+                DebugLightSet();
             }
         }
 
@@ -145,8 +145,8 @@ namespace AmbientLights
 
         void DebugLightSet()
         {
-            Debug.Log("[ambient-lights] Instant apply. Orientation: " + light_set);
-            Debug.Log("Intensity: "+light_source.intensity+", Range: "+light_source.range+", Color: "+light_source.color);
+            if (AmbientLightsOptions.verbose)
+                Debug.Log("Intensity: "+light_source.intensity+", Range: "+light_source.range+", Color: "+light_source.color);
         }
     }
 }
