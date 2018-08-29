@@ -1,0 +1,139 @@
+{
+	"emitters": [
+		{
+			"description": "Pointlight (45)",
+			"position": "2.6, 2.4, 3.6",
+			"orientation":"east",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (46)",
+			"position": "0.6, 2.4, 3.6",
+			"orientation":"east",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (47)",
+			"position": "-1.6, 2.4, 3.6",
+			"orientation":"east",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (48)",
+			"position": "5.8, 3.1, 2.6",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (48)",
+			"position": "5.8, 3.1, -2.6",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (44)",
+			"position": "2.6, 2.4, -3.6",
+			"orientation":"west",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (43)",
+			"position": "0.4, 2.6, -3.6",
+			"orientation":"west",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (42)",
+			"position": "-1.9, 2.6, -3.6",
+			"orientation":"west",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (41)",
+			"position": "-7.4, 3.3, 0.0",
+			"orientation":"north",
+			"size": 1.2,
+			"cover": 0
+		},
+
+		
+
+		{
+			"description": "Pointlight (58)",
+			"position": "9.0, 11.6, 0.0",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Pointlight (59)",
+			"position": "7.6, 13.2, 0.0",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.5
+		},
+
+		{
+			"description": "Pointlight (55)",
+			"position": "9.0, 7.5, -1.2",
+			"orientation":"rosetonR",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (55)",
+			"position": "9.0, 9, 0.0",
+			"orientation":"rosetonG",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (55)",
+			"position": "9.0, 7.0, 1.2",
+			"orientation":"rosetonB",
+			"size": 0.6,
+			"cover": 0
+		}
+	],
+	"periods":{
+		"default":{
+			"weathers":{
+				"default":{
+					"orientations":{
+						"rosetonR":{
+							"color": "255,160,160",
+							"intensity": 1,
+							"range": 8.0,
+							"shadows": "none"
+						},
+						"rosetonG":{
+							"color": "160,255,160",
+							"intensity": 1,
+							"range": 7.0,
+							"shadows": "none"
+						},
+						"rosetonB":{
+							"color": "160,160,255",
+							"intensity": 1,
+							"range": 10.0,
+							"shadows": "none"
+						}
+					}
+				}
+			}
+		}
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 0.85,
+		"range_multiplier": 0.8
+	}
+}

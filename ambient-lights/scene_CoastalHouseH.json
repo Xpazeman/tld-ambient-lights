@@ -1,0 +1,40 @@
+{
+	"emitters": [
+		{
+			"description": "Point light",
+			"position": "1.7, 1.6, 1.3",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0,
+		},
+		{
+			"description": "Point light",
+			"position": "-2.5, 1.7, 1.9",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0,
+		},
+		{
+			"description": "Point light (1",
+			"position": "-2.6, 2.0, 1.2",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0,
+		},
+		{
+			"description": "Point light",
+			"position": "-2.6, 2.0, -1.7",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0,
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1
+	}
+}

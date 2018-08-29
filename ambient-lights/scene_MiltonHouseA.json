@@ -1,0 +1,70 @@
+{
+	"emitters": [
+		{
+			"description": "Pointlight (52)",
+			"position": "-2.6, 1.8, -3.3",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Pointlight (96)",
+			"position": "-2.0, 1.8, -3.0",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Pointlight (51)",
+			"position": "-5.0, 1.6, -2.0",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (35)",
+			"position": "-4.8, 1.5, 2.1",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0.8
+		},
+		{
+			"description": "Pointlight (34)",
+			"position": "-2.7, 1.9, 3.1",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description": "Pointlight (53)",
+			"position": "3.2, 1.8, -3.5",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight (54)",
+			"position": "5.4, 1.7, -1.6",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description": "Pointlight (83)",
+			"position": "5.7, 1.8, 1.8",
+			"orientation":"north",
+			"size": 0.5,
+			"cover": 0.15
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 0.7
+	}
+}

@@ -1,0 +1,56 @@
+{
+	"emitters": [
+		{
+			"description": "Point light_Color (45)",
+			"position": "6.9, 2.0, 1.9",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Point light_Color (46)",
+			"position": "6.9, 2.0, 0.2",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Point light_WindowInt (2)",
+			"position": "6.9, 2.0, -2.4",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description": "Point light_WindowInt (Bathroom)",
+			"position": "-1.2, 3.2, 6.0",
+			"orientation":"north",
+			"size": 0.3,
+			"cover": 0
+		},
+
+		{
+			"description": "Point light_WindowInt (1)",
+			"position": "-6.6, 3.0, -6.3",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description": "Point light_WindowInt",
+			"position": "-4.6, 3.1, -6.2",
+			"orientation":"south",
+			"size": 0.6,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1
+	}
+}

@@ -96,7 +96,8 @@ namespace AmbientLights
                 SetLightRange(target_set.range);
                 SetLightColor(AmbientLightUtils.ParseColor32(target_set.color));
 
-                DebugLightSet();
+                if (AmbientLightsOptions.verbose)
+                    DebugLightSet();
             }
         }
 
@@ -112,7 +113,7 @@ namespace AmbientLights
                 SetLightRange(t_range);
                 SetLightColor(t_color);
 
-                DebugLightSet();
+                //DebugLightSet();
             }
         }
 
@@ -124,7 +125,8 @@ namespace AmbientLights
                 SetLightRange(target_set.range);
                 SetLightColor(AmbientLightUtils.ParseColor32(target_set.color));
 
-                DebugLightSet();
+                if (AmbientLightsOptions.verbose)
+                    DebugLightSet();
             }
         }
 

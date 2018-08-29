@@ -1,0 +1,61 @@
+{
+	"emitters": [
+		{
+            "description": "Spotlight (36)",
+            "position": "4.0, 2.0, -1.9",
+            "orientation":"east",
+            "size": 0.5,
+            "cover": 0,
+        },
+		{
+            "description": "Spotlight (42)",
+            "position": "1.7, 2.0, -1.7",
+            "orientation":"east",
+            "size": 0.5,
+            "cover": 0,
+        },
+		{
+            "description": "Spotlight (47)",
+            "position": "-4.5, 2.0, -1.8",
+            "orientation":"east",
+            "size": 0.5,
+            "cover": 0,
+        },
+		{
+            "description": "Spotlight (31)",
+            "position": "-4.6, 2.0, 1.9",
+            "orientation":"west",
+            "size": 0.5,
+            "cover": 0,
+        },
+		{
+            "description": "Spotlight (29)",
+            "position": "-2.4, 2.0, 1.9",
+            "orientation":"west",
+            "size": 0.5,
+            "cover": 0,
+        },
+		{
+            "description": "Spotlight (35)",
+            "position": "1.6, 2.0, 1.9",
+            "orientation":"west",
+            "size": 0.5,
+            "cover": 0,
+        },
+		{
+            "description": "Spotlight (36)",
+            "position": "4.0, 2.0, 1.9",
+            "orientation":"west",
+            "size": 0.5,
+            "cover": 0,
+        }
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 0.8
+	}
+}

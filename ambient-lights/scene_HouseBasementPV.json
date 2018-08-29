@@ -1,0 +1,40 @@
+{
+	"emitters": [
+		{
+			"description":"",
+			"position":"3.5, 3.7, -2.2",
+			"orientation":"east",
+			"size": 0.5,
+			"cover": 0
+		},
+		{
+			"description":"",
+			"position":"-1.2, 3.7, -2.2",
+			"orientation":"east",
+			"size": 0.5,
+			"cover": 0
+		},
+		{
+			"description": "Room fill",
+			"position": "1.7, 3.1, 0.0",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.3,
+		},
+		{
+			"description": "Hall fill",
+			"position": "-4.0, 3.0, -0.9",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.3,
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1
+	}
+}

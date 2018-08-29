@@ -1,0 +1,68 @@
+{
+	"emitters": [
+		{
+			"description": "Point light 1 R",
+			"position": "0.1, 2.0, 3.9",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Point light G",
+			"position": "0.8, 2.0, -0.3",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Point light 4 RG",
+			"position": "3.7, 5.4, 4.5",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Point light 3 B",
+			"position": "-0.6, 5.2, 1.6",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Point light 2 RB",
+			"position": "4.3, 6.8, 0.5",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Point light 6 GB",
+			"position": "3.4, 9.5, 4.4",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Point light 5 000",
+			"position": "-0.5, 9.5, 1.5",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Point light 7 RGB",
+			"position": "4.3, 10.7, 0.4",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 0.8
+	}
+}

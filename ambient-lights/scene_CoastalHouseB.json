@@ -1,0 +1,75 @@
+{
+	"emitters": [
+		{
+            "description": "Point light",
+            "position": "3.9, 1.8, 6.4",
+            "orientation":"west",
+            "size": 1,
+            "cover": 0.2,
+        },
+		{
+            "description": "Point light",
+            "position": "0.7, 1.8, 8.5",
+            "orientation":"north",
+            "size": 1.2,
+            "cover": 0.5,
+        },
+        {
+            "description": "Point light",
+            "position": "2.0, 1.8, 8.5",
+            "orientation":"north",
+            "size": 1.2,
+            "cover": 0.5,
+        },
+		{
+            "description": "Point light",
+            "position": "-4.7, 1.8, 1.9",
+            "orientation":"east",
+            "size": 1,
+            "cover": 0,
+        },
+		{
+            "description": "Point light",
+            "position": "-4.7, 1.8, -1.9",
+            "orientation":"east",
+            "size": 1,
+            "cover": 0.5,
+        },
+		{
+            "description": "Point light",
+            "position": "-2.6, 1.8, -3.2",
+            "orientation":"south",
+            "size": 1,
+            "cover": 0,
+        },
+		{
+            "description": "Point light",
+            "position": "5.4, 1.8, 1.7",
+            "orientation":"west",
+            "size": 1,
+            "cover": 0.3,
+        },
+        {
+            "description": "Point light - Bedroom",
+            "position": "3.9, 1.9, 1.7",
+            "orientation":"west",
+            "size": 0.6,
+            "cover": 0.7,
+        },
+		{
+            "description": "Point light",
+            "position": "5.4, 1.8, -2.2",
+            "orientation":"west",
+            "size": 0.9,
+            "cover": 0.3,
+        }
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1
+	}
+}

@@ -1,0 +1,103 @@
+{
+	"emitters": [
+		{
+			"description": "Spotlight (24)",
+			"position": "4.0, 3.2, 7.7",
+			"orientation":"west",
+			"size": 0.5,
+			"cover": 0.7
+		},
+		{
+			"description": "Spotlight (23)",
+			"position": "-4.0, 3.2, 7.7",
+			"orientation":"west",
+			"size": 0.5,
+			"cover": 0.7
+		},
+		{
+			"description": "Spotlight (16)",
+			"position": "9.6, 6.3, 6.8",
+			"orientation":"west",
+			"size": 0.3,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (15)",
+			"position": "2.1, 6.3, 4.9",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (14)",
+			"position": "-1.7, 7.0, 3.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (13)",
+			"position": "-6.2, 8.6, -2.8",
+			"orientation":"east",
+			"size": 0.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (2)",
+			"position": "-2.0, 8.6, -4.3",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (12)",
+			"position": "1.7, 8.6, -4.3",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (18)",
+			"position": "6.4, 8.1, -12.2",
+			"orientation":"west",
+			"size": 0.8,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (19)",
+			"position": "1.7, 8.1, -13.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (20)",
+			"position": "-2.1, 8.1, -13.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (21)",
+			"position": "-1.9, 8.1, -22.6",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0.3
+		},
+		{
+			"description": "Spotlight (22)",
+			"position": "1.7, 8.1, -22.6",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1.2
+	}
+}

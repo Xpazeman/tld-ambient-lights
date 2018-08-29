@@ -1,0 +1,61 @@
+{
+	"emitters": [
+		{
+			"description": "Pointlight Window (Door)",
+			"position": "5.1, 2.0, -4.0",
+			"orientation":"east",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight Window (1)",
+			"position": "7.0, 2.0, 4.6",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.4
+		},
+		{
+			"description": "Pointlight Window (2)",
+			"position": "7.0, 2.0, 3.2",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.4
+		},
+		{
+			"description": "Pointlight Window (4)",
+			"position": "6.8, 1.4, 0.6",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.65
+		},
+		{
+			"description": "Pointlight Window (5)",
+			"position": "6.9, 1.3, -1.0",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.85
+		},
+		{
+			"description": "Pointlight Window (7)",
+			"position": "6.9, 2.0, -3.0",
+			"orientation":"north",
+			"size": 0.7,
+			"cover": 0
+		},
+		{
+			"description": "Pointlight Window (11)",
+			"position": "-1.2, 2.0, -4.2",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0.15
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 0.65
+	}
+}

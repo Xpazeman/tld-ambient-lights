@@ -1,0 +1,105 @@
+{
+	"emitters": [
+		{
+			"description":"Stairs",
+			"position":"7.5, 2.1, -5.6",
+			"orientation":"east",
+			"size": 0.7,
+			"cover": -0.5
+		},
+
+		{
+			"description":"Top Barn L",
+			"position":"7.5, 8.9, 3.8",
+			"orientation":"east",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description":"Top Barn C",
+			"position":"7.5, 11.3, 0.0",
+			"orientation":"east",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description":"Top Barn R",
+			"position":"7.5, 8.9, -3.8",
+			"orientation":"east",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description":"Top Barn R",
+			"position":"-7.5, 8.9, 3.8",
+			"orientation":"west",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description":"Top Barn C",
+			"position":"-7.5, 11.3, 0.0",
+			"orientation":"west",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description":"Top Barn L",
+			"position":"-7.5, 8.9, -3.8",
+			"orientation":"west",
+			"size": 0.6,
+			"cover": 0
+		},
+
+		{
+			"description":"Pen R",
+			"position":"5.0, 2.1, 15.8",
+			"orientation":"north",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description":"Pen C",
+			"position":"0.0, 2.1, 15.8",
+			"orientation":"north",
+			"size": 0.6,
+			"cover": 0.1
+		},
+		{
+			"description":"Pen L",
+			"position":"-5.0, 2.1, 15.8",
+			"orientation":"north",
+			"size": 0.6,
+			"cover": 0
+		},
+		{
+			"description":"North Door",
+			"position":"-7.5, 2.1, 11.4",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"West Door",
+			"position":"-7.5, 2.1, 5.4",
+			"orientation":"west",
+			"size": 1,
+			"cover": -0.3
+		},
+		{
+			"description":"South Door",
+			"position":"-7.5, 2.1, -5.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1.3
+	}
+}

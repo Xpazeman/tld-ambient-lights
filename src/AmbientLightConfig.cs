@@ -21,6 +21,14 @@ namespace AmbientLights
         public int change_duration = 10;
     }
 
+    public class AmbientPeriodTransition
+    {
+        public int start;
+        public int duration;
+        public int end;
+        public bool complete = true;
+    }
+
     public class AmbientLocationConfig
     {
         public List<AmbientConfigEmitter> emitters = null;

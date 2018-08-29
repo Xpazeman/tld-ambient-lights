@@ -1,0 +1,117 @@
+{
+	"emitters": [
+		{
+			"description": "Point light garage",
+			"position": "-2.9, 4.8, -1.1",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0,
+		},
+		{
+			"description": "Point light garage",
+			"position": "-2.9, 4.8, 1.1",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0,
+		},
+		{
+			"description": "Point light garage",
+			"position": "-2.9, 4.8, -0.1",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0,
+		},
+		{
+			 "description": "Point light garage",
+			 "position": "-3.2, 2.0, 7.4",
+			 "orientation":"north",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light garage",
+			 "position": "2.7, 2.0, 7.4",
+			 "orientation":"north",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "4.9, 2.0, 8.4",
+			 "orientation":"north",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "8.3, 2.2, 7.7",
+			 "orientation":"north",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "8.8, 3.1, 6.5",
+			 "orientation":"west",
+			 "size": 0.6,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "8.8, 3.1, 5.3",
+			 "orientation":"west",
+			 "size": 0.6,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "8.8, 3.1, 7.6",
+			 "orientation":"west",
+			 "size": 0.6,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light bathroom",
+			 "position": "12.3, 3.0, 2.3",
+			 "orientation":"west",
+			 "size": 0.6,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "5.6, 3.0, 0.9",
+			 "orientation":"south",
+			 "size": 0.6,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "6.6, 3.0, 0.9",
+			 "orientation":"south",
+			 "size": 0.6,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light store",
+			 "position": "7.8, 3.0, 0.9",
+			 "orientation":"south",
+			 "size": 0.6,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light back",
+			 "position": "-3.5, 2.0, -7.6",
+			 "orientation":"south",
+			 "size": 1,
+			 "cover": 0,
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1
+	}
+}

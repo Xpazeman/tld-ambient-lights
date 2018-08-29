@@ -1,0 +1,54 @@
+{
+	"emitters": [
+		{
+			"description":"",
+			"position":"2.8, 3.0, 0.0",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Door",
+			"position":"-2.1, 2.2, 3.8",
+			"orientation":"east",
+			"size": 0.5,
+			"cover": 0.5
+		},
+		{
+			"description":"Entrance",
+			"position":"0.7, 1.7, 3.8",
+			"orientation":"east",
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"",
+			"position":"-2.8, 3.0, 2.2",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"",
+			"position":"-2.8, 3.0, -2.1",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description":"Bathroom",
+			"position":"-1.0, 2.7, -7.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1
+	}
+}

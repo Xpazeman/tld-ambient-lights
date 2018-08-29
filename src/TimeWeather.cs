@@ -56,6 +56,7 @@ namespace AmbientLights
                 case WeatherStage.Cloudy:
                     return "cloudy";
 
+                case WeatherStage.HeavySnow:
                 case WeatherStage.Blizzard:
                     return "blizzard";
 
@@ -139,7 +140,17 @@ namespace AmbientLights
                 }
                 else
                 {
-                    Debug.Log("[ambient-lights] ERROR: No orientation found.");
+                    weather_set = TryToFetchWeather(AmbientLightControl.config.periods["default"], "default");
+
+                    if (weather_set.orientations.ContainsKey(light_set))
+                    {
+                        set = weather_set.orientations[light_set];
+                    }
+                    else
+                    {
+                        Debug.Log("[ambient-lights] ERROR: No orientation found.");
+                    }
+                    
                 }
             }
             else

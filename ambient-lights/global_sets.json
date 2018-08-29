@@ -1,6 +1,17 @@
 {
 	"early_dawn": {
 		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "60,60,75",
+						"intensity": 0.8,
+						"range": 8.0,
+						"shadows": "none"
+					}
+				}
+			},
+
 			"fog":{
 				"orientations":{
 					"default":{
@@ -73,11 +84,22 @@
 
 	"dawn":{
 		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "80,80,90",
+						"intensity": 0.8,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			},
+
 			"fog":{
 				"orientations":{
 					"default":{
 						"color": "80,120,90",
-						"intensity": 0.8,
+						"intensity": 0.7,
 						"range": 10.0,
 						"shadows": "none"
 					}
@@ -145,24 +167,34 @@
 
 	"morning":{
 		"weathers":{
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "60,90,60",
+						"intensity": 0.6,
+						"range": 12.0,
+						"shadows": "none"
+					}
+				}
+			},
 			"cloudy":{
 				"orientations":{
 					"east":{
-						"color": "85,105,120",
+						"color": "105,85,120",
 						"intensity": 1.2,
 						"range": 24.0,
 						"shadows": "none"
 					},
 
 					"west":{
-						"color": "75,105,140",
+						"color": "120,75,140",
 						"intensity": 0.7,
 						"range": 16.0,
 						"shadows": "none"
 					},
 
 					"default":{
-						"color": "75,105,120",
+						"color": "105,75,120",
 						"intensity": 0.9,
 						"range": 20.0,
 						"shadows": "none"
@@ -307,7 +339,7 @@
 					"default":{
 						"color": "80,90,120",
 						"intensity": 0.8,
-						"range": 12.0,
+						"range": 10.0,
 						"shadows": "none"
 					}
 				}
@@ -472,7 +504,7 @@
 				"orientations":{
 					"default":{
 						"color": "30,30,45",
-						"intensity": 0.7,
+						"intensity": 0.5,
 						"range": 7.0,
 						"shadows": "none"
 					}
@@ -483,7 +515,7 @@
 				"orientations":{
 					"default":{
 						"color": "30,45,30",
-						"intensity": 0.7,
+						"intensity": 0.5,
 						"range": 9.0,
 						"shadows": "none"
 					}
@@ -520,7 +552,7 @@
 				"orientations":{
 					"default":{
 						"color": "30,30,45",
-						"intensity": 0.7,
+						"intensity": 0.5,
 						"range": 6.0,
 						"shadows": "none"
 					}
@@ -531,7 +563,7 @@
 				"orientations":{
 					"default":{
 						"color": "30,45,30",
-						"intensity": 0.7,
+						"intensity": 0.5,
 						"range": 8.0,
 						"shadows": "none"
 					}
@@ -569,7 +601,7 @@
 					"default":{
 						"color": "60,60,90",
 						"intensity": 0.7,
-						"range": 16.0,
+						"range": 12.0,
 						"shadows": "none"
 					}
 				}

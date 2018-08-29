@@ -14,10 +14,7 @@ namespace AmbientLights
         public static string current_scene;
         public static string current_period;
 
-        public static int current_period_start;
-        public static int current_period_transition_duration;
-        public static int current_period_transition_end;
-        public static bool current_period_transition_complete = true;
+        public static AmbientPeriodTransition period_transition = new AmbientPeriodTransition();
 
         public static string current_weather;
 
@@ -45,6 +42,8 @@ namespace AmbientLights
             global_periods_config = null;
             periods_data = null;
 
+            period_transition = new AmbientPeriodTransition();
+
             current_scene = null;
             current_period = null;
             current_weather = null;
@@ -65,6 +64,8 @@ namespace AmbientLights
             current_scene = GameManager.m_ActiveScene;
 
             Debug.Log("[ambient-lights] Loaded Scene: "+current_scene);
+
+            
 
             if (current_scene != "MainMenu")
             {
@@ -106,8 +107,6 @@ namespace AmbientLights
                 }
             }
         }
-
-        
 
         public static void MergeConfigs()
         {
@@ -173,21 +172,21 @@ namespace AmbientLights
                     AmbientConfigPeriod period = TimeWeather.GetPeriodSet(period_name);
                     AmbientConfigWeather weatherSet = TimeWeather.GetWeatherSet(period, weather_name);
 
-                    current_period_start = now_time;
+                    period_transition.start = now_time;
                     
 
                     if (period_name == current_period && weather_name != current_weather)
                     {
-                        current_period_transition_duration = 15;
-                        current_period_transition_end = now_time + 15;
+                        period_transition.duration = 15;
+                        period_transition.end = now_time + 15;
                     }
                     else
                     {
-                        current_period_transition_duration = TimeWeather.GetPeriodChangeDuration(period_name);
-                        current_period_transition_end = now_time + TimeWeather.GetPeriodChangeDuration(period_name);
+                        period_transition.duration = TimeWeather.GetPeriodChangeDuration(period_name);
+                        period_transition.end = now_time + TimeWeather.GetPeriodChangeDuration(period_name);
                     }
-                    
-                    current_period_transition_complete = force_update;
+
+                    period_transition.complete = force_update;
 
                     current_weather = weather_name;
                     current_period = period_name;
@@ -209,11 +208,11 @@ namespace AmbientLights
                         }
                     }
                 }
-                else if (now_time > current_period_start && now_time <= current_period_transition_end && !current_period_transition_complete)
+                else if (now_time > period_transition.start && now_time <= period_transition.end && !period_transition.complete)
                 {
                     
-                    float time_passed = now_time - current_period_start;
-                    float transition_pos = time_passed / current_period_transition_duration;
+                    float time_passed = now_time - period_transition.start;
+                    float transition_pos = time_passed / period_transition.duration;
 
                     //Debug.Log("[ambient-lights] Transition position: " + transition_pos.ToString());
 
@@ -222,10 +221,10 @@ namespace AmbientLights
                         light.UpdateLightTransition(transition_pos);
                     }
                 }
-                else if (now_time > current_period_transition_end && !current_period_transition_complete)
+                else if (now_time > period_transition.end && !period_transition.complete)
                 {
                     //Debug.Log("[ambient-lights] End of transition.");
-                    current_period_transition_complete = true;
+                    period_transition.complete = true;
                 }
             }
             else
@@ -238,7 +237,7 @@ namespace AmbientLights
         {
             if (current_period != "night" && current_period != "early_night")
             {
-                return AmbientLightsOptions.intensity_multiplier;
+                return AmbientLightsOptions.intensity_multiplier * config.options.intensity_multiplier;
             }
             else
             {
@@ -253,7 +252,7 @@ namespace AmbientLights
         {
             if (current_period != "night" && current_period != "early_night")
             {
-                return AmbientLightsOptions.range_multiplier;
+                return AmbientLightsOptions.range_multiplier * config.options.range_multiplier;
             }
             else
             {
@@ -284,10 +283,6 @@ namespace AmbientLights
                 case 4:
                     night_mod = 1.7f;
                     break;
-
-                default:
-                    night_mod = 1f;
-                    break;
             }
 
             return night_mod;
@@ -313,10 +308,6 @@ namespace AmbientLights
 
                 case 4:
                     night_mod = 2f;
-                    break;
-
-                default:
-                    night_mod = 1f;
                     break;
             }
 

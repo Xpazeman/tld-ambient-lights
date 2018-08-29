@@ -1,0 +1,126 @@
+{
+	"emitters": [
+		{
+			"description": "Spotlight (17)",
+			"position": "-0.1, 1.9, -4.7",
+			"orientation":"west",
+			"size": 0.3,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (4)",
+			"position": "-8.3, 1.8, -4.6",
+			"orientation":"west",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (3)",
+			"position": "6.1, 1.8, -4.6",
+			"orientation":"west",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (5)",
+			"position": "-10.3, 1.8, -2.9",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Spotlight (7)",
+			"position": "-10.4, 2.0, 3.0",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (6)",
+			"position": "-8.2, 1.8, 4.1",
+			"orientation":"east",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (8)",
+			"position": "-5.3, 1.8, 4.3",
+			"orientation":"east",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (9)",
+			"position": "4.4, 1.6, 4.3",
+			"orientation":"east",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (2)",
+			"position": "8.1, 2.8, -3.1",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0.7
+		},
+		{
+			"description": "Spotlight (10)",
+			"position": "8.6, 2.7, 3.7",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0.5
+		},
+
+		{
+			"description": "Spotlight (15)",
+			"position": "8.1, -0.8, 1.7",
+			"orientation":"south",
+			"size": 0.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (16)",
+			"position": "-10.3, -0.8, 0.3",
+			"orientation":"north",
+			"size": 0.5,
+			"cover": 0
+		},
+
+		{
+			"description": "Spotlight (11)",
+			"position": "12.7, 7.6, 0.2",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Spotlight (14)",
+			"position": "-1.2, 8.0, 9.3",
+			"orientation":"east",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (12)",
+			"position": "-1.1, 8.0, -8.8",
+			"orientation":"west",
+			"size": 1.5,
+			"cover": 0
+		},
+		{
+			"description": "Spotlight (13)",
+			"position": "-12.8, 8.0, 0.0",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.5
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1.1,
+		"range_multiplier": 0.7
+	}
+}

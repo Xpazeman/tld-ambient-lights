@@ -1,0 +1,75 @@
+{
+	"emitters": [
+		{
+			 "description": "Point light",
+			 "position": "-8.1, 1.8, -2.4",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0.5,
+		},
+		{
+			 "description": "Point light",
+			 "position": "-10.1, 1.8, 1.2",
+			 "orientation":"north",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light shadow",
+			 "position": "-3.0, 1.5, 2.0",
+			 "orientation":"east",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light",
+			 "position": "-2.8, 2.2, 3.1",
+			 "orientation":"east",
+			 "size": 0.8,
+			 "cover": 0.5,
+		},
+		{
+			 "description": "Point light",
+			 "position": "3.0, 1.8, -3.1",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light",
+			 "position": "5.2, 4.6, 0.0",
+			 "orientation":"south",
+			 "size": 0.8,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light",
+			 "position": "5.2, 1.8, -1.5",
+			 "orientation":"south",
+			 "size": 0.8,
+			 "cover": 0,
+		},
+		{
+			 "description": "Point light",
+			 "position": "4.8, 1.8, 2.6",
+			 "orientation":"east",
+			 "size": 1,
+			 "cover": 0.5,
+		},
+		{
+			 "description": "Point light",
+			 "position": "4.8, 1.0, 2.7",
+			 "orientation":"east",
+			 "size": 1,
+			 "cover": 0.5,
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1
+	}
+}

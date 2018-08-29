@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
@@ -8,6 +9,10 @@ namespace AmbientLights
     {
         public static int hour_now;
         public static int minute_now;
+
+        public static GameObject game_grid;
+        public static GameObject game_lights = new GameObject();
+        public static bool debug_mode = false;
 
         public static int GetCurrentTimeFormatted()
         {
@@ -142,6 +147,93 @@ namespace AmbientLights
             {
                 GetPoint();
             }));
+
+            uConsole.RegisterCommand("lobj", new uConsole.DebugCommand(() =>
+            {
+                string obj_name = uConsole.GetString();
+                GetObjectsWithName(obj_name);
+            }));
+
+            uConsole.RegisterCommand("lobjl", new uConsole.DebugCommand(() =>
+            {
+                List<string> objs = new List<string>();
+
+                /*foreach (Light light in GameObject.FindObjectsOfType<Light>())
+                {
+                    if (light.gameObject.name == "Point light")
+                    {
+                        objs.Add(light.gameObject.name + " - " + light.gameObject.transform.position + " \n");
+                        Debug.Log(Utils.SerializeObject(light.gameObject));
+                    }
+                }*/
+
+                Debug.Log(Utils.SerializeObject(objs));
+            }));
+        }
+
+        public static void BuildGrid()
+        {
+            game_grid = new GameObject();
+
+            for (float x = -10f; x <= 10f; x+=1f)
+            {
+                for (float z = -10f; z <= 10f; z+=1f)
+                {
+                    GameObject grid_marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    (grid_marker.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
+                    grid_marker.transform.parent = game_grid.transform;
+                    grid_marker.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+
+                    if (x == 0 && z == 0)
+                    {
+                        foreach (Renderer rend in grid_marker.GetComponentsInChildren<Renderer>())
+                        {
+                            rend.material.color = new Color(1f, 1f, 1f);
+                            rend.receiveShadows = false;
+                        }
+                    }
+                    else if (x == 0)
+                    {
+                        foreach (Renderer rend in grid_marker.GetComponentsInChildren<Renderer>())
+                        {
+                            if (z < 0)
+                                rend.material.color = new Color(1f, 0, 1f);
+                            else if (z > 0)
+                                rend.material.color = new Color(0, 1f, 0);
+
+                            rend.receiveShadows = false;
+                        }
+                    }
+                    else if (z == 0)
+                    {
+                        foreach (Renderer rend in grid_marker.GetComponentsInChildren<Renderer>())
+                        {
+                            if (x < 0)
+                                rend.material.color = new Color(0, 1f, 1f);
+                            else if (x > 0)
+                                rend.material.color = new Color(1f, 0, 0);
+
+                            rend.receiveShadows = false;
+                        }
+                    }
+
+                    if (x == 0 && z == 0)
+                    {
+                        grid_marker.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                    }
+                    else if (x%5 == 0 && z%5 == 0)
+                    {
+                        grid_marker.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                    }
+                    
+                    grid_marker.transform.position = new Vector3(x, 1f, z);
+                }
+            }
+
+            if (!AmbientLightUtils.debug_mode)
+            {
+                AmbientLightUtils.game_grid.SetActive(false);
+            }
         }
 
         public static void GetPoint()
@@ -149,6 +241,21 @@ namespace AmbientLights
             vp_FPSCamera cam = GameManager.GetVpFPSPlayer().FPSCamera;
             RaycastHit raycastHit = DoRayCast(cam.transform.position, cam.transform.forward);
             Debug.Log(raycastHit.point);
+        }
+
+        public static void GetObjectsWithName(string name)
+        {
+            List<string> objs = new List<string>();
+
+            foreach (GameObject gameObj in GameObject.FindObjectsOfType<GameObject>())
+            {
+                if (gameObj.name.ToLower().Contains(name.ToLower()))
+                {
+                    objs.Add(gameObj.name);
+                }
+            }
+
+            Debug.Log(Utils.SerializeObject(objs));
         }
 
         public static RaycastHit DoRayCast(Vector3 start, Vector3 direction)

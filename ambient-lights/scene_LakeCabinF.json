@@ -2,21 +2,21 @@
 	"emitters": [
 		{
 			"position":"2.5, 1.8, -1.8",
-			"orientation":"east"
+			"orientation":"west"
 		},
 		{
 			"position":"2.5, 1.8, 1.7",
-			"orientation":"east",
+			"orientation":"west",
 			"cover": 0.5
 		},
 		{
 			"position":"-2.4, 1.8, 1.7",
-			"orientation":"west",
+			"orientation":"east",
 			"cover": 0.3
 		},
 		{
-			"position":"0.0, 4.0, -3.0)",
-			"orientation":"south",
+			"position":"0.0, 4.1, 2.7",
+			"orientation":"north",
 			"cover": 0,
 			"size":0.5
 		}

@@ -1,0 +1,109 @@
+{
+	"emitters": [
+		{
+			"description": "WindowAfternoonGlow_Pointlight (14)",
+			"position": "-1.1, 2.2, -1.2",
+			"orientation":"west",
+			"size": 0.3,
+			"cover": 0
+		},
+
+		{
+			"description": "WindowAfternoonGlow_Pointlight (70)",
+			"position": "-4.6, 2.2, -2.1",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0.4
+		},
+		{
+			"description": "WindowAfternoonGlow_Pointlight (19)",
+			"position": "-6.1, 2.1, -0.9",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.2
+		},
+
+		{
+			"description": "WindowAfternoonGlow_Pointlight (5)",
+			"position": "3.3, 0.6, -1.8",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0.2
+		},
+		{
+			"description": "WindowAfternoonGlow_Pointlight (8)",
+			"position": "7.4, 1.2, -0.9",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0.1
+		},
+		{
+			"description": "WindowAfternoonGlow_Pointlight (7)",
+			"position": "3.6, 1.6, 5.5",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+
+		{
+			"description": "WindowAfternoonGlow_Pointlight (16)",
+			"position": "-1.4, 4.8, 5.6",
+			"orientation":"east",
+			"size": 0.5,
+			"cover": 0.3
+		},
+
+		{
+			"description": "WindowAfternoonGlow_Pointlight (42)",
+			"position": "-4.0, 5.3, -2.1",
+			"orientation":"west",
+			"size": 0.5,
+			"cover": 0.3
+		},
+		{
+			"description": "WindowAfternoonGlow_Pointlight (43)",
+			"position": "-5.3, 5.4, 0.1",
+			"orientation":"north",
+			"size": 0.5,
+			"cover": 0
+		},
+
+		{
+			"description": "WindowAfternoonGlow_Pointlight (35)",
+			"position": "0.0, 6.7, -4.8",
+			"orientation":"west",
+			"size": 0.5,
+			"cover": 0
+		},
+
+		{
+			"description": "WindowAfternoonGlow_Pointlight (52)",
+			"position": "4.3, 5.1, -2.5",
+			"orientation":"west",
+			"size": 0.5,
+			"cover": 0
+		},
+		{
+			"description": "WindowAfternoonGlow_Pointlight (56)",
+			"position": "6.0, 5.1, 3.4",
+			"orientation":"south",
+			"size": 0.5,
+			"cover": 0
+		},
+		{
+			"description": "WindowAfternoonGlow_Pointlight (58)",
+			"position": "3.4, 4.9, 5.8",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 0.9
+	}
+}
