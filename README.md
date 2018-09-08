@@ -14,8 +14,10 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 
 ## Installation
 * If you haven't already done so, install the [Mod Loader](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller) by **zeobviouslyfakeacc** and patch your game.
+* You should have [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/tag/v1.1) by **zeo** installed in order to be able to change the mod's default options. Download the .dll and put it in your mods folder.
 * Head over to the [Releases](https://github.com/Xpazeman/tld-ambient-lights/releases/) page and download Ambient_Lights_vX.X.zip
-* Unzip it and move AmbientLights.dll and the ambient-lights folder into your mods directory (it's in <path_to_TheLongDark_installation_folder>/mods )
+* Unzip it and move AmbientLights.dll and the ambient-lights folder into your mods directory (it's in <path_to_TheLongDark_installation_folder>/mods ), it should look like this (of course you might have more mods installed):
+![Your mod folder](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/folder.jpg "Your mod folder")
 
 ## Editing the mod's lighting
 Since AmbientLights is based on JSON files, it isn't complicated to edit the mod's default lighting values.
@@ -26,6 +28,8 @@ Inside the ambient-lights folder there are three types of files: scene_*, global
 * scene_* are the files where the windows are defined, as well as the multipliers for range and intensity for that particular scene. In this file, the default sets can also be overriden. Inside the "periods" object we can use the same structure as in global_sets.json
 
 ## Screenshots
+
+[Ambient Lights on imgur](https://imgur.com/a/a3T82ZK)
 
 ![Clear dawn at Camp Office](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/example-1.jpg "Clear dawn at Camp Office")
 
