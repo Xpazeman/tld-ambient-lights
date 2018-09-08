@@ -13,8 +13,8 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * Option to change default intensity of Aurora powered lights.
 
 ## Installation
-* If you haven't already done so, install the [Mod Loader](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller) by **zeobviouslyfakeacc**
-* Head over to the Releases page and download AmbientLights.zip
+* If you haven't already done so, install the [Mod Loader](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller) by **zeobviouslyfakeacc** and patch your game.
+* Head over to the [Releases](https://github.com/Xpazeman/tld-ambient-lights/releases/) page and download Ambient_Lights_vX.X.zip
 * Unzip it and move AmbientLights.dll and the ambient-lights folder into your mods directory (it's in <path_to_TheLongDark_installation_folder>/mods )
 
 ## Editing the mod's lighting
@@ -29,6 +29,10 @@ Inside the ambient-lights folder there are three types of files: scene_*, global
 
 ![Clear dawn at Camp Office](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/example-1.jpg "Clear dawn at Camp Office")
 
+![Weather comparison](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/lighthouse_weather.jpg "Weather comparison")
+
 ![Clear dawn at Trappers](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/example-2.jpg "Clear dawn at Trappers")
 
 ![Early dawn at PV Farm](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/example-3.jpg "Early dawn at PV Farm")
+
+[Ambient Lights on imgur](https://imgur.com/a/a3T82ZK)
