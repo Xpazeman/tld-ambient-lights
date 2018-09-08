@@ -17,6 +17,7 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * You should have [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/tag/v1.1) by **zeo** installed in order to be able to change the mod's default options. Download the .dll and put it in your mods folder.
 * Head over to the [Releases](https://github.com/Xpazeman/tld-ambient-lights/releases/) page and download Ambient_Lights_vX.X.zip
 * Unzip it and move AmbientLights.dll and the ambient-lights folder into your mods directory (it's in <path_to_TheLongDark_installation_folder>/mods ), it should look like this (of course you might have more mods installed):
+
 ![Your mod folder](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/folder.jpg "Your mod folder")
 
 ## Editing the mod's lighting
