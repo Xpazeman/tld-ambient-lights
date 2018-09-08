@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using System.IO;
 using ModSettings;
 using UnityEngine;
 
@@ -10,8 +11,9 @@ namespace AmbientLights
         public static bool enable_shadows = false;
         public static float intensity_multiplier = 1f;
         public static float range_multiplier = 1f;
-        public static int night_brightness = 2;
-        public static bool verbose = true;
+        public static int night_brightness = 1;
+        public static float aurora_intensity = 1f;
+        public static bool verbose = false;
     }
 
     public class AmbientPeriodItem
@@ -74,62 +76,58 @@ namespace AmbientLights
     {
         [Section("General Settings")]
 
-        [Name("Show Shadows")]
-        [Description("Enable/Disable ambient light shadows")]
-        public bool enable_shadows = false;
-
         [Name("General Ambient Intensity Multiplier")]
-        [Description("Values above 1 make the lights brighter, under 1 they become dimmer. 0 turns the lights off. Under 0 makes scenes darker than default.")]
-        [Slider(0f, 2f)]
+        [Description("Values above 1 make the lights brighter, under 1 they become dimmer than default. 0 turns the ambient lights off and makes it game default.")]
+        [Slider(0f, 2f, 1)]
         public float intensity_multiplier = 1f;
 
         [Name("General Ambient Range Multiplier")]
-        [Description("Values above 1 make the lights cast light further. 0 turns the light off.")]
-        [Slider(0f, 2f)]
+        [Description("Values above 1 make the ambient lights cast light further. 2 will make them reach double the distance than default, 0 turns the lights off.")]
+        [Slider(0f, 2f, 1)]
         public float range_multiplier = 1f;
 
-        [Name("Night Brightness")]
-        [Description("How bright or dark it gets at night.")]
-        [Choice("Dark Hole", "Game Default", "Mod Default", "Brighter Nights", "Endless day")]
-        public int night_brightness = 2;
+        [Name("Aurora lights intensity")]
+        [Description("Makes the aurora powered lights brighter or dimmer. 1 is game default, 0 turns off these lights (visual effects remain).")]
+        [Slider(0f, 3f, 1)]
+        public float aurora_intensity = 1f;
 
-        protected override void OnChange(FieldInfo field, object oldValue, object newValue)
-        {
-            RequiresConfirmation();
-            
-        }
+        [Name("Night Brightness")]
+        [Description("How bright it gets at night.")]
+        [Choice("Game Default", "Mod Default", "Brighter Nights", "Endless day")]
+        public int night_brightness = 1;
 
         protected override void OnConfirm()
         {
-            AmbientLightsOptions.enable_shadows = enable_shadows;
+            AmbientLightsOptions.enable_shadows = false;
             AmbientLightsOptions.intensity_multiplier = intensity_multiplier;
             AmbientLightsOptions.range_multiplier = range_multiplier;
+            AmbientLightsOptions.aurora_intensity = aurora_intensity;
             AmbientLightsOptions.night_brightness = night_brightness;
 
             AmbientLightControl.light_override = false;
             AmbientLightControl.MaybeUpdateLightsToPeriod(true);
+
+            string json_opts = FastJson.Serialize(this);
+
+            File.WriteAllText(@"mods/ambient-lights/config.json", json_opts);
         }
     }
 
     internal static class AmbienLightSettingsLoad
     {
 
-        private static readonly AmbientLightsSettings custom_settings = new AmbientLightsSettings();
+        private static AmbientLightsSettings custom_settings = new AmbientLightsSettings();
 
         public static void OnLoad()
         {
+            if (File.Exists(@"mods/ambient-lights/config.json"))
+            {
+                string opts = File.ReadAllText(@"mods/ambient-lights/config.json");
+                custom_settings = FastJson.Deserialize<AmbientLightsSettings>(opts);
+            }
+
             custom_settings.AddToCustomModeMenu(Position.AboveAll);
             custom_settings.AddToModSettings("Ambient Lighting Settings");
-        }
-
-        internal static void SetFieldsVisible(int visibleFields)
-        {
-            FieldInfo[] fields = custom_settings.GetType().GetFields();
-            for (int i = 0; i < fields.Length; ++i)
-            {
-                bool shouldBeVisible = i < visibleFields;
-                custom_settings.SetFieldVisible(fields[i], shouldBeVisible);
-            }
         }
     }
 }

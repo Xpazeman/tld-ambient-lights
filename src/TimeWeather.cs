@@ -43,8 +43,10 @@ namespace AmbientLights
 
             switch (wth.GetWeatherStage())
             {
-                case WeatherStage.Clear:
                 case WeatherStage.ClearAurora:
+                    return "aurora";
+
+                case WeatherStage.Clear:
                 case WeatherStage.PartlyCloudy:
                     return "clear";
 

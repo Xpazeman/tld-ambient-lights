@@ -153,22 +153,6 @@ namespace AmbientLights
                 string obj_name = uConsole.GetString();
                 GetObjectsWithName(obj_name);
             }));
-
-            uConsole.RegisterCommand("lobjl", new uConsole.DebugCommand(() =>
-            {
-                List<string> objs = new List<string>();
-
-                /*foreach (Light light in GameObject.FindObjectsOfType<Light>())
-                {
-                    if (light.gameObject.name == "Point light")
-                    {
-                        objs.Add(light.gameObject.name + " - " + light.gameObject.transform.position + " \n");
-                        Debug.Log(Utils.SerializeObject(light.gameObject));
-                    }
-                }*/
-
-                Debug.Log(Utils.SerializeObject(objs));
-            }));
         }
 
         public static void BuildGrid()

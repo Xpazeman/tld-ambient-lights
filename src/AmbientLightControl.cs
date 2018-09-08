@@ -233,6 +233,39 @@ namespace AmbientLights
             }
         }
 
+        public static void Update()
+        {
+            TimeOfDay tod = GameManager.GetTimeOfDayComponent();
+
+            if (AmbientLightUtils.minute_now != tod.GetMinutes())
+            {
+                AmbientLightUtils.hour_now = tod.GetHour();
+                AmbientLightUtils.minute_now = tod.GetMinutes();
+
+                AmbientLightControl.MaybeUpdateLightsToPeriod();
+            }
+
+            if (Input.GetKeyUp(KeyCode.F7) && !Input.GetKey(KeyCode.LeftControl))
+            {
+                if (AmbientLightControl.light_override)
+                {
+                    AmbientLightControl.light_override = false;
+                    AmbientLightControl.MaybeUpdateLightsToPeriod(true);
+                }
+                else
+                {
+                    AmbientLightControl.light_override = true;
+                    AmbientLightControl.SetLightsIntensity(0f);
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.F7) && Input.GetKey(KeyCode.LeftControl))
+            {
+                AmbientLightControl.RemoveLights();
+                AmbientLightControl.ResetAmbientLights();
+                AmbientLightControl.RegisterLights();
+            }
+        }
+
         public static float GetIntensityModifier()
         {
             if (current_period != "night" && current_period != "early_night")
@@ -269,18 +302,14 @@ namespace AmbientLights
             switch (AmbientLightsOptions.night_brightness)
             {
                 case 0:
-                    night_mod = -5f;
-                    break;
-
-                case 1:
                     night_mod = 0f;
                     break;
 
-                case 3:
+                case 2:
                     night_mod = 1.3f;
                     break;
 
-                case 4:
+                case 3:
                     night_mod = 1.7f;
                     break;
             }
@@ -295,18 +324,14 @@ namespace AmbientLights
             switch (AmbientLightsOptions.night_brightness)
             {
                 case 0:
-                    night_mod = 10f;
-                    break;
-
-                case 1:
                     night_mod = 0f;
                     break;
 
-                case 3:
+                case 2:
                     night_mod = 1.5f;
                     break;
 
-                case 4:
+                case 3:
                     night_mod = 2f;
                     break;
             }
