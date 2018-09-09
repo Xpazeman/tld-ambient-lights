@@ -245,7 +245,7 @@ namespace AmbientLights
                 AmbientLightControl.MaybeUpdateLightsToPeriod();
             }
 
-            if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.LeftControl) && AmbientLightsOptions.enable_debug_key)
             {
                 if (AmbientLightControl.light_override)
                 {
@@ -258,7 +258,7 @@ namespace AmbientLights
                     AmbientLightControl.SetLightsIntensity(0f);
                 }
             }
-            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.LeftControl))
+            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.LeftControl) && AmbientLightsOptions.enable_debug_key)
             {
                 AmbientLightControl.RemoveLights();
                 AmbientLightControl.ResetAmbientLights();

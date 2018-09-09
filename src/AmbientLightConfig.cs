@@ -13,6 +13,7 @@ namespace AmbientLights
         public static float range_multiplier = 1f;
         public static int night_brightness = 1;
         public static float aurora_intensity = 1f;
+        public static bool enable_debug_key = false;
         public static bool verbose = false;
     }
 
@@ -96,6 +97,10 @@ namespace AmbientLights
         [Choice("Game Default", "Mod Default", "Brighter Nights", "Endless day")]
         public int night_brightness = 1;
 
+        [Name("Enable debug keys")]
+        [Description("If enabled, with L you can toggle between modded/unmodded, and Ctrl+L reloads the lighting data.")]
+        public bool enable_debug_key = false;
+
         protected override void OnConfirm()
         {
             AmbientLightsOptions.enable_shadows = false;
@@ -103,6 +108,7 @@ namespace AmbientLights
             AmbientLightsOptions.range_multiplier = range_multiplier;
             AmbientLightsOptions.aurora_intensity = aurora_intensity;
             AmbientLightsOptions.night_brightness = night_brightness;
+            AmbientLightsOptions.enable_debug_key = enable_debug_key;
 
             AmbientLightControl.light_override = false;
             AmbientLightControl.MaybeUpdateLightsToPeriod(true);

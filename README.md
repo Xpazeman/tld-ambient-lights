@@ -11,16 +11,19 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * Option to make nights as dark as the base game, or even brighter than the mod's default.
 * Window orientations. For example, with clear weather during dawn, the east side of a place will be brighter and will have a warmer color than the west side.
 * Option to change default intensity of Aurora powered lights.
+* Optional debugging keys to check if everything's working and to make easier the process of changing the lighting settings (disabled by default).
 
 ## Installation
 * If you haven't already done so, install the [Mod Loader](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller) by **zeobviouslyfakeacc** and patch your game.
 * You should also have [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/tag/v1.1) by **zeo** installed in order to be able to change the mod's default options. Download the .dll and put it in your mods folder.
 * Head over to the [Releases](https://github.com/Xpazeman/tld-ambient-lights/releases/) page and download Ambient_Lights_vX.X.zip
 * Unzip this file and move AmbientLights.dll and the ambient-lights folder into your mods directory (it's in <path_to_TheLongDark_installation_folder>/mods ), it should look like this (of course you might have more mods installed):
+* Make sure your game brightness it's set to default, otherwise it might be too bright.
 
 ![Your mod folder](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/folder.jpg "Your mod folder")
 
-## Controls
+## Debug Controls
+* Debug keys can be enabled in the Mod setting menu option for Ambient Lights.
 * L key toggles the ambient lighting on/off
 * LeftCtrl+L reloads the lighting data, useful to make changes to the json and see them quickly.
 
