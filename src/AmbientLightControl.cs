@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Reflection;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using UnityEngine;
 
@@ -9,6 +7,9 @@ namespace AmbientLights
 {
     class AmbientLightControl
     {
+        public static string mods_folder;
+        public static string mod_data_folder;
+
         public static List<AmbientLight> light_list = new List<AmbientLight>();
 
         public static string current_scene;
@@ -28,7 +29,9 @@ namespace AmbientLights
 
         static AmbientLightControl()
         {
-            
+            mods_folder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            mod_data_folder = Path.Combine(mods_folder, "ambient-lights");
+
             AmbientLightUtils.RegisterCommands();
         }
 
@@ -63,17 +66,17 @@ namespace AmbientLights
         {
             current_scene = GameManager.m_ActiveScene;
 
-            Debug.Log("[ambient-lights] Loaded Scene: "+current_scene);
-
-            
+            Debug.Log("[ambient-lights] Loaded Scene: "+current_scene);            
 
             if (current_scene != "MainMenu")
             {
                 GetGlobalConfig();
 
-                if (File.Exists(@"mods/ambient-lights/scene_" + current_scene + ".json"))
+                string scene_file = "scene_" + current_scene + ".json";
+
+                if (File.Exists(Path.Combine(AmbientLightControl.mod_data_folder, scene_file)))
                 {
-                    config = Utils.DeserializeObject<AmbientLocationConfig>(File.ReadAllText(@"mods/ambient-lights/scene_" + current_scene + ".json"));
+                    config = Utils.DeserializeObject<AmbientLocationConfig>(File.ReadAllText(Path.Combine(AmbientLightControl.mod_data_folder, scene_file)));
 
                     MergeConfigs();
                 }
@@ -88,18 +91,18 @@ namespace AmbientLights
         {
             if (current_scene != "MainMenu")
             {
-                if (File.Exists(@"mods/ambient-lights/global_periods.json"))
+                if (File.Exists(Path.Combine(AmbientLightControl.mod_data_folder, "global_periods.json")))
                 {
-                    periods_data = Utils.DeserializeObject<Dictionary<string, AmbientPeriodItem>>(File.ReadAllText(@"mods/ambient-lights/global_periods.json"));
+                    periods_data = Utils.DeserializeObject<Dictionary<string, AmbientPeriodItem>>(File.ReadAllText(Path.Combine(AmbientLightControl.mod_data_folder, "global_periods.json")));
                 }
                 else
                 {
                     Debug.Log("[ambient-lights] ERROR: No global periods data found");
                 }
 
-                if (File.Exists(@"mods/ambient-lights/global_sets.json"))
+                if (File.Exists(Path.Combine(AmbientLightControl.mod_data_folder, "global_sets.json")))
                 {
-                    global_periods_config = Utils.DeserializeObject<Dictionary<string, AmbientConfigPeriod>>(File.ReadAllText(@"mods/ambient-lights/global_sets.json"));
+                    global_periods_config = Utils.DeserializeObject<Dictionary<string, AmbientConfigPeriod>>(File.ReadAllText(Path.Combine(AmbientLightControl.mod_data_folder, "global_sets.json")));
                 }
                 else
                 {

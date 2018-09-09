@@ -115,7 +115,7 @@ namespace AmbientLights
 
             string json_opts = FastJson.Serialize(this);
 
-            File.WriteAllText(@"mods/ambient-lights/config.json", json_opts);
+            File.WriteAllText(Path.Combine(AmbientLightControl.mod_data_folder, "config.json"), json_opts);
         }
     }
 
@@ -128,11 +128,16 @@ namespace AmbientLights
         {
             if (File.Exists(@"mods/ambient-lights/config.json"))
             {
-                string opts = File.ReadAllText(@"mods/ambient-lights/config.json");
+                string opts = File.ReadAllText(Path.Combine(AmbientLightControl.mod_data_folder, "config.json"));
                 custom_settings = FastJson.Deserialize<AmbientLightsSettings>(opts);
+
+                AmbientLightsOptions.intensity_multiplier = custom_settings.intensity_multiplier;
+                AmbientLightsOptions.range_multiplier = custom_settings.range_multiplier;
+                AmbientLightsOptions.aurora_intensity = custom_settings.aurora_intensity;
+                AmbientLightsOptions.night_brightness = custom_settings.night_brightness;
+                AmbientLightsOptions.enable_debug_key = custom_settings.enable_debug_key;
             }
 
-            custom_settings.AddToCustomModeMenu(Position.AboveAll);
             custom_settings.AddToModSettings("Ambient Lighting Settings");
         }
     }
