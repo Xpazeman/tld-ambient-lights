@@ -19,7 +19,8 @@ namespace AmbientLights
 
         public static string current_weather;
 
-        public static bool first_tick;
+        public static bool light_setup_done = false;
+        public static bool scene_time_init = false;
 
         public static AmbientLocationConfig config = null;
         public static Dictionary<string, AmbientConfigPeriod> global_periods_config = null;
@@ -29,6 +30,8 @@ namespace AmbientLights
 
         static AmbientLightControl()
         {
+            Debug.Log("[ambient-lights] Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+
             mods_folder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             mod_data_folder = Path.Combine(mods_folder, "ambient-lights");
 
@@ -44,6 +47,9 @@ namespace AmbientLights
             config = null;
             global_periods_config = null;
             periods_data = null;
+
+            light_setup_done = false;
+            scene_time_init = false;
 
             period_transition = new AmbientPeriodTransition();
 
@@ -159,11 +165,14 @@ namespace AmbientLights
 
                 light_list.Add(new_light);
             }
+
+            light_setup_done = true;
+            MaybeUpdateLightsToPeriod(true);
         }
 
         public static void MaybeUpdateLightsToPeriod(bool force_update = false)
         {
-            if (config != null || first_tick)
+            if (light_setup_done && scene_time_init)
             {
                 int now_time = AmbientLightUtils.GetCurrentTimeFormatted();
 
@@ -230,10 +239,6 @@ namespace AmbientLights
                     period_transition.complete = true;
                 }
             }
-            else
-            {
-                first_tick = false;
-            }
         }
 
         public static void Update()
@@ -245,27 +250,27 @@ namespace AmbientLights
                 AmbientLightUtils.hour_now = tod.GetHour();
                 AmbientLightUtils.minute_now = tod.GetMinutes();
 
-                AmbientLightControl.MaybeUpdateLightsToPeriod();
+                MaybeUpdateLightsToPeriod();
             }
 
             if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.LeftControl) && AmbientLightsOptions.enable_debug_key)
             {
-                if (AmbientLightControl.light_override)
+                if (light_override)
                 {
-                    AmbientLightControl.light_override = false;
-                    AmbientLightControl.MaybeUpdateLightsToPeriod(true);
+                    light_override = false;
+                    MaybeUpdateLightsToPeriod(true);
                 }
                 else
                 {
-                    AmbientLightControl.light_override = true;
-                    AmbientLightControl.SetLightsIntensity(0f);
+                    light_override = true;
+                    SetLightsIntensity(0f);
                 }
             }
             else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.LeftControl) && AmbientLightsOptions.enable_debug_key)
             {
-                AmbientLightControl.RemoveLights();
-                AmbientLightControl.ResetAmbientLights();
-                AmbientLightControl.RegisterLights();
+                RemoveLights();
+                ResetAmbientLights();
+                RegisterLights();
             }
         }
 

@@ -2,6 +2,11 @@
 This mod aims to modify the default lightning for interiors with windows, making them brighter so you don't need a light source during midday to move around, and also more reflective of what's happening outside (time of day, weather, and sun position).
 These lights are just ambiental and not "real" lights, so to craft or do things at night you will still need a lightsource just like in the base game.
 
+## Updates
+### v0.9
+* Fixed issue where lighting took an in-game minute to render on some locations.
+* Added options to control aurora powered lights
+
 ## Main Features
 * Lighting intensity (how bright the light is), range (how far the light reaches) and color changes depending of what's happening outside.
 * Clear and light cloudy weathers will have a warmer color.
@@ -10,7 +15,8 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * Mod options to change default intensity and range even mid-game.
 * Option to make nights as dark as the base game, or even brighter than the mod's default.
 * Window orientations. For example, with clear weather during dawn, the east side of a place will be brighter and will have a warmer color than the west side.
-* Option to change default intensity of Aurora powered lights.
+* Options to change intensity and range of aurora powerd lights.
+* Option to disable flicker of lights during aurora.
 * Optional debugging keys to check if everything's working and to make easier the process of changing the lighting settings (disabled by default).
 
 ## Installation
@@ -28,10 +34,8 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * LeftCtrl+L reloads the lighting data, useful to make changes to the json and see them quickly.
 
 ## Known Issues
-* Some locations don't update the lighting on the first tick and it takes a few seconds to appear correctly.
 * There is a problem with transitions when there's a period and a weather change happen close to each other.
 * Natural interiors such as caves aren't mapped yet.
-
 
 ## Editing the mod's lighting
 Since AmbientLights is based on JSON files, it's not complicated to edit the mod's default lighting values.
@@ -52,3 +56,5 @@ Inside the ambient-lights folder there are three types of files: scene_*, global
 ![Clear dawn at Trappers](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/example-2.jpg "Clear dawn at Trappers")
 
 ![Early dawn at PV Farm](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/example-3.jpg "Early dawn at PV Farm")
+
+![Tweaked aurora powered lights](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/aurora_1.jpg "Tweaked aurora powered lights")
