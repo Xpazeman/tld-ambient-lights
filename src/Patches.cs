@@ -74,8 +74,6 @@ namespace AmbientLights
                 cur_range = Math.Min(cur_range, 20f);
 
                 __instance.m_LocalLights[i].range = cur_range;
-
-                Debug.Log("[ambient-lights] Range: " + cur_range);
             }
         }
     }

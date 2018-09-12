@@ -49,7 +49,7 @@ Inside the ambient-lights folder there are three types of files: scene_*, global
 
 ## Screenshots
 
-[Ambient Lights on imgur](https://imgur.com/a/a3T82ZK)
+[Ambient Lights on imgur](https://imgur.com/a/r1GOzKt)
 
 ![Clear dawn at Camp Office](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/example-1.jpg "Clear dawn at Camp Office")
 
