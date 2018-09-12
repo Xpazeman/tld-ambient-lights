@@ -25,6 +25,7 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * Head over to the [Releases](https://github.com/Xpazeman/tld-ambient-lights/releases/) page and download Ambient_Lights_vX.X.zip
 * Unzip this file and move AmbientLights.dll and the ambient-lights folder into your mods directory (it's in <path_to_TheLongDark_installation_folder>/mods ), it should look like this (of course you might have more mods installed):
 * Make sure your game brightness it's set to default, otherwise it might be too bright.
+* **UPDATING**: Simply unzip the file in your mods folder and overwrite the old files.
 
 ![Your mod folder](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/folder.jpg "Your mod folder")
 
