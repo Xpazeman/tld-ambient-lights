@@ -47,6 +47,8 @@
 		}
 	},
 	"options":{
-		"override_shadows":"none"
+		"override_shadows":"none",
+		"aurora_intensity_multiplier": 1.7,
+		"aurora_range_multiplier": 3
 	}
 }

@@ -13,7 +13,6 @@ namespace AmbientLights
         public static float range_multiplier = 1f;
         public static int night_brightness = 1;
         public static float aurora_intensity = 2f;
-        public static float aurora_range = 2f;
         public static bool disable_aurora_flicker = true;
         public static bool enable_debug_key = false;
         public static bool verbose = false;
@@ -46,6 +45,8 @@ namespace AmbientLights
         public string override_shadows = "";
         public float intensity_multiplier = 1f;
         public float range_multiplier = 1f;
+        public float aurora_range_multiplier = 1f;
+        public float aurora_intensity_multiplier = 1f;
     }
 
     public class AmbientConfigEmitter
@@ -77,6 +78,7 @@ namespace AmbientLights
 
     internal class AmbientLightsSettings : ModSettingsBase
     {
+        
         [Section("Ambient Lights Settings")]
 
         [Name("General Ambient Intensity Multiplier")]
@@ -97,14 +99,9 @@ namespace AmbientLights
         [Section("Aurora Powered Lights Settings")]
 
         [Name("Aurora powered lights intensity")]
-        [Description("Makes the aurora powered lights brighter or dimmer. 1 is game default, recommended value is 2.")]
-        [Slider(1f, 3f, 1)]
+        [Description("Makes the aurora powered lights brighter or dimmer. 1 is game default, recommended value is 2 - 2.5 if light flicker is on, and around 1.7 if it's off.")]
+        [Slider(1f, 2.5f, 1)]
         public float aurora_intensity = 2f;
-
-        [Name("Aurora powered lights range")]
-        [Description("Makes the aurora powered lights cast light further. 1 is game default, recommended value is 2. WARNING: If you're in-game, for this setting to apply you need to exit and reenter the scene.")]
-        [Slider(1f, 3f, 1)]
-        public float aurora_range = 2f;
 
         [Name("Turn off aurora light flicker")]
         [Description("If set to yes, aurora powered lights won't flicker and will stay on.")]
@@ -113,7 +110,7 @@ namespace AmbientLights
         [Section("Debug Settings")]
 
         [Name("Enable debug keys")]
-        [Description("If enabled, with L you can toggle between modded/unmodded, and Ctrl+L reloads the lighting data.")]
+        [Description("If enabled, with L you can toggle between modded/unmodded lights, and Ctrl+L reloads the lighting data.")]
         public bool enable_debug_key = false;
 
         protected override void OnConfirm()
@@ -122,7 +119,6 @@ namespace AmbientLights
             AmbientLightsOptions.intensity_multiplier = intensity_multiplier;
             AmbientLightsOptions.range_multiplier = range_multiplier;
             AmbientLightsOptions.aurora_intensity = aurora_intensity;
-            AmbientLightsOptions.aurora_range = aurora_range;
             AmbientLightsOptions.disable_aurora_flicker = disable_aurora_flicker;
             AmbientLightsOptions.night_brightness = night_brightness;
             AmbientLightsOptions.enable_debug_key = enable_debug_key;
@@ -134,7 +130,6 @@ namespace AmbientLights
 
             File.WriteAllText(Path.Combine(AmbientLightControl.mod_data_folder, "config.json"), json_opts);
 
-            
         }
     }
 
@@ -153,7 +148,6 @@ namespace AmbientLights
                 AmbientLightsOptions.intensity_multiplier = custom_settings.intensity_multiplier;
                 AmbientLightsOptions.range_multiplier = custom_settings.range_multiplier;
                 AmbientLightsOptions.aurora_intensity = custom_settings.aurora_intensity;
-                AmbientLightsOptions.aurora_range = custom_settings.aurora_range;
                 AmbientLightsOptions.disable_aurora_flicker = custom_settings.disable_aurora_flicker;
                 AmbientLightsOptions.night_brightness = custom_settings.night_brightness;
                 AmbientLightsOptions.enable_debug_key = custom_settings.enable_debug_key;

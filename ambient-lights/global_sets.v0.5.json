@@ -1,0 +1,644 @@
+{
+	"early_dawn": {
+		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "60,60,75",
+						"intensity": 0.8,
+						"range": 8.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "60,80,60",
+						"intensity": 0.8,
+						"range": 8.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"cloudy":{
+				"orientations":{
+					"east":{
+						"color": "120,70,90",
+						"intensity": 0.8,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"west":{
+						"color": "70,90,120",
+						"intensity": 0.9,
+						"range": 10.0,
+						"shadows": "none"
+					},
+
+					"default":{
+						"color": "90,70,90",
+						"intensity": 0.6,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"east":{
+						"color": "105,50,50",
+						"intensity": 0.7,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"west":{
+						"color": "55,35,105",
+						"intensity": 0.5,
+						"range": 9.0,
+						"shadows": "none"
+					},
+
+					"north":{
+						"color": "120,70,80",
+						"intensity": 0.6,
+						"range": 10.0,
+						"shadows": "none"
+					},
+
+					"south":{
+						"color": "75,65,125",
+						"intensity": 0.6,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"dawn":{
+		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "80,80,90",
+						"intensity": 0.8,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "80,120,90",
+						"intensity": 0.7,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"cloudy":{
+				"orientations":{
+					"east":{
+						"color": "130,70,120",
+						"intensity": 0.8,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"west":{
+						"color": "110,80,120",
+						"intensity": 0.9,
+						"range": 10.0,
+						"shadows": "none"
+					},
+
+					"default":{
+						"color": "100,80,90",
+						"intensity": 0.6,
+						"range": 11.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"east":{
+						"color": "185,100,40",
+						"intensity": 1,
+						"range": 15.0,
+						"shadows": "hard"
+					},
+
+					"west":{
+						"color": "135,55,125",
+						"intensity": 0.6,
+						"range": 7.0,
+						"shadows": "none"
+					},
+
+					"north":{
+						"color": "180,90,70",
+						"intensity": 0.9,
+						"range": 12.0,
+						"shadows": "soft"
+					},
+
+					"south":{
+						"color": "105,65,125",
+						"intensity": 0.7,
+						"range": 8.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"morning":{
+		"weathers":{
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "60,90,60",
+						"intensity": 0.6,
+						"range": 12.0,
+						"shadows": "none"
+					}
+				}
+			},
+			"cloudy":{
+				"orientations":{
+					"east":{
+						"color": "105,85,120",
+						"intensity": 1.2,
+						"range": 24.0,
+						"shadows": "none"
+					},
+
+					"west":{
+						"color": "120,75,140",
+						"intensity": 0.7,
+						"range": 16.0,
+						"shadows": "none"
+					},
+
+					"default":{
+						"color": "105,75,120",
+						"intensity": 0.9,
+						"range": 20.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"east":{
+						"color": "185,150,85",
+						"intensity": 1.3,
+						"range": 18.0,
+						"shadows": "hard"
+					},
+
+					"west":{
+						"color": "135,95,125",
+						"intensity": 0.8,
+						"range": 9.0,
+						"shadows": "none"
+					},
+
+					"north":{
+						"color": "130,90,100",
+						"intensity": 1,
+						"range": 13.0,
+						"shadows": "soft"
+					},
+
+					"south":{
+						"color": "125,85,155",
+						"intensity": 0.8,
+						"range": 11.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"midday":{
+		"weathers":{
+			"default":{
+				"orientations":{
+					"east":{
+						"color": "165,140,120",
+						"intensity": 1,
+						"range": 13.0,
+						"shadows": "soft"
+					},
+
+					"west":{
+						"color": "165,140,120",
+						"intensity": 1,
+						"range": 13.0,
+						"shadows": "soft"
+					},
+
+					"north":{
+						"color": "135,110,135",
+						"intensity": 0.8,
+						"range": 10.0,
+						"shadows": "none"
+					},
+
+					"south":{
+						"color": "135,110,135",
+						"intensity": 0.8,
+						"range": 11.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"afternoon":{
+		"weathers":{
+			"cloudy":{
+				"orientations":{
+					"east":{
+						"color": "75,105,140",
+						"intensity": 0.7,
+						"range": 16.0,
+						"shadows": "none"
+					},
+
+					"west":{
+						"color": "85,105,120",
+						"intensity": 1.2,
+						"range": 24.0,
+						"shadows": "none"
+					},
+
+					"default":{
+						"color": "75,105,120",
+						"intensity": 0.9,
+						"range": 20.0,
+						"shadows": "none"
+					}
+				}
+			},
+			"default":{
+				"orientations":{
+					"east":{
+						"color": "135,95,125",
+						"intensity": 0.8,
+						"range": 9.0,
+						"shadows": "none"
+					},
+
+					"west":{
+						"color": "185,150,165",
+						"intensity": 1.3,
+						"range": 14.0,
+						"shadows": "hard"
+					},
+
+					"north":{
+						"color": "125,85,155",
+						"intensity": 0.8,
+						"range": 11.0,
+						"shadows": "none"
+					},
+
+					"south":{
+						"color": "130,120,160",
+						"intensity": 1,
+						"range": 10.0,
+						"shadows": "soft"
+					}
+				}
+			}
+		}
+	},
+
+	"dusk":{
+		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "80,90,120",
+						"intensity": 0.8,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "80,120,90",
+						"intensity": 0.8,
+						"range": 12.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"cloudy":{
+				"orientations":{
+					"east":{
+						"color": "80,90,110",
+						"intensity": 0.9,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"west":{
+						"color": "130,80,90",
+						"intensity": 0.8,
+						"range": 14.0,
+						"shadows": "none"
+					},
+
+					"default":{
+						"color": "100,100,90",
+						"intensity": 0.6,
+						"range": 14.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"west":{
+						"color": "205,100,20",
+						"intensity": 1,
+						"range": 13.0,
+						"shadows": "none"
+					},
+
+					"east":{
+						"color": "145,105,205",
+						"intensity": 0.6,
+						"range": 10.0,
+						"shadows": "none"
+					},
+
+					"south":{
+						"color": "160,70,90",
+						"intensity": 0.9,
+						"range": 11.0,
+						"shadows": "none"
+					},
+
+					"north":{
+						"color": "65,105,185",
+						"intensity": 0.7,
+						"range": 9.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"after_dusk":{
+		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "60,80,110",
+						"intensity": 0.8,
+						"range": 8.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "60,110,80",
+						"intensity": 0.8,
+						"range": 8.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"cloudy":{
+				"orientations":{
+					"east":{
+						"color": "70,90,120",
+						"intensity": 0.9,
+						"range": 10.0,
+						"shadows": "none"
+					},
+					
+					"west":{
+						"color": "120,70,90",
+						"intensity": 0.8,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"default":{
+						"color": "50,90,90",
+						"intensity": 0.6,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"west":{
+						"color": "105,60,40",
+						"intensity": 0.8,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"east":{
+						"color": "55,35,105",
+						"intensity": 0.5,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"south":{
+						"color": "120,90,70",
+						"intensity": 0.8,
+						"range": 12.0,
+						"shadows": "none"
+					},
+
+					"north":{
+						"color": "75,65,125",
+						"intensity": 0.6,
+						"range": 12.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"early_night":{
+		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "30,30,45",
+						"intensity": 0.5,
+						"range": 7.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "30,45,30",
+						"intensity": 0.5,
+						"range": 9.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"cloudy":{
+				"orientations":{
+					"default":{
+						"color": "40,40,50",
+						"intensity": 0.6,
+						"range": 10.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"default":{
+						"color": "45,35,60",
+						"intensity": 0.6,
+						"range": 14.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"night":{
+		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "30,30,45",
+						"intensity": 0.5,
+						"range": 6.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "30,45,30",
+						"intensity": 0.5,
+						"range": 8.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"cloudy":{
+				"orientations":{
+					"default":{
+						"color": "40,40,50",
+						"intensity": 0.6,
+						"range": 9.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"default":{
+						"color": "20,30,50",
+						"intensity": 0.6,
+						"range": 12.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	},
+
+	"default": {
+		"weathers":{
+			"blizzard":{
+				"orientations":{
+					"default":{
+						"color": "60,60,90",
+						"intensity": 0.7,
+						"range": 12.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"fog":{
+				"orientations":{
+					"default":{
+						"color": "60,90,60",
+						"intensity": 0.7,
+						"range": 16.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"cloudy":{
+				"orientations":{
+					"default":{
+						"color": "75,105,120",
+						"intensity": 0.9,
+						"range": 24.0,
+						"shadows": "none"
+					}
+				}
+			},
+
+			"default":{
+				"orientations":{
+					"default":{
+						"color": "160,160,160",
+						"intensity": 1,
+						"range": 7.0,
+						"shadows": "none"
+					}
+				}
+			}
+		}
+	}
+}

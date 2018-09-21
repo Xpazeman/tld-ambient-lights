@@ -28,6 +28,8 @@
 	"options":{
 		"override_shadows":"",
 		"intensity_multiplier": 1,
-		"range_multiplier": 3
+		"range_multiplier": 3,
+		"aurora_intensity_multiplier": 1.5,
+		"aurora_range_multiplier": 2
 	}
 }

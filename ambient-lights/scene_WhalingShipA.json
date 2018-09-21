@@ -1,0 +1,50 @@
+{
+	"emitters": [
+		{
+			"description": "Point light",
+			"position": "-2.4, 2.7, 8.6",
+			"orientation":"west",
+			"size": 2.5,
+			"cover": 0
+		},
+
+		{
+			"description": "Point light",
+			"position": "-0.5, 7.1, -2.4",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.9
+		},
+		{
+			"description": "Point light (2)",
+			"position": "-4.1, 5.8, -2.2",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0.6
+		},
+		{
+			"description": "Point light",
+			"position": "-5.3, 5.5, -3.9",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0.5
+		},
+		{
+			"description": "Point light",
+			"position": "0.5, 7.5, -7.8",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0.8
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1.2,
+		"range_multiplier": 1,
+		"aurora_intensity_multiplier": 1.5,
+		"aurora_range_multiplier": 2.5
+	}
+}

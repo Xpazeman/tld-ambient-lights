@@ -15,7 +15,7 @@
 			"cover": 0.3
 		},
 		{
-			"position":"0.0, 4.0, -3.0)",
+			"position":"0.0, 4.0, -3.0",
 			"orientation":"south",
 			"cover": 0,
 			"size":0.5
@@ -26,6 +26,8 @@
 	},
 	"options":{
 		"override_shadows":"",
-		"intensity_multiplier": 1
+		"intensity_multiplier": 1,
+		"aurora_intensity_multiplier": 1.8,
+		"aurora_range_multiplier": 3
 	}
 }

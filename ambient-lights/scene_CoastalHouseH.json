@@ -35,6 +35,8 @@
 	"options":{
 		"override_shadows":"",
 		"intensity_multiplier": 1,
-		"range_multiplier": 1
+		"range_multiplier": 1,
+		"aurora_intensity_multiplier": 1.6,
+		"aurora_range_multiplier": 5
 	}
 }

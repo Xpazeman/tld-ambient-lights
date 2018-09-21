@@ -3,6 +3,10 @@ This mod aims to modify the default lightning for interiors with windows, making
 These lights are just ambiental and not "real" lights, so to craft or do things at night you will still need a lightsource just like in the base game.
 
 ## Updates
+### v0.9.5
+* Fixed new issue with incorrect lights loading on some locations.
+* Added multipliers to aurora lights intensity and range manually, on a scene by scene basis.
+
 ### v0.9
 * Fixed issue where lighting took an in-game minute to render on some locations.
 * Added options to control aurora powered lights
@@ -15,11 +19,17 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * Mod options to change default intensity and range even mid-game.
 * Option to make nights as dark as the base game, or even brighter than the mod's default.
 * Window orientations. For example, with clear weather during dawn, the east side of a place will be brighter and will have a warmer color than the west side.
-* Options to change intensity and range of aurora powerd lights.
+* Options to change intensity of aurora powerd lights.
 * Option to disable flicker of lights during aurora.
 * Optional debugging keys to check if everything's working and to make easier the process of changing the lighting settings (disabled by default).
 
-## Installation
+## Installation with Mod Installer
+* Download and install [Mod Installer](https://github.com/WulfMarius/Mod-Installer/releases) by **WulfMarius** if you don't have it already.
+* After opening it, click on refresh sources at the top.
+* Install ModSettings from the list if you don't have it or have an earlier version.
+* Install AmbienLigths from the list.
+
+## Manual Installation
 * If you haven't already done so, install the [Mod Loader](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller) by **zeobviouslyfakeacc** and patch your game.
 * You should also have [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/tag/v1.1) by **zeo** installed in order to be able to change the mod's default options. Download the .dll and put it in your mods folder.
 * Alternatively, download Ambient_Lights_vX.X_with_dependencies.zip, that already contains ModSettings.
@@ -36,6 +46,7 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 * LeftCtrl+L reloads the lighting data, useful to make changes to the json and see them quickly.
 
 ## Known Issues
+* The aurora can get too strong on some interiors, specially with flicker turned off.
 * There is a problem with transitions when there's a period and a weather change happen close to each other.
 * Natural interiors such as caves aren't mapped yet.
 

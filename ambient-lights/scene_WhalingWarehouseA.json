@@ -1,0 +1,78 @@
+{
+	"emitters": [
+		{
+			"description": "Point light - Windows",
+			"position": "4.0, 6.0, -23.8",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0.2
+		},
+		{
+			"description": "Point light - Windows",
+			"position": "-4.1, 5.7, -23.8",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0.4
+		},
+		{
+			"description": "Point light - Windows",
+			"position": "-8.6, 5.7, -23.8",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0.4
+		},
+
+		{
+			"description": "Point light - Windows",
+			"position": "-13.2, 9.3, 5.1",
+			"orientation":"north",
+			"size": 2,
+			"cover": 0.8
+		},
+		{
+			"description": "Point light - Windows",
+			"position": "-13.2, 9.8, 12.0",
+			"orientation":"north",
+			"size": 2.5,
+			"cover": 0.6
+		},
+		{
+			"description": "Point light - Windows",
+			"position": "-13.2, 8.3, 18.9",
+			"orientation":"north",
+			"size": 3,
+			"cover": 0.2
+		},
+		{
+			"description": "Point light - Windows",
+			"position": "13.2, 9.5, 5.1",
+			"orientation":"south",
+			"size": 3,
+			"cover": 0.2
+		},
+		{
+			"description": "Point light - Windows",
+			"position": "13.2, 9.5, 12.0",
+			"orientation":"south",
+			"size": 2.5,
+			"cover": 0.4
+		},
+		{
+			"description": "Point light - Windows",
+			"position": "13.2, 9.5, 18.9",
+			"orientation":"south",
+			"size": 2,
+			"cover": 0.7
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1.4,
+		"aurora_intensity_multiplier": 1.3,
+		"aurora_range_multiplier": 3
+	}
+}

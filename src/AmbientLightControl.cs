@@ -38,7 +38,7 @@ namespace AmbientLights
             AmbientLightUtils.RegisterCommands();
         }
 
-        public static void ResetAmbientLights()
+        public static void ResetAmbientLights(bool first_pass = true)
         {
             Debug.Log("[ambient-lights] Light data cleared.");
 
@@ -49,7 +49,6 @@ namespace AmbientLights
             periods_data = null;
 
             light_setup_done = false;
-            scene_time_init = false;
 
             period_transition = new AmbientPeriodTransition();
 
@@ -58,6 +57,13 @@ namespace AmbientLights
             current_weather = null;
 
             light_override = false;
+
+            if (first_pass)
+            {
+                scene_time_init = false;
+                AuroraLightsControl.InitAuroraLights();
+            }
+            
         }
 
         public static void RemoveLights()
@@ -147,9 +153,6 @@ namespace AmbientLights
                 }
             }
 
-            //Debug.Log("[ambient-lights] Config:");
-            //Debug.Log(Utils.SerializeObject(_config));
-
             SetupLights();
         }
 
@@ -178,6 +181,8 @@ namespace AmbientLights
 
                 string period_name = TimeWeather.GetCurrentPeriod();
                 string weather_name = TimeWeather.GetCurrentWeather();
+
+                AuroraLightsControl.UpdateAuroraLightsRanges();
 
                 if (period_name != current_period || weather_name != current_weather || force_update)
                 {
@@ -269,7 +274,7 @@ namespace AmbientLights
             else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.LeftControl) && AmbientLightsOptions.enable_debug_key)
             {
                 RemoveLights();
-                ResetAmbientLights();
+                ResetAmbientLights(false);
                 RegisterLights();
             }
         }
