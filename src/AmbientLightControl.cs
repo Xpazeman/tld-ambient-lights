@@ -21,6 +21,7 @@ namespace AmbientLights
 
         public static bool light_setup_done = false;
         public static bool scene_time_init = false;
+        public static bool scene_weather_init = false;
 
         public static AmbientLocationConfig config = null;
         public static Dictionary<string, AmbientConfigPeriod> global_periods_config = null;
@@ -61,6 +62,7 @@ namespace AmbientLights
             if (first_pass)
             {
                 scene_time_init = false;
+                scene_weather_init = false;
                 AuroraLightsControl.InitAuroraLights();
             }
             
@@ -175,7 +177,7 @@ namespace AmbientLights
 
         public static void MaybeUpdateLightsToPeriod(bool force_update = false)
         {
-            if (light_setup_done && scene_time_init)
+            if (light_setup_done && scene_time_init && scene_weather_init)
             {
                 int now_time = AmbientLightUtils.GetCurrentTimeFormatted();
 

@@ -40,7 +40,7 @@ namespace AmbientLights
 
 
 
-    /* Time of Day Control */
+    /* Time & Weather Control */
 
     [HarmonyPatch(typeof(TimeOfDay), "Deserialize")]
     internal class TimeOfDay_Deserialize
@@ -66,7 +66,15 @@ namespace AmbientLights
         }
     }
 
-    
+    [HarmonyPatch(typeof(Weather), "Deserialize")]
+    internal class Weather_Deserialize
+    {
+        public static void Postfix(Weather __instance)
+        {
+            AmbientLightControl.scene_weather_init = true;
+            AmbientLightControl.MaybeUpdateLightsToPeriod(true);
+        }
+    }
 
     /* Aurora Lights Patches */
 

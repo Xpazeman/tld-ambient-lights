@@ -58,6 +58,9 @@ Inside the ambient-lights folder there are three types of files: scene_*, global
 * global_sets is used to define the lighting for each period, weather and orientation. Each orientation has the data to render the light: color, intensity and range. There's also a shadow type paramenter, but it's not used yet.
 * scene_* are the files where the windows are defined (position, orientation data from the period/weather it will use, a cover modifier that reduces intensity for that light and a size modifier that changes the maximum range at which the light is cast), as well as the multipliers for range and intensity for that particular scene. In this file, the default sets can also be overriden. Inside the "periods" object we can use the same structure as in global_sets.json
 
+## Uninstalling
+* Go into your mods folder (<path_to_TheLongDark_installation_folder>/mods) and delete **AmbientLights.dll** and the **ambient-lights** folder.
+
 ## Screenshots
 
 [Ambient Lights on imgur](https://imgur.com/a/r1GOzKt)
