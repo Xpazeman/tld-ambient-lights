@@ -30,14 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\tld_data\Managed\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\tld_data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\tld_data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="Harmony">
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\tld_data\Managed\Harmony.dll</HintPath>
     </Reference>
     <Reference Include="ModSettings">
       <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\mods\ModSettings.dll</HintPath>
