@@ -3,6 +3,10 @@ This mod aims to modify the default lightning for interiors with windows, making
 These lights are just ambiental and not "real" lights, so to craft or do things at night you will still need a lightsource just like in the base game.
 
 ## Updates
+### v0.9.7
+* Updated to work with TLD 1.42
+* Reduced daylight brightness to compensate for interior lighting changes.
+
 ### v0.9.5
 * Fixed new issue with incorrect lights loading on some locations.
 * Added multipliers to aurora lights intensity and range manually, on a scene by scene basis.
