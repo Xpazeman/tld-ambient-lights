@@ -105,6 +105,8 @@ namespace AmbientLights
         {
             if (current_scene != "MainMenu")
             {
+                //TODO: Not needed?
+
                 if (File.Exists(Path.Combine(AmbientLightControl.mod_data_folder, "global_periods.json")))
                 {
                     periods_data = Utils.DeserializeObject<Dictionary<string, AmbientPeriodItem>>(File.ReadAllText(Path.Combine(AmbientLightControl.mod_data_folder, "global_periods.json")));

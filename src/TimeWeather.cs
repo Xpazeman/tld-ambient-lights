@@ -1,166 +1,119 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Harmony;
 using UnityEngine;
 
 namespace AmbientLights
 {
-    class TimeWeather
+    internal class TimeWeather
     {
-        public static string GetCurrentPeriod()
+        public static string currentPeriod = "default";
+        public static float currentPeriodPct = 1f;
+        public static string currentWeather = "default";
+        public static string previousWeather = "default";
+        public static float currentWeatherPct = 1f;
+
+        internal static void Reset()
         {
-            string period_name = "default";
-
-            int now_time = AmbientLightUtils.GetCurrentTimeFormatted();
-
-            foreach (KeyValuePair<string, AmbientPeriodItem> prd in AmbientLightControl.periods_data)
-            {
-                if (now_time >= prd.Value.start_hour && now_time < prd.Value.end_hour)
-                {
-                    period_name = prd.Key;
-                }
-            }
-
-            return period_name;
+            currentPeriod = "default";
+            currentPeriodPct = 1f;
+            currentWeather = "default";
+            previousWeather = "default";
+            currentWeatherPct = 1f;
         }
 
-        public static int GetPeriodChangeDuration(string periodName)
+        internal static void GetCurrentPeriodAndWeather()
         {
-            if (AmbientLightControl.periods_data.ContainsKey(periodName))
-            {
-                return AmbientLightControl.periods_data[periodName].change_duration;
-            }
-            else
-            {
-                return 0;
-            }
-        }
+            
+            UniStormWeatherSystem uniStorm = GameManager.GetUniStorm();
+            TODBlendState periodState = uniStorm.GetTODBlendState();
+            currentPeriodPct = uniStorm.GetTODBlendPercent(periodState);
 
-        public static string GetCurrentWeather()
-        {
+            switch (periodState)
+            {
+                case TODBlendState.NightStartToNightEnd:
+                    currentPeriod = "night";
+                    break;
+
+                case TODBlendState.NightEndToDawn:
+                    currentPeriod = "early_dawn";
+                    break;
+
+                case TODBlendState.DawnToMorning:
+                    currentPeriod = "dawn";
+                    break;
+
+                case TODBlendState.MorningToMidday:
+                    currentPeriod = "morning";
+                    break;
+
+                case TODBlendState.MiddayToAfternoon:
+                    currentPeriod = "afternoon";
+                    break;
+
+                case TODBlendState.AfternoonToDusk:
+                    currentPeriod = "dusk";
+                    break;
+
+                case TODBlendState.DuskToNightStart:
+                    currentPeriod = "after_dusk";
+                    break;
+            }
+
+            float transTime = Traverse.Create(uniStorm).Field("m_WeatherTransitionTime").GetValue<float>();
+            float transTimeElapsed = Traverse.Create(uniStorm).Field("m_SecondsSinceLastWeatherChange").GetValue<float>();
+
+            currentWeatherPct = Mathf.Clamp01(transTimeElapsed / transTime);
+
             Weather wth = GameManager.GetWeatherComponent();
 
-            switch (wth.GetWeatherStage())
+            currentWeather = GetWeatherStageName(wth.GetWeatherStage());
+            previousWeather = GetWeatherStageName(uniStorm.m_PreviousWeatherStage);
+        }
+
+        internal static string GetWeatherStageName(WeatherStage stage)
+        {
+            string weatherName = "default";
+
+            switch (stage)
             {
                 case WeatherStage.ClearAurora:
-                    return "aurora";
+                    weatherName = "aurora";
+                    break;
 
                 case WeatherStage.Clear:
+                    weatherName = "clear";
+                    break;
+
                 case WeatherStage.PartlyCloudy:
-                    return "clear";
+                    weatherName = "partlycloudy";
+                    break;
+
+                case WeatherStage.Cloudy:
+                    weatherName = "cloudy";
+                    break;
 
                 case WeatherStage.LightFog:
+                    weatherName = "lightfog";
+                    break;
+
                 case WeatherStage.DenseFog:
-                    return "fog";
+                    weatherName = "densefog";
+                    break;
 
                 case WeatherStage.LightSnow:
-                case WeatherStage.Cloudy:
-                    return "cloudy";
+                    weatherName = "lightsnow";
+                    break;
 
                 case WeatherStage.HeavySnow:
                 case WeatherStage.Blizzard:
-                    return "blizzard";
+                    weatherName = "blizzard";
+                    break;
 
                 default:
-                    return "default";
-            }
-        }
-
-        public static AmbientConfigPeriod GetPeriodSet(string periodName)
-        {
-            AmbientConfigPeriod period = null;
-
-            period = AmbientLightControl.config.periods[periodName];
-
-            return period;
-        }
-
-        public static AmbientConfigWeather GetWeatherSet(AmbientConfigPeriod prd, string weather_name)
-        {
-            AmbientConfigWeather select_weather = null;
-
-            select_weather = TryToFetchWeather(prd, weather_name);
-
-            if (select_weather == null && AmbientLightControl.config.periods.ContainsKey("default"))
-            {
-                //Debug.Log("[ambient-lights] No WeatherSet found, trying default period for current weather.");
-                select_weather = TryToFetchWeather(AmbientLightControl.config.periods["default"], weather_name);
-
-                if (select_weather == null && prd.weathers.ContainsKey("default"))
-                {
-                    //Debug.Log("[ambient-lights] Default Weather selected.");
-                    select_weather = prd.weathers["default"];
-
-                    if (select_weather == null)
-                    {
-                        //Debug.Log("[ambient-lights] No WeatherSet found at default, trying default period for default weather.");
-                        select_weather = TryToFetchWeather(AmbientLightControl.config.periods["default"], "default");
-
-                        if (select_weather == null)
-                        {
-                            Debug.Log("[ambient-lights] ERROR: No default weather found.");
-                        }
-                    }
-                }
+                    weatherName = "default";
+                    break;
             }
 
-            return select_weather;
-        }
-
-        public static AmbientConfigWeather TryToFetchWeather(AmbientConfigPeriod prd, string weather_name)
-        {
-            AmbientConfigWeather select_weather = null;
-
-            if (prd.weathers != null)
-            {
-                foreach (KeyValuePair<string, AmbientConfigWeather> weather in prd.weathers)
-                {
-                    if (weather.Key == weather_name)
-                    {
-                        select_weather = weather.Value;
-                    }
-                }
-            }
-
-            return select_weather;
-        }
-
-        public static AmbientConfigPeriodSet GetLightSet(AmbientConfigWeather weather_set, string light_set)
-        {
-            AmbientConfigPeriodSet set = null;
-
-            if (weather_set != null)
-            {
-                if (weather_set.orientations.ContainsKey(light_set))
-                {
-                    set = weather_set.orientations[light_set];
-                }
-                else if (weather_set.orientations.ContainsKey("default"))
-                {
-                    set = weather_set.orientations["default"];
-                }
-                else
-                {
-                    weather_set = TryToFetchWeather(AmbientLightControl.config.periods["default"], "default");
-
-                    if (weather_set.orientations.ContainsKey(light_set))
-                    {
-                        set = weather_set.orientations[light_set];
-                    }
-                    else
-                    {
-                        Debug.Log("[ambient-lights] ERROR: No orientation found.");
-                    }
-                    
-                }
-            }
-            else
-            {
-                Debug.Log("[ambient-lights] ERROR: No WeatherSet found.");
-            }
-
-            return set;
+            return weatherName;
         }
     }
 }

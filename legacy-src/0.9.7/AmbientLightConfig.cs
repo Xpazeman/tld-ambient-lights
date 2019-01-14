@@ -16,6 +16,7 @@ namespace AmbientLights
         public static bool disable_aurora_flicker = true;
         public static bool enable_debug_key = false;
         public static bool verbose = false;
+        public static int lastHourDebug = -1;
     }
 
     public class AmbientPeriodItem

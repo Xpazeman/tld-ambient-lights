@@ -1,0 +1,165 @@
+﻿{
+	"early_dawn":{
+		"orientations":{
+			"north":{
+				"sun":[1, 0.25]
+			},
+			"south":{
+				"sun":[1, 0.7]
+			},
+			"east":{
+				"sun":[1, 0.95],
+				"hue":[0, -20]
+			},
+			"west":{
+				"sun":[0.5, 0.1],
+				"hue":[0, 20]
+			}
+		},
+		"intensity":[0.3, 0.6],
+		"range":[6, 9]
+	},
+
+	"dawn":{
+		"orientations":{
+			"north":{
+				"sun":[0.25, 0.4]
+			},
+			"south":{
+				"sun":[0.7, 0.8]
+			},
+			"east":{
+				"sun":[0.95, 0.9],
+				"hue":[-20,-20]
+			},
+			"west":{
+				"sun":[0.05, 0.1],
+				"hue":[20, 15]
+			}
+		},
+		"intensity":[0.6, 1],
+		"range":[9, 9]
+	},
+
+	"morning":{
+		"orientations":{
+			"north":{
+				"sun":[0.4, 0.6]
+			},
+			"south":{
+				"sun":[0.8, 1]
+			},
+			"east":{
+				"sun":[0.9, 0.7],
+				"hue":[-20, 0]
+			},
+			"west":{
+				"sun":[0.1, 0.6],
+				"hue":[15, 0]
+			}
+		},
+		"intensity":[1, 0.8],
+		"range":[9, 8]
+	},
+
+	"afternoon":{
+		"orientations":{
+			"north":{
+				"sun":[0.6, 0.4]
+			},
+			"south":{
+				"sun":[1, 0.8]
+			},
+			"east":{
+				"sun":[0.7, 0.3],
+				"hue":[0, 15]
+			},
+			"west":{
+				"sun":[0.6, 0.9],
+				"hue":[0, -30]
+			}
+		},
+		"intensity":[0.8, 1.1],
+		"range":[8, 10]
+	},
+
+	"dusk":{
+		"orientations":{
+			"north":{
+				"sun":[0.4, 0.2]
+			},
+			"south":{
+				"sun":[0.8, 0.7]
+			},
+			"east":{
+				"sun":[0.3, 0],
+				"hue":[15, 20]
+			},
+			"west":{
+				"sun":[0.9, 1],
+				"hue":[-30, -20]
+			}
+		},
+		"intensity":[1.1, 0.8],
+		"range":[10, 7]
+	},
+
+	"after_dusk":{
+		"orientations":{
+			"north":{
+				"sun":[0.2, 1]
+			},
+			"south":{
+				"sun":[0.7, 1]
+			},
+			"east":{
+				"sun":[0, 1],
+				"hue":[20, 0]
+			},
+			"west":{
+				"sun":[1, 1],
+				"hue":[-20, 0]
+			}
+		},
+		"intensity":[0.8, 0.3],
+		"range":[7, 6]
+	},
+
+	"night":{
+		"orientations":{
+			"north":{
+				"sun":[1, 1]
+			},
+			"south":{
+				"sun":[1, 1]
+			},
+			"east":{
+				"sun":[1, 1]
+			},
+			"west":{
+				"sun":[1, 0.5]
+			}
+		},
+		"intensity":[0.3, 0.3],
+		"range":[6, 6]
+	},
+
+	"default":{
+		"orientations":{
+			"north":{
+				"sun":[0, 0]
+			},
+			"south":{
+				"sun":[0, 0]
+			},
+			"east":{
+				"sun":[0, 0]
+			},
+			"west":{
+				"sun":[0, 0]
+			}
+		},
+		"intensity":[1, 1],
+		"range":[10, 10]
+	}
+}

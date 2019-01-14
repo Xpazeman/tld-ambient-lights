@@ -5,112 +5,78 @@ using UnityEngine;
 
 namespace AmbientLights
 {
-
-    /* Lights Load & Unload */
-
-    [HarmonyPatch(typeof(GameManager), "Awake")]
-    internal class GameManager_Awake
+    class Patches
     {
-        public static void Prefix()
+
+        /****** AmbientLights Init ******/
+
+        [HarmonyPatch(typeof(GameManager), "Awake")]
+        internal class GameManager_Awake
         {
-            if (!InterfaceManager.IsMainMenuActive())
+            public static void Prefix()
             {
-                AmbientLightControl.ResetAmbientLights();
+                if (!InterfaceManager.IsMainMenuActive())
+                {
+                    AmbientLights.Reset();
+                }
             }
         }
-    }
 
-    [HarmonyPatch(typeof(MissionServicesManager), "SceneUnloaded")]
-    internal class MissionServicesManager_SceneUnloaded
-    {
-        private static void Postfix(MissionServicesManager __instance)
+        /****** Load & Unload scene ******/
+
+        [HarmonyPatch(typeof(MissionServicesManager), "SceneLoadCompleted")]
+        internal class MissionServicesManager_SceneLoadCompleted
         {
-            AmbientLightControl.RemoveLights();
-        }
-    }
-
-    [HarmonyPatch(typeof(MissionServicesManager), "SceneLoadCompleted")]
-    internal class MissionServicesManager_SceneLoadCompleted
-    {
-        private static void Postfix(MissionServicesManager __instance)
-        {
-            AmbientLightControl.RegisterLights();
-        }
-    }
-
-
-
-    /* Time & Weather Control */
-
-    [HarmonyPatch(typeof(TimeOfDay), "Deserialize")]
-    internal class TimeOfDay_Deserialize
-    {
-        public static void Postfix(TimeOfDay __instance)
-        {
-            AmbientLightUtils.hour_now = GameManager.GetTimeOfDayComponent().GetHour();
-            AmbientLightUtils.minute_now = GameManager.GetTimeOfDayComponent().GetMinutes();
-
-            Debug.Log("[ambient-lights] Initialized at: " + AmbientLightUtils.hour_now + ":" + AmbientLightUtils.minute_now);
-
-            AmbientLightControl.scene_time_init = true;
-            AmbientLightControl.MaybeUpdateLightsToPeriod(true);
-        }
-    }
-
-    [HarmonyPatch(typeof(TimeOfDay), "Update")]
-    internal class TimeOfDay_Update
-    {
-        public static void Postfix(TimeOfDay __instance)
-        {
-            AmbientLightControl.Update();
-        }
-    }
-
-    [HarmonyPatch(typeof(Weather), "Deserialize")]
-    internal class Weather_Deserialize
-    {
-        public static void Postfix(Weather __instance)
-        {
-            AmbientLightControl.scene_weather_init = true;
-            AmbientLightControl.MaybeUpdateLightsToPeriod(true);
-        }
-    }
-
-    /* Aurora Lights Patches */
-
-    [HarmonyPatch(typeof(AuroraElectrolizer), "Initialize")]
-    internal class AuroraElectrolizer_Initialize
-    {
-        private static void Postfix(AuroraElectrolizer __instance)
-        {
-            AuroraLightsControl.LoadAuroraLight(__instance);
-        }
-    }
-
-    [HarmonyPatch(typeof(AuroraElectrolizer), "UpdateIntensity")]
-    internal class AuroraElectrolizer_UpdateIntensity
-    {
-        private static bool Prefix(AuroraElectrolizer __instance)
-        {
-            if (AmbientLightsOptions.disable_aurora_flicker)
+            private static void Postfix(MissionServicesManager __instance)
             {
-                return false;
-            }
-            else
-            {
-                return true;
+                AmbientLights.LoadConfigs();
             }
         }
-    }
 
-    [HarmonyPatch(typeof(AuroraElectrolizer), "UpdateLight", new Type[] { typeof(bool) })]
-    internal class AuroraElectrolizer_UpdateLight
-    {
-        private static void Postfix(AuroraElectrolizer __instance, ref bool allOff)
+        [HarmonyPatch(typeof(MissionServicesManager), "SceneUnloaded")]
+        internal class MissionServicesManager_SceneUnloaded
         {
-            if (!allOff)
+            private static void Postfix(MissionServicesManager __instance)
             {
-                AuroraLightsControl.UpdateAuroraLight(__instance);
+                AmbientLights.Unload();
+            }
+        }
+
+        /****** Initial Time & Weather setup ******/
+
+        [HarmonyPatch(typeof(TimeOfDay), "Deserialize")]
+        internal class TimeOfDay_Deserialize
+        {
+            public static void Postfix(TimeOfDay __instance)
+            {
+                ALUtils.hourNow = GameManager.GetTimeOfDayComponent().GetHour();
+                ALUtils.minuteNow = GameManager.GetTimeOfDayComponent().GetMinutes();
+
+                Debug.Log("[ambient-lights] Initialized at: " + ALUtils.hourNow + ":" + ALUtils.minuteNow);
+
+                AmbientLights.timeInit = true;
+                AmbientLights.MaybeUpdateLightsToPeriod(true);
+            }
+        }
+
+        [HarmonyPatch(typeof(Weather), "Deserialize")]
+        internal class Weather_Deserialize
+        {
+            public static void Postfix(Weather __instance)
+            {
+                AmbientLights.weatherInit = true;
+                AmbientLights.MaybeUpdateLightsToPeriod(true);
+            }
+        }
+
+        /****** Main Update ******/
+
+        [HarmonyPatch(typeof(TimeOfDay), "Update")]
+        internal class TimeOfDay_Update
+        {
+            public static void Postfix(TimeOfDay __instance)
+            {
+                AmbientLights.Update();
             }
         }
     }

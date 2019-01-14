@@ -1,0 +1,587 @@
+﻿{
+	"early_dawn": {
+		"weathers": {
+			"default": {
+				"color": [
+					"21, 23, 36, 0",
+					"37, 25, 37, 0.25",
+					"135, 61, 80, 1"
+				],
+				"intensity": [0.6, 0.9],
+				"range": [8, 12],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [0, -45],
+						"intensity": [0, 0.1],
+						"range": [0, 2]
+					},
+					"west": {
+						"hue": [0, 30],
+						"intensity": [0, -0.1],
+						"range": [0, -1]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [0, 15],
+						"intensity": [0, -0.1],
+						"range": [0, -1]
+					}
+				}
+			},
+
+			"cloudy": {
+				"color": [
+					"17, 18, 26, 0",
+					"100, 93, 105, 1"
+				],
+
+				"intensity": [0.5, 0.8],
+				"range": [8, 8],
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [0, -15],
+						"intensity": [0, 0.1],
+						"range": [0, 1]
+					},
+					"west": {
+						"hue": [0, 15],
+						"intensity": [0, -0.1],
+						"range": [0, -1]
+					}
+				}
+			}
+		}
+	},
+
+	"dawn": {
+		"weathers": {
+			"default": {
+				"color": [
+					"135, 61, 80, 0",
+					"130, 90, 100, 1"
+				],
+				"intensity": [1, 0.9],
+				"range": [12, 9],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [-45, -15],
+						"intensity": [0.1, 0.1],
+						"range": [2, 1]
+					},
+					"west": {
+						"hue": [30, 15],
+						"intensity": [-0.1, -0.1],
+						"range": [-1, -1]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [15, 5],
+						"intensity": [-0.1, -0.1],
+						"range": [-1, -1]
+					}
+				}
+			},
+
+			"cloudy": {
+				"color": [
+					"100, 93, 105, 0",
+					"136, 142, 164, 1"
+				],
+				"intensity": [0.9, 0.7],
+				"range": [9, 9],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [-15, -15],
+						"intensity": [0.1, 0.1],
+						"range": [2, 1]
+					},
+					"west": {
+						"hue": [15, 15],
+						"intensity": [-0.1, -0.1],
+						"range": [-1, -1]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [0, 0],
+						"intensity": [0, -0.1],
+						"range": [0, -1]
+					}
+				}
+			}
+		}
+	},
+
+	"morning": {
+		"weathers": {
+			"default": {
+				"color": [
+					"130, 90, 100, 0",
+					"206, 203, 188, 0.5",
+					"206, 203, 188, 1"
+				],
+				"intensity": [0.9, 1],
+				"range": [9, 9],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [-15, 15],
+						"intensity": [0.1, -0.1],
+						"range": [1, -1]
+					},
+					"west": {
+						"hue": [15, -15],
+						"intensity": [-0.1, 0.1],
+						"range": [-1, 1]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [5, 5],
+						"intensity": [-0.1, -0.1],
+						"range": [-1, -1]
+					}
+				}
+			},
+
+			"cloudy": {
+				"color": [
+					"136, 142, 164, 0",
+					"189, 180, 199, 1"
+				],
+				"intensity": [0.7, 1],
+				"range": [9, 10],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [-15, 0],
+						"intensity": [0.1, 0.3],
+						"range": [1, 3]
+					},
+					"west": {
+						"hue": [15, 15],
+						"intensity": [-0.1, -0.2],
+						"range": [-1, -3]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [0, 0],
+						"intensity": [-0.1, 0],
+						"range": [-1, -1]
+					}
+				}
+			}
+		}
+	},
+
+	"afternoon": {
+		"weathers": {
+			"default": {
+				"color": [
+					"206, 203, 188, 0",
+					"206, 203, 188, 0.5",
+					"204, 145, 118, 0.75",
+					"183, 107, 99, 1"
+				],
+				"intensity": [1, 0.9],
+				"range": [9, 9],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [15, 30],
+						"intensity": [-0.1, -0.1],
+						"range": [-1, -2]
+					},
+					"west": {
+						"hue": [-15, -30],
+						"intensity": [0.1, 0.2],
+						"range": [1, 2]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [5, 20],
+						"intensity": [-0.1, -0.1],
+						"range": [-1, -1]
+					}
+				}
+			},
+
+			"cloudy": {
+				"color": [
+					"189, 180, 199, 0",
+					"189, 180, 199, 0.5",
+					"141, 123, 142, 0.75",
+					"118, 106, 128, 1"
+				],
+				"intensity": [1, 0.7],
+				"range": [10, 9],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [0, 15],
+						"intensity": [0.3, 0.1],
+						"range": [3, -1]
+					},
+					"west": {
+						"hue": [15, -15],
+						"intensity": [-0.2, -0.1],
+						"range": [-3, 1]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [0, 0],
+						"intensity": [0, -0.1],
+						"range": [-1, -1]
+					}
+				}
+			}
+		}
+	},
+
+	"dusk": {
+		"weathers": {
+			"default": {
+				"color": [
+					"183, 107, 99, 0",
+					"150, 72, 81, 1"
+				],
+				"intensity": [0.9, 0.7],
+				"range": [9, 11],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [30, 25],
+						"intensity": [-0.1, -0.1],
+						"range": [-2, -1]
+					},
+					"west": {
+						"hue": [-30, -25],
+						"intensity": [0.2, 0.1],
+						"range": [2, 1]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [5, 20],
+						"intensity": [-0.1, -0.1],
+						"range": [-1, -1]
+					}
+
+				}
+			},
+
+			"cloudy": {
+				"color": [
+					"118, 106, 128, 0",
+					"74, 67, 79, 1"
+				],
+				"intensity": [0.7, 0.8],
+				"range": [10, 12],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [0, 15],
+						"intensity": [0.3, 0.1],
+						"range": [-1, -2]
+					},
+					"west": {
+						"hue": [15, -15],
+						"intensity": [-0.2, -0.1],
+						"range": [1, 2]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [0, 0],
+						"intensity": [-0.1, -0.2],
+						"range": [-1, -3]
+					}
+				}
+			}
+		}
+	},
+
+	"after_dusk": {
+		"weathers": {
+			"default": {
+				"color": [
+					"150, 72, 81, 0",
+					"21, 23, 36, 1"
+				],
+				"intensity": [0.7, 0.6],
+				"range": [11, 9],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [25, 0],
+						"intensity": [-0.1, 0],
+						"range": [-1, 0]
+					},
+					"west": {
+						"hue": [-25, 0],
+						"intensity": [0.1, 0],
+						"range": [1, 0]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [20, 0],
+						"intensity": [-0.1, 0],
+						"range": [-1, 0]
+					}
+				}
+			},
+
+			"cloudy": {
+				"color": [
+					"74, 67, 79, 0",
+					"17, 18, 26, 1"
+				],
+				"intensity": [0.8, 0.7],
+				"range": [12, 10],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"east": {
+						"hue": [15, 0],
+						"intensity": [0.1, 0],
+						"range": [-2, 0]
+					},
+					"west": {
+						"hue": [-15, 0],
+						"intensity": [-0.1, 0],
+						"range": [2, 0]
+					},
+					"south": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+					"north": {
+						"hue": [0, 0],
+						"intensity": [-0.2, 0],
+						"range": [-3, 0]
+					}
+				}
+			}
+		}
+	},
+
+	"night": {
+		"weathers": {
+			"default": {
+				"color": [
+					"21, 23, 36, 0",
+					"21, 23, 36, 1"
+				],
+				"intensity": [0.6, 0.6],
+				"range": [9, 9],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					}
+				}
+			},
+
+			"cloudy": {
+				"color": [
+					"17, 18, 26, 0",
+					"17, 28, 26, 1"
+				],
+				"intensity": [0.6, 0.6],
+				"range": [8, 8],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					}
+				}
+			},
+
+			"fog": {
+				"color": [
+					"19, 28, 20, 0",
+					"17, 28, 19, 1"
+				],
+				"intensity": [0.7, 0.7],
+				"range": [8, 8],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					}
+				}
+			},
+
+			"blizzard": {
+				"color": [
+					"7, 7, 10, 0",
+					"7, 7, 13, 1"
+				],
+				"intensity": [0.5, 0.5],
+				"range": [6, 6],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					}
+				}
+			}
+		}
+	},
+
+	"default": {
+		"weathers": {
+			"aurora": {
+				"color": [
+					"56, 101, 128, 0",
+					"56, 125, 112, 0.25",
+					"60, 125, 56, 0.5",
+					"46, 69, 90, 1"
+				],
+				"intensity": [0.9, 0.9],
+				"range": [6, 8],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					},
+
+					"east": {
+						"hue": [0, 30],
+						"intensity": [0, 0],
+						"range": [2, 0]
+					},
+
+					"west": {
+						"hue": [-30, 0],
+						"intensity": [0, 0],
+						"range": [0, 2]
+					}
+				}
+			},
+
+			"default": {
+				"color": ["110, 122, 150, 1"],
+				"intensity": [1, 1],
+				"range": [10, 10],
+
+				"orientations": {
+					"default": {
+						"hue": [0, 0],
+						"intensity": [0, 0],
+						"range": [0, 0]
+					}
+				}
+			}
+		}
+	}
+}
