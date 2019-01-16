@@ -115,5 +115,15 @@ namespace AmbientLights
 
             return weatherName;
         }
+
+        internal static string GetCurrentTimeString()
+        {
+            int minutes = GameManager.GetTimeOfDayComponent().GetMinutes();
+            int hour = GameManager.GetTimeOfDayComponent().GetHour();
+            string text = GameManager.GetTimeOfDayComponent().FormatTime(hour, minutes);
+            int dayNumber = GameManager.GetTimeOfDayComponent().GetDayNumber();
+
+            return "Day " + dayNumber + ", Time " + text;
+        }
     }
 }

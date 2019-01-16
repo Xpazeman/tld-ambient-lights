@@ -59,7 +59,17 @@ namespace AmbientLights
 
         internal static float GetIntensityModifier()
         {
-            float intMod = AmbientLights.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier * AmbientLights.globalIntMultiplier;
+            WeatherMod wthMod = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
+            float wthIntMod = wthMod.intMod;
+
+            if (TimeWeather.currentWeatherPct < 1f)
+            {
+                WeatherMod prevWM = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
+
+                wthIntMod = Mathf.Lerp(prevWM.intMod, wthIntMod, TimeWeather.currentWeatherPct);
+            }
+
+            float intMod = AmbientLights.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier * wthIntMod * AmbientLights.globalIntMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {
@@ -72,7 +82,17 @@ namespace AmbientLights
 
         internal static float GetRangeModifier()
         {
-            float rngMod = AmbientLights.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier * AmbientLights.globalRngMultiplier;
+            WeatherMod wthMod = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
+            float wthRngMod = wthMod.rngMod;
+
+            if (TimeWeather.currentWeatherPct < 1f)
+            {
+                WeatherMod prevWM = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
+
+                wthRngMod = Mathf.Lerp(prevWM.rngMod, wthRngMod, TimeWeather.currentWeatherPct);
+            }
+
+            float rngMod = AmbientLights.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier * wthRngMod * AmbientLights.globalRngMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {

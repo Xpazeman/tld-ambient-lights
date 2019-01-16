@@ -59,7 +59,7 @@
 			}
 		},
 		"intensity":[1, 0.8],
-		"range":[9, 8]
+		"range":[9, 10]
 	},
 
 	"afternoon":{
@@ -80,7 +80,7 @@
 			}
 		},
 		"intensity":[0.8, 1.1],
-		"range":[8, 10]
+		"range":[10, 10]
 	},
 
 	"dusk":{

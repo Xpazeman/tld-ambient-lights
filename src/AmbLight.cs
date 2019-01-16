@@ -33,7 +33,15 @@ namespace AmbientLights
 
             light.intensity = 0f;
             light.range = 0f;
-            light.shadows = LightShadows.None;
+            if (AmbientLights.options.castShadows)
+            {
+                light.shadows = LightShadows.Soft;
+            }
+            else
+            {
+                light.shadows = LightShadows.None;
+            }
+            
             light.enabled = false;
 
             //Debug.Log(Utils.SerializeObject(ALUtils.gameLights));
@@ -94,6 +102,33 @@ namespace AmbientLights
 
             currentSet = set;
 
+            if (AmbientLights.options.castShadows)
+            {
+                light.shadows = LightShadows.Soft;
+
+                 
+                    float str = GetShadowStrength(TimeWeather.currentWeather);
+
+                    if (TimeWeather.currentWeatherPct < 1f)
+                    {
+                        float prevStr = GetShadowStrength(TimeWeather.previousWeather);
+
+                        str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
+                    }
+
+                if (TimeWeather.currentPeriod != "night")
+                {
+                    str *= .5f;
+                }
+
+                light.shadowStrength = str;
+                light.renderMode = LightRenderMode.ForceVertex;
+            }
+            else
+            {
+                light.shadows = LightShadows.None;
+            }
+
             //DebugLightSet();
         }
 
@@ -120,6 +155,33 @@ namespace AmbientLights
                 Debug.Log("Intensity: " + light.intensity + ", Range: " + light.range + ", Color: " + light.color);
         }
 
-        
+        internal float GetShadowStrength(string wth)
+        {
+            float str = 1;
+
+            switch (wth)
+            {
+                case "clear":
+                    str = 1f;
+                    break;
+
+                case "partlycloudy":
+                    str = 0.5f;
+                    break;
+
+                case "cloudy":
+                case "lightfog":
+                    str = 0.2f;
+                    break;
+
+                case "densefog":
+                case "lightsnow":
+                case "blizzard":
+                    str = 0;
+                    break;
+            }
+
+            return str;
+        }
     }
 }

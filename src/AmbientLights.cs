@@ -192,6 +192,13 @@ namespace AmbientLights
                 enableGameLights = !enableGameLights;
                 HUDMessage.AddMessage("Game Lights: " + enableGameLights);
             }
+
+            if (Input.GetKeyUp(KeyCode.F9))
+            {
+                TimeWeather.GetCurrentPeriodAndWeather();
+
+                HUDMessage.AddMessage(TimeWeather.GetCurrentTimeString() + " - " + TimeWeather.currentWeather + " " + TimeWeather.currentPeriod + "(" + (Math.Round(TimeWeather.currentPeriodPct, 2) * 100) + "%)");
+            }
         }
 
         public static void SetupGameLights()

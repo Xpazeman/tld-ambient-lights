@@ -19,6 +19,7 @@ namespace AmbientLights
         public string orientation = "";
         public float size = 1f;
         public float cover = 0f;
+        public int priority = 1;
     }
 
     internal class AmbPeriod
@@ -35,6 +36,9 @@ namespace AmbientLights
         public float rMod = 1f;
         public float gMod = 1f;
         public float bMod = 1f;
+
+        public float intMod = 1f;
+        public float rngMod = 1f;
     }
 
     internal class AmbSet

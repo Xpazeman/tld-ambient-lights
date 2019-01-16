@@ -111,6 +111,9 @@ namespace AmbientLights
 
         public static void UpdateLights()
         {
+            if (AmbientLights.lightOverride)
+                return;
+
             foreach (Light sLight in gameSpotLightsList)
             {
                 if (!AmbientLights.enableGameLights)
@@ -146,6 +149,9 @@ namespace AmbientLights
 
         public static void UpdateAmbience(TodAmbientLight TodLightInstance, ref float multiplier)
         {
+            if (AmbientLights.lightOverride)
+                return;
+            
             multiplier *= AmbientLights.options.ambienceLevel;
 
             UniStormWeatherSystem uniStorm = GameManager.GetUniStorm();
@@ -157,7 +163,7 @@ namespace AmbientLights
 
             ColorHSV fColor = bColor;
             fColor.s *= 0.5f;
-            fColor.v = 0.17f;
+            fColor.v = 0.1f;
 
             TodLightInstance.m_AmbientIndoorsDay = fColor;
         }
