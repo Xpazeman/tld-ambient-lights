@@ -76,7 +76,41 @@ namespace AmbientLights
         {
             public static void Postfix(TimeOfDay __instance)
             {
-                AmbientLights.Update();
+                if(!GameManager.m_IsPaused)
+                    AmbientLights.Update();
+            }
+        }
+
+        /****** Game Lights ******/
+        
+        [HarmonyPatch(typeof(InteriorLightingManager), "Initialize")]
+        internal class InteriorLightingManager_Initialize
+        {
+            private static void Postfix(InteriorLightingManager __instance)
+            {
+                GameLights.AddGameLights(__instance);
+            }
+        }
+
+        [HarmonyPatch(typeof(InteriorLightingManager), "Update")]
+        internal class InteriorLightingManager_Update
+        {
+            private static void Postfix(InteriorLightingManager __instance)
+            {
+                if (!GameManager.m_IsPaused)
+                    AmbientLights.UpdateGameLights();
+                
+            }
+        }
+
+        [HarmonyPatch(typeof(TodAmbientLight), "SetAmbientLightValue", new Type[] { typeof(float), typeof(float) })]
+        internal class TodAmbientLight_SetAmbientLightValue
+        {
+            private static bool Prefix(TodAmbientLight __instance, ref float multiplier)
+            {
+                GameLights.UpdateAmbience(__instance, ref multiplier);
+
+                return true;
             }
         }
     }

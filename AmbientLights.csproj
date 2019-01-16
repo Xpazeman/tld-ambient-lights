@@ -61,6 +61,7 @@
     <Compile Include="src\AmbientLights.cs" />
     <Compile Include="src\AmbLight.cs" />
     <Compile Include="src\AmbLitSettings.cs" />
+    <Compile Include="src\GameLights.cs" />
     <Compile Include="src\LightConfig.cs" />
     <Compile Include="src\Patches.cs" />
     <Compile Include="src\TimeWeather.cs" />

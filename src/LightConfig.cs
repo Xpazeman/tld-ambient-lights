@@ -113,7 +113,7 @@ namespace AmbientLights
             }
             else
             {
-                Debug.Log("[ambient-lights] ERROR: No global sets data found");
+                Debug.Log("[ambient-lights] ERROR: No weather sets data found");
             }
 
             if (File.Exists(Path.Combine(AmbientLights.modDataFolder, "global_sets.json")))
@@ -122,21 +122,24 @@ namespace AmbientLights
             }
             else
             {
-                Debug.Log("[ambient-lights] ERROR: No global sets data found");
+                Debug.Log("[ambient-lights] ERROR: No light sets data found");
             }
         }
 
         private void MergeConfigs()
         {
-            if (periodsConfig != null)
-                data.periods = periodsConfig;
+            if (data != null)
+            {
+                if (periodsConfig != null)
+                    data.periods = periodsConfig;
 
-            if (weathersConfig != null)
-                data.weathers = weathersConfig;
+                if (weathersConfig != null)
+                    data.weathers = weathersConfig;
 
-            ready = true;
+                ready = true;
 
-            Debug.Log(Utils.SerializeObject(data));
+                Debug.Log(Utils.SerializeObject(data));
+            }
         }
 
         internal AmbPeriod GetPeriodSet(string periodName = "")
@@ -154,7 +157,6 @@ namespace AmbientLights
             {
                 period = data.periods["default"];
             }
-
 
             return period;
         }
@@ -243,7 +245,7 @@ namespace AmbientLights
             
             if (TimeWeather.currentWeatherPct < 1f)
             {
-                 WeatherMod wthPrev = GetWeatherMod(TimeWeather.previousWeather);
+                WeatherMod wthPrev = GetWeatherMod(TimeWeather.previousWeather);
 
                 sMod = Mathf.Lerp(wthPrev.sMod, wthMod.sMod, TimeWeather.currentWeatherPct);
                 vMod = Mathf.Lerp(wthPrev.vMod, wthMod.vMod, TimeWeather.currentWeatherPct);
@@ -261,6 +263,8 @@ namespace AmbientLights
             cHSV.v *= vMod;
 
             modColor = cHSV;
+
+            modColor.a = 1;
 
             //Debug.Log("Change to: " + (Color32)modColor);
 

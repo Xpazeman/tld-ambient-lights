@@ -2,13 +2,13 @@
 	"early_dawn":{
 		"orientations":{
 			"north":{
-				"sun":[1, 0.25]
+				"sun":[0.5, 0.25]
 			},
 			"south":{
-				"sun":[1, 0.7]
+				"sun":[0.5, 0.7]
 			},
 			"east":{
-				"sun":[1, 0.95],
+				"sun":[0.5, 0.95],
 				"hue":[0, -20]
 			},
 			"west":{
@@ -16,7 +16,7 @@
 				"hue":[0, 20]
 			}
 		},
-		"intensity":[0.3, 0.6],
+		"intensity":[0.5, 0.6],
 		"range":[6, 9]
 	},
 
@@ -107,40 +107,40 @@
 	"after_dusk":{
 		"orientations":{
 			"north":{
-				"sun":[0.2, 1]
+				"sun":[0.2, 0.5]
 			},
 			"south":{
-				"sun":[0.7, 1]
+				"sun":[0.7, 0.5]
 			},
 			"east":{
-				"sun":[0, 1],
+				"sun":[0, 0.5],
 				"hue":[20, 0]
 			},
 			"west":{
-				"sun":[1, 1],
+				"sun":[1, 0.5],
 				"hue":[-20, 0]
 			}
 		},
-		"intensity":[0.8, 0.3],
+		"intensity":[0.8, 0.5],
 		"range":[7, 6]
 	},
 
 	"night":{
 		"orientations":{
 			"north":{
-				"sun":[1, 1]
+				"sun":[0.5, 0.5]
 			},
 			"south":{
-				"sun":[1, 1]
+				"sun":[0.5, 0.5]
 			},
 			"east":{
-				"sun":[1, 1]
+				"sun":[0.5, 0.5]
 			},
 			"west":{
-				"sun":[1, 0.5]
+				"sun":[0.5, 0.5]
 			}
 		},
-		"intensity":[0.3, 0.3],
+		"intensity":[0.5, 0.5],
 		"range":[6, 6]
 	},
 

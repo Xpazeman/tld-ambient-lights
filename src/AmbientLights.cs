@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
+using System;
 using UnityEngine;
 using Harmony;
 
@@ -17,6 +18,8 @@ namespace AmbientLights
         public static string currentScene;
 
         public static LightConfig config;
+        public static float globalIntMultiplier = 0.9f;
+        public static float globalRngMultiplier = 1f;
 
         public static List<AmbLight> lightList = new List<AmbLight>();
 
@@ -27,6 +30,8 @@ namespace AmbientLights
         public static bool lightOverride = false;
 
         public static bool verbose = true;
+        public static bool showGameLights = false;
+        public static bool enableGameLights = true;
 
         public static void OnLoad()
         {
@@ -45,6 +50,7 @@ namespace AmbientLights
         public static void Reset(bool firstPass = true)
         {
             lightList.Clear();
+                        
             TimeWeather.Reset();
 
             config = null;
@@ -52,11 +58,19 @@ namespace AmbientLights
             lightsInit = false;
 
             lightOverride = false;
+            showGameLights = false;
+            enableGameLights = true;
 
             if (firstPass)
             {
                 timeInit = false;
                 weatherInit = false;
+
+                GameLights.gameLightsList.Clear();
+                GameLights.gameExtraLightsList.Clear();
+                GameLights.gameSpotLightsList.Clear();
+
+                UnityEngine.Object.Destroy(GameLights.gameLights);
 
                 //Init Aurora Lights
             }
@@ -68,6 +82,8 @@ namespace AmbientLights
             {
                 UnityEngine.Object.Destroy(light.go);
             }
+
+            
         }
 
         public static void LoadConfigs()
@@ -138,7 +154,7 @@ namespace AmbientLights
         {
             MaybeUpdateLightsToPeriod();
 
-            if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.LeftControl) && options.enableDebugKey)
+            if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
             {
                 if (lightOverride)
                 {
@@ -151,7 +167,7 @@ namespace AmbientLights
                     SetLightsIntensity(0f);
                 }
             }
-            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.LeftControl) && options.enableDebugKey)
+            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
             {
                 Unload();
                 Reset(false);
@@ -159,6 +175,41 @@ namespace AmbientLights
                 HUDMessage.AddMessage("Reloading Config");
 
             }
+
+            if (Input.GetKeyUp(KeyCode.K) && !Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
+            {
+                if (GameLights.gameLights.activeInHierarchy)
+                {
+                    GameLights.gameLights.SetActive(false);
+                }
+                else
+                {
+                    GameLights.gameLights.SetActive(true);
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.K) && Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
+            {
+                enableGameLights = !enableGameLights;
+                HUDMessage.AddMessage("Game Lights: " + enableGameLights);
+            }
+        }
+
+        public static void SetupGameLights()
+        {
+            foreach (AmbLight aLight in lightList)
+            {
+                aLight.AssignGameLights();
+            }
+        }
+
+        public static void UpdateGameLights()
+        {
+            foreach (AmbLight aLight in lightList)
+            {
+                aLight.UpdateGameLights();
+            }
+
+            GameLights.UpdateLights();
         }
 
         public static void SetLightsIntensity(float intensity = -1f, string set = "")

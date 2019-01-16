@@ -33,14 +33,14 @@
 	},
 	"lightsnow":{
 		"sMod":0.7,
-		"vMod":0.8,
+		"vMod":0.7,
 		"rMod":0.9,
 		"gMod":1.1,
 		"bMod":1.2
 	},
 	"blizzard":{
 		"sMod":0.5,
-		"vMod":0.65,
+		"vMod":0.5,
 		"rMod":0.7,
 		"gMod":0.9,
 		"bMod":1

@@ -10,6 +10,10 @@ namespace AmbientLights
         public static int hourNow;
         public static int minuteNow;
 
+       
+
+        public static bool debugMode = true;
+
         public static Vector3 StringToVector3(string sVector)
         {
             // Remove the parentheses
@@ -55,7 +59,7 @@ namespace AmbientLights
 
         internal static float GetIntensityModifier()
         {
-            float intMod = AmbientLights.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier;
+            float intMod = AmbientLights.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier * AmbientLights.globalIntMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {
@@ -68,7 +72,7 @@ namespace AmbientLights
 
         internal static float GetRangeModifier()
         {
-            float rngMod = AmbientLights.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier;
+            float rngMod = AmbientLights.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier * AmbientLights.globalRngMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {

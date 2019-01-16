@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 namespace AmbientLights
 {
@@ -7,9 +9,13 @@ namespace AmbientLights
         internal GameObject go;
         internal Light light;
 
+        internal List<Light> gameLights = new List<Light>();
+
         internal string orientation = "";
         internal float lightSize = 1f;
         internal float lightCover = 0f;
+
+        internal LightOrientation currentSet = null;
 
         internal AmbLight(Vector3 lightPos, string orientation, float lightSize, float lightCover)
         {
@@ -29,6 +35,40 @@ namespace AmbientLights
             light.range = 0f;
             light.shadows = LightShadows.None;
             light.enabled = false;
+
+            //Debug.Log(Utils.SerializeObject(ALUtils.gameLights));
+        }
+
+        internal void AssignGameLights()
+        {
+            float range = 3f;
+            
+            //Search in light list and select closer ones
+            foreach (Light gLight in GameLights.gameLightsList)
+            {
+                if (Vector3.Distance(gLight.gameObject.transform.position, this.go.transform.position) < range)
+                {
+                    Debug.Log("Close light found");
+                    this.gameLights.Add(gLight);
+                }
+            }
+        }
+
+        internal void UpdateGameLights()
+        {
+            foreach (Light gLight in gameLights)
+            {
+                if (!AmbientLights.enableGameLights)
+                {
+                    gLight.intensity = 0f;
+                }
+                else
+                {
+                    ColorHSV lColor = (Color)currentSet.color;
+                    lColor.s *= 0.6f;
+                    gLight.color = lColor;
+                }
+            }
         }
 
         internal void SetLightParams(LightOrientation set, bool instantApply = false)
@@ -52,6 +92,8 @@ namespace AmbientLights
                 SetLightColor(set.color);
             }
 
+            currentSet = set;
+
             //DebugLightSet();
         }
 
@@ -67,7 +109,9 @@ namespace AmbientLights
 
         internal void SetLightColor(Color32 newColor)
         {
-            light.color = newColor;
+            ColorHSV lColor = (Color)newColor;
+            lColor.s = Math.Min(lColor.s, 0.8f);
+            light.color = lColor;
         }
 
         internal void DebugLightSet()
