@@ -17,7 +17,7 @@ namespace AmbientLights
 
         public static string currentScene;
 
-        public static LightConfig config;
+        public static LightConfig config = null;
         public static float globalIntMultiplier = 0.9f;
         public static float globalRngMultiplier = 1f;
 
@@ -69,6 +69,8 @@ namespace AmbientLights
                 GameLights.gameLightsList.Clear();
                 GameLights.gameExtraLightsList.Clear();
                 GameLights.gameSpotLightsList.Clear();
+                GameLights.gameExtraLightsColors.Clear();
+                GameLights.gameWindows.Clear();
 
                 UnityEngine.Object.Destroy(GameLights.gameLights);
 
@@ -193,11 +195,13 @@ namespace AmbientLights
                 HUDMessage.AddMessage("Game Lights: " + enableGameLights);
             }
 
-            if (Input.GetKeyUp(KeyCode.F9))
+            if (Input.GetKeyUp(KeyCode.F7))
             {
                 TimeWeather.GetCurrentPeriodAndWeather();
 
-                HUDMessage.AddMessage(TimeWeather.GetCurrentTimeString() + " - " + TimeWeather.currentWeather + " " + TimeWeather.currentPeriod + "(" + (Math.Round(TimeWeather.currentPeriodPct, 2) * 100) + "%)");
+                HUDMessage.AddMessage(TimeWeather.GetCurrentTimeString() + " - " + TimeWeather.currentWeather + " ("+(Math.Round(TimeWeather.currentWeatherPct, 2) * 100) + " %)" + TimeWeather.currentPeriod + "(" + (Math.Round(TimeWeather.currentPeriodPct, 2) * 100) + "%)");
+
+                ALUtils.debugNext = true;
             }
         }
 

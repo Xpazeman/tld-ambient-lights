@@ -45,6 +45,7 @@ namespace AmbientLights
     {
         public float[] sun = null;
         public float[] hue = null;
+        public float[] sat = null;
     }
 
     internal class LightSet

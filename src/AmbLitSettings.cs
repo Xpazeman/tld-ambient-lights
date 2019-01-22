@@ -177,7 +177,7 @@ namespace AmbientLights
                     rangeMultiplier = 1.0f;
                     nightBrightness = 1;
                     ambienceLevel = 0.5f;
-                    fillLevel = 0.5f;
+                    fillLevel = 0.3f;
                     fillColorLevel = 0.5f;
 
                     break;

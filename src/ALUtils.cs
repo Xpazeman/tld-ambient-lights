@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 namespace AmbientLights
@@ -10,7 +10,7 @@ namespace AmbientLights
         public static int hourNow;
         public static int minuteNow;
 
-       
+        public static bool debugNext = false;
 
         public static bool debugMode = true;
 
@@ -145,6 +145,160 @@ namespace AmbientLights
             }
 
             return nightMod;
+        }
+
+        internal static float GetShadowStrength(string wth)
+        {
+            float str = 1;
+
+            switch (wth)
+            {
+                case "clear":
+                    str = 1f;
+                    break;
+
+                case "partlycloudy":
+                    str = 0.5f;
+                    break;
+
+                case "cloudy":
+                case "lightfog":
+                    str = 0.1f;
+                    break;
+
+                case "densefog":
+                case "lightsnow":
+                case "blizzard":
+                    str = 0;
+                    break;
+            }
+
+            return str;
+        }
+
+        internal static Color GetRandomColor()
+        {
+            Color[] colors = new Color[20];
+            colors[0] = new Color(1f, 0, 0);
+            colors[1] = new Color(0, 1f, 0);
+            colors[2] = new Color(0, 0, 1f);
+            colors[3] = new Color(1f, 1f, 0);
+            colors[4] = new Color(1f, 0, 1f);
+            colors[5] = new Color(0, 1f, 1f);
+            colors[6] = new Color(1f, 1f, 1f);
+            colors[7] = new Color(0, 0, 0);
+            colors[8] = new Color(0.5f, 0, 0);
+            colors[9] = new Color(0, 0.5f, 0);
+            colors[10] = new Color(0, 0, 0.5f);
+            colors[11] = new Color(0.5f, 0.5f, 0);
+            colors[12] = new Color(0.5f, 0, 0.5f);
+            colors[13] = new Color(0, 0.5f, 0.5f);
+            colors[14] = new Color(0.5f, 0.5f, 0.5f);
+            colors[15] = new Color(1f, 0.5f, 0);
+            colors[16] = new Color(1f, 0, 0.5f);
+            colors[17] = new Color(0, 1f, 0.5f);
+            colors[18] = new Color(0.5f, 1f, 0);
+            colors[19] = new Color(1f, 0.5f, 0.5f);
+
+            System.Random random = new System.Random();
+            int index = random.Next(0, colors.Length);
+
+            return colors[index];
+        }
+
+        internal static List<GameObject> GetRootObjects()
+        {
+            List<GameObject> rootObj = new List<GameObject>();
+
+            for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++)
+            {
+                Scene scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
+
+                GameObject[] sceneObj = scene.GetRootGameObjects();
+
+                foreach (GameObject obj in sceneObj)
+                {
+                    rootObj.Add(obj);
+                }
+            }
+
+            return rootObj;
+        }
+
+        internal static void GetChildrenWithName(GameObject obj, string name, List<GameObject> result)
+        {
+            if (obj.transform.childCount > 0) {
+
+                for (int i = 0; i < obj.transform.childCount; i++)
+                {
+                    GameObject child = obj.transform.GetChild(i).gameObject;
+
+                    if (child.name.ToLower().Contains(name))
+                    {
+                        result.Add(child);
+                    }
+
+                    GetChildrenWithName(child, name, result);
+                }
+            }
+        }
+
+        public static void DebugGameObjectFromParent(GameObject go, string cur_tab = "")
+        {
+            if (go.transform.parent != null)
+            {
+
+                DebugGameObject(go.transform.parent.gameObject);
+            }
+            else
+            {
+                DebugGameObject(go);
+            }
+        }
+
+        public static void DebugGameObject(GameObject go, string cur_tab = "")
+        {
+            Debug.Log(cur_tab + "==== DEBUGGING " + go.name + " =====");
+
+            PrintComponents(go);
+
+            if (go.transform.childCount > 0)
+            {
+
+                Debug.Log(cur_tab + "==== CHILDREN");
+
+                for (int i = 0; i < go.transform.childCount; i++)
+                {
+                    Debug.Log(cur_tab + "- " + go.transform.GetChild(i).gameObject.name);
+
+                    DebugGameObject(go.transform.GetChild(i).gameObject, cur_tab + "    ");
+                }
+
+                Debug.Log(cur_tab + "==== END OF CHILDREN");
+            }
+
+            Debug.Log(cur_tab + "==== END DEBUG OF " + go.name + " =====");
+        }
+
+        public static void PrintComponents(GameObject go, string cur_tab = "")
+        {
+            Component[] all_comps = go.transform.GetComponents(typeof(Component));
+            foreach (Component cmp in all_comps)
+            {
+                Debug.Log(cur_tab + "Component type: " + cmp.GetType().ToString());
+
+                switch (cmp.GetType().ToString())
+                {
+                    case "AuroraElectrolizer":
+                        break;
+
+                    case "AudioToggle":
+                        break;
+
+                    case "Container":
+                        break;
+                }
+            }
         }
     }
 }

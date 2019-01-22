@@ -10,6 +10,7 @@ namespace AmbientLights
         internal Light light;
 
         internal List<Light> gameLights = new List<Light>();
+        internal List<Material> gameWindows = new List<Material>();
 
         internal string orientation = "";
         internal float lightSize = 1f;
@@ -30,6 +31,8 @@ namespace AmbientLights
 
             go.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             go.transform.position = lightPos;
+
+            go.name = "XPZ_Light";
 
             light.intensity = 0f;
             light.range = 0f;
@@ -54,16 +57,40 @@ namespace AmbientLights
             //Search in light list and select closer ones
             foreach (Light gLight in GameLights.gameLightsList)
             {
-                if (Vector3.Distance(gLight.gameObject.transform.position, this.go.transform.position) < range)
+                if (Vector3.Distance(gLight.gameObject.transform.position, go.transform.position) < range)
                 {
                     Debug.Log("Close light found");
-                    this.gameLights.Add(gLight);
+                    gameLights.Add(gLight);
                 }
             }
+
+            /*foreach (MeshRenderer window in GameLights.gameWindows)
+            {
+                if (Vector3.Distance(window.gameObject.transform.position, go.transform.position) < range)
+                {
+                    Debug.Log("Window found");
+                    MeshRenderer component = window.GetComponent<MeshRenderer>();
+                    if (!(component == null))
+                    {
+                        int num = window.materials.Length;
+                        if (num != 0)
+                        {
+                            for (int l = 0; l < num; l++)
+                            {
+                                if (window.materials[l].shader.name == "Shader Forge/TLD_StandardComplexProp")
+                                {
+                                    gameWindows.Add(window.materials[l]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }*/
         }
 
         internal void UpdateGameLights()
         {
+            //Window Lights
             foreach (Light gLight in gameLights)
             {
                 if (!AmbientLights.enableGameLights)
@@ -77,6 +104,33 @@ namespace AmbientLights
                     gLight.color = lColor;
                 }
             }
+
+            //Windows
+            /*foreach (Material wMat in gameWindows)
+            {
+                if (AmbientLights.enableGameLights)
+                {
+                    ColorHSV lColor = (Color)currentSet.color;
+
+                    AmbPeriod prd = AmbientLights.config.GetPeriodSet();
+
+                    float sMod = 0.6f;
+
+                    if (prd.orientations.ContainsKey(orientation))
+                    {
+                        if (prd.orientations[orientation].sat != null)
+                        {
+                            sMod *= Mathf.Lerp(prd.orientations[orientation].sat[0], prd.orientations[orientation].sat[1], TimeWeather.currentPeriodPct);
+                        }
+                    }
+
+                    lColor.s *= sMod;
+                    lColor.v = Mathf.Lerp(prd.intensity[0], prd.intensity[1], TimeWeather.currentPeriodPct);
+                    wMat.color = lColor;
+
+                    wMat.color = Color.red;
+                }
+            }*/
         }
 
         internal void SetLightParams(LightOrientation set, bool instantApply = false)
@@ -106,17 +160,16 @@ namespace AmbientLights
             {
                 light.shadows = LightShadows.Soft;
 
-                 
-                    float str = GetShadowStrength(TimeWeather.currentWeather);
+                float str = ALUtils.GetShadowStrength(TimeWeather.currentWeather);
 
-                    if (TimeWeather.currentWeatherPct < 1f)
-                    {
-                        float prevStr = GetShadowStrength(TimeWeather.previousWeather);
+                if (TimeWeather.currentWeatherPct < 1f)
+                {
+                    float prevStr = ALUtils.GetShadowStrength(TimeWeather.previousWeather);
 
-                        str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
-                    }
+                    str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
+                }
 
-                if (TimeWeather.currentPeriod != "night")
+                if (TimeWeather.currentPeriod == "night")
                 {
                     str *= .5f;
                 }
@@ -155,33 +208,6 @@ namespace AmbientLights
                 Debug.Log("Intensity: " + light.intensity + ", Range: " + light.range + ", Color: " + light.color);
         }
 
-        internal float GetShadowStrength(string wth)
-        {
-            float str = 1;
-
-            switch (wth)
-            {
-                case "clear":
-                    str = 1f;
-                    break;
-
-                case "partlycloudy":
-                    str = 0.5f;
-                    break;
-
-                case "cloudy":
-                case "lightfog":
-                    str = 0.2f;
-                    break;
-
-                case "densefog":
-                case "lightsnow":
-                case "blizzard":
-                    str = 0;
-                    break;
-            }
-
-            return str;
-        }
+        
     }
 }

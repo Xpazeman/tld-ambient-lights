@@ -29,7 +29,7 @@
 	"lightfog":{
 		"sMod":1.1,
 		"vMod":0.9,
-		"gMod":1.2,
+		"gMod":1.1,
 		"bMod":1.05,
 		"intMod":0.9,
 		"rngMod":0.8
@@ -38,7 +38,7 @@
 		"sMod":1,
 		"vMod":0.75,
 		"rMod":0.9,
-		"gMod":1.2,
+		"gMod":1.1,
 		"bMod":0.9,
 		"intMod":0.75,
 		"rngMod":0.7
