@@ -1,7 +1,7 @@
 ﻿{
 	"clear":{
 		"sMod":1.2,
-		"intMod":1,
+		"intMod":1.2,
 		"rngMod":1
 	},
 	"aurora":{
@@ -23,7 +23,7 @@
 		"rMod":0.9,
 		"gMod":1.05,
 		"bMod":1.2,
-		"intMod":0.9,
+		"intMod":0.75,
 		"rngMod":0.8
 	},
 	"lightfog":{
@@ -31,7 +31,7 @@
 		"vMod":0.9,
 		"gMod":1.1,
 		"bMod":1.05,
-		"intMod":0.9,
+		"intMod":0.8,
 		"rngMod":0.8
 	},
 	"densefog":{
@@ -40,7 +40,7 @@
 		"rMod":0.9,
 		"gMod":1.1,
 		"bMod":0.9,
-		"intMod":0.75,
+		"intMod":0.7,
 		"rngMod":0.7
 	},
 	"lightsnow":{

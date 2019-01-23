@@ -33,6 +33,8 @@ namespace AmbientLights
         public static bool showGameLights = false;
         public static bool enableGameLights = true;
 
+        public static LightSet currentLightSet;
+
         public static void OnLoad()
         {
             Debug.Log("[ambient-lights] Version " + Assembly.GetExecutingAssembly().GetName().Version);
@@ -44,7 +46,7 @@ namespace AmbientLights
             ambLitSettings.AddToModSettings("Ambient Lighting Settings");
             options = ambLitSettings.setOptions;
 
-            //AmbientLightUtils.RegisterCommands();
+            ALUtils.RegisterCommands();
         }
 
         public static void Reset(bool firstPass = true)
@@ -73,8 +75,6 @@ namespace AmbientLights
                 GameLights.gameWindows.Clear();
 
                 UnityEngine.Object.Destroy(GameLights.gameLights);
-
-                //Init Aurora Lights
             }
         }
 
@@ -134,9 +134,11 @@ namespace AmbientLights
                 //Generate lightsets for emitters based on time, weather and transition progress
 
                 LightSet lightSet = config.GetCurrentLightSet();
-
+                
                 if (lightSet != null)
                 {
+                    currentLightSet = lightSet;
+
                     foreach (var light in lightList)
                     {
                         LightOrientation set = lightSet.orientations[light.orientation];
@@ -147,8 +149,6 @@ namespace AmbientLights
                         }
                     }
                 }
-
-                //AuroraLightsControl.UpdateAuroraLightsRanges();
             }
         }
 
@@ -156,53 +156,7 @@ namespace AmbientLights
         {
             MaybeUpdateLightsToPeriod();
 
-            if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
-            {
-                if (lightOverride)
-                {
-                    lightOverride = false;
-                    MaybeUpdateLightsToPeriod(true);
-                }
-                else
-                {
-                    lightOverride = true;
-                    SetLightsIntensity(0f);
-                }
-            }
-            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
-            {
-                Unload();
-                Reset(false);
-                LoadConfigs();
-                HUDMessage.AddMessage("Reloading Config");
-
-            }
-
-            if (Input.GetKeyUp(KeyCode.K) && !Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
-            {
-                if (GameLights.gameLights.activeInHierarchy)
-                {
-                    GameLights.gameLights.SetActive(false);
-                }
-                else
-                {
-                    GameLights.gameLights.SetActive(true);
-                }
-            }
-            else if (Input.GetKeyUp(KeyCode.K) && Input.GetKey(KeyCode.RightControl) && options.enableDebugKey)
-            {
-                enableGameLights = !enableGameLights;
-                HUDMessage.AddMessage("Game Lights: " + enableGameLights);
-            }
-
-            if (Input.GetKeyUp(KeyCode.F7))
-            {
-                TimeWeather.GetCurrentPeriodAndWeather();
-
-                HUDMessage.AddMessage(TimeWeather.GetCurrentTimeString() + " - " + TimeWeather.currentWeather + " ("+(Math.Round(TimeWeather.currentWeatherPct, 2) * 100) + " %)" + TimeWeather.currentPeriod + "(" + (Math.Round(TimeWeather.currentPeriodPct, 2) * 100) + "%)");
-
-                ALUtils.debugNext = true;
-            }
+            ALUtils.HandleHotkeys();
         }
 
         public static void SetupGameLights()
@@ -215,11 +169,6 @@ namespace AmbientLights
 
         public static void UpdateGameLights()
         {
-            foreach (AmbLight aLight in lightList)
-            {
-                aLight.UpdateGameLights();
-            }
-
             GameLights.UpdateLights();
         }
 

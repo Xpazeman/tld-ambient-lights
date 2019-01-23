@@ -50,6 +50,16 @@ namespace AmbientLights
 
     internal class LightSet
     {
+        public float shadowStr;
+        public float lightshaftStr;
+        public float intMod;
+        public float rngMod;
+
+        public Color ambientDayColor;
+        public Color ambientNightColor;
+        public Color windowColor;
+        public Color lightshaftColor = new Color(1f, 1f, 1f);
+
         public Dictionary<string, LightOrientation> orientations = new Dictionary<string, LightOrientation>();
     }
 
@@ -80,6 +90,8 @@ namespace AmbientLights
         public SceneConfig data = null;
         private static Dictionary<string, AmbPeriod> periodsConfig = null;
         private static Dictionary<string, WeatherMod> weathersConfig = null;
+
+        private ColorHSV mushColor = new ColorHSV(0f, 1f, 1f, 1f);
         
         public void Load()
         {
@@ -143,7 +155,7 @@ namespace AmbientLights
 
                 ready = true;
 
-                Debug.Log(Utils.SerializeObject(data));
+                //Debug.Log(Utils.SerializeObject(data));
             }
         }
 
@@ -186,6 +198,48 @@ namespace AmbientLights
             float baseInt = 1f;
             float baseRng = 10f;
 
+            //Setup Global values
+
+            ls.intMod = ApplyWeatherIntensityMod();
+            ls.rngMod = ApplyWeatherRangeMod();
+
+            ls.shadowStr = GetShadowStrength();
+            ls.lightshaftStr = GetLightshaftStrength();
+
+            ColorHSV sColor = baseSun;
+            sColor.v = 0.93f;
+            ls.lightshaftColor = AmbientLights.config.ApplyWeatherMod(sColor);
+
+            Color bColor = AmbientLights.config.ApplyWeatherMod(baseFog);
+
+            ColorHSV dColor = bColor;
+            dColor.s *= 0.5f;
+            dColor.v = 0.3f;
+
+            ColorHSV nColor = dColor;
+            nColor.v = 0.01f;
+
+            ls.ambientDayColor = dColor;
+            ls.ambientNightColor = nColor;
+
+            ColorHSV wColor = bColor;
+            wColor.s *= ls.intMod;
+
+            ls.windowColor = wColor;
+
+            if (AmbientLights.options.alPreset == ALPresets.Mushrooms)
+            {
+                mushColor.h += 0.2f;
+
+                if (mushColor.h >= 360f)
+                    mushColor.h = 0f;
+                
+                ls.ambientDayColor = mushColor;
+                ls.ambientNightColor = mushColor;
+                ls.windowColor = mushColor;
+            }
+
+            //Setup Orientations
             foreach (string dir in cardinal)
             {
                 Color lColor = baseFog;
@@ -236,6 +290,98 @@ namespace AmbientLights
             return ls;
         }
 
+        /****** Lightset Utils ******/
+
+        internal float GetShadowStrength()
+        {
+            float shadowStr = ALUtils.GetShadowStrength(TimeWeather.currentWeather);
+
+            if (TimeWeather.currentWeatherPct < 1f)
+            {
+                float prevStr = ALUtils.GetShadowStrength(TimeWeather.previousWeather);
+
+                shadowStr = Mathf.Lerp(prevStr, shadowStr, TimeWeather.currentWeatherPct);
+            }
+
+            if (TimeWeather.currentPeriod == "night")
+            {
+                shadowStr *= .5f;
+            }
+
+            return shadowStr;
+        }
+
+        internal float GetLightshaftStrength()
+        {
+            float str = ALUtils.GetShadowStrength(TimeWeather.currentWeather);
+
+            if (TimeWeather.currentWeatherPct < 1f)
+            {
+                float prevStr = ALUtils.GetShadowStrength(TimeWeather.previousWeather);
+
+                str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
+            }
+
+            if (TimeWeather.currentPeriod == "night")
+            {
+                str = 0;
+            }
+
+            return str;
+        }
+
+        internal WeatherMod GetWeatherMod(string weather)
+        {
+            WeatherMod wm = new WeatherMod();
+
+            if (data.weathers.ContainsKey(weather))
+            {
+                wm = data.weathers[weather];
+            }
+            else if (data.weathers.ContainsKey("default"))
+            {
+                wm = data.weathers["default"];
+            }
+
+            return wm;
+        }
+
+        internal float ApplyWeatherIntensityMod()
+        {
+            float intMod = 1f;
+
+            WeatherMod wthMod = GetWeatherMod(TimeWeather.currentWeather);
+
+            intMod = wthMod.intMod;
+
+            if (TimeWeather.currentWeatherPct < 1f)
+            {
+                WeatherMod wthPrev = GetWeatherMod(TimeWeather.previousWeather);
+
+                intMod = Mathf.Lerp(wthPrev.intMod, wthMod.intMod, TimeWeather.currentWeatherPct);
+            }
+
+            return intMod;
+        }
+
+        internal float ApplyWeatherRangeMod()
+        {
+            float rngMod = 1f;
+
+            WeatherMod wthMod = GetWeatherMod(TimeWeather.currentWeather);
+
+            rngMod = wthMod.intMod;
+
+            if (TimeWeather.currentWeatherPct < 1f)
+            {
+                WeatherMod wthPrev = GetWeatherMod(TimeWeather.previousWeather);
+
+                rngMod = Mathf.Lerp(wthPrev.intMod, wthMod.intMod, TimeWeather.currentWeatherPct);
+            }
+
+            return rngMod;
+        }
+
         internal Color ApplyWeatherMod(Color baseColor)
         {
             Color modColor;
@@ -276,20 +422,6 @@ namespace AmbientLights
             return modColor;
         }
 
-        internal WeatherMod GetWeatherMod(string weather)
-        {
-            WeatherMod wm = new WeatherMod();
-
-            if (data.weathers.ContainsKey(weather))
-            {
-                wm = data.weathers[weather];
-            }
-            else if (data.weathers.ContainsKey("default"))
-            {
-                wm = data.weathers["default"];
-            }
-
-            return wm;
-        }
+        
     }
 }

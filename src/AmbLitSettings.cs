@@ -29,7 +29,7 @@ namespace AmbientLights
 
     internal enum ALPresets
     {
-        Default, TLD_Default, Realistic, Darker_Interiors, Brighter_Interiors, Endless_Day, Dark_World, Custom
+        Default, TLD_Default, Realistic, Darker_Interiors, Brighter_Interiors, Endless_Day, Dark_World, Mushrooms, Custom
     }
 
     internal class AmbLitSettings : ModSettingsBase
@@ -173,6 +173,7 @@ namespace AmbientLights
             switch (preset)
             {
                 case ALPresets.Default:
+                case ALPresets.Mushrooms:
                     intensityMultiplier = 1.1f;
                     rangeMultiplier = 1.0f;
                     nightBrightness = 1;

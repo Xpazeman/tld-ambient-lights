@@ -57,9 +57,76 @@ namespace AmbientLights
             return position;
         }
 
+        internal static void RegisterCommands()
+        {
+            uConsole.RegisterCommand("showgamelights", ShowGameLights);
+            uConsole.RegisterCommand("disablelights", DisableGameLights);
+        }
+
+        internal static void HandleHotkeys()
+        {
+            if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            {
+                if (AmbientLights.lightOverride)
+                {
+                    AmbientLights.lightOverride = false;
+                    AmbientLights.MaybeUpdateLightsToPeriod(true);
+                }
+                else
+                {
+                    AmbientLights.lightOverride = true;
+                    AmbientLights.SetLightsIntensity(0f);
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            {
+                AmbientLights.Unload();
+                AmbientLights.Reset(false);
+                AmbientLights.LoadConfigs();
+                HUDMessage.AddMessage("Reloading Config");
+
+            }
+
+            if (Input.GetKeyUp(KeyCode.K) && !Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            {
+                ShowGameLights();
+            }
+            else if (Input.GetKeyUp(KeyCode.K) && Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            {
+                DisableGameLights();
+            }
+
+            if (Input.GetKeyUp(KeyCode.F7) && Input.GetKey(KeyCode.RightControl))
+            {
+                TimeWeather.GetCurrentPeriodAndWeather();
+
+                HUDMessage.AddMessage(TimeWeather.GetCurrentTimeString() + " - " + TimeWeather.currentWeather + " (" + (Math.Round(TimeWeather.currentWeatherPct, 2) * 100) + " %)" + TimeWeather.currentPeriod + "(" + (Math.Round(TimeWeather.currentPeriodPct, 2) * 100) + "%)");
+
+                ALUtils.debugNext = true;
+            }
+        }
+
+        internal static void ShowGameLights()
+        {
+            if (GameLights.gameLights.activeInHierarchy)
+            {
+                GameLights.gameLights.SetActive(false);
+            }
+            else
+            {
+                GameLights.gameLights.SetActive(true);
+            }
+        }
+
+        internal static void DisableGameLights()
+        {
+            AmbientLights.enableGameLights = !AmbientLights.enableGameLights;
+            Debug.Log("[ambient-lights] Game lights disabled.");
+        }
+
         internal static float GetIntensityModifier()
         {
-            WeatherMod wthMod = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
+            /*WeatherMod wthMod = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
             float wthIntMod = wthMod.intMod;
 
             if (TimeWeather.currentWeatherPct < 1f)
@@ -67,9 +134,9 @@ namespace AmbientLights
                 WeatherMod prevWM = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
 
                 wthIntMod = Mathf.Lerp(prevWM.intMod, wthIntMod, TimeWeather.currentWeatherPct);
-            }
+            }*/
 
-            float intMod = AmbientLights.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier * wthIntMod * AmbientLights.globalIntMultiplier;
+            float intMod = AmbientLights.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier * AmbientLights.currentLightSet.intMod * AmbientLights.globalIntMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {
@@ -82,7 +149,7 @@ namespace AmbientLights
 
         internal static float GetRangeModifier()
         {
-            WeatherMod wthMod = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
+            /*WeatherMod wthMod = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
             float wthRngMod = wthMod.rngMod;
 
             if (TimeWeather.currentWeatherPct < 1f)
@@ -90,9 +157,9 @@ namespace AmbientLights
                 WeatherMod prevWM = AmbientLights.config.GetWeatherMod(TimeWeather.currentWeather);
 
                 wthRngMod = Mathf.Lerp(prevWM.rngMod, wthRngMod, TimeWeather.currentWeatherPct);
-            }
+            }*/
 
-            float rngMod = AmbientLights.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier * wthRngMod * AmbientLights.globalRngMultiplier;
+            float rngMod = AmbientLights.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier * AmbientLights.currentLightSet.rngMod * AmbientLights.globalRngMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {
@@ -239,64 +306,6 @@ namespace AmbientLights
                     }
 
                     GetChildrenWithName(child, name, result);
-                }
-            }
-        }
-
-        public static void DebugGameObjectFromParent(GameObject go, string cur_tab = "")
-        {
-            if (go.transform.parent != null)
-            {
-
-                DebugGameObject(go.transform.parent.gameObject);
-            }
-            else
-            {
-                DebugGameObject(go);
-            }
-        }
-
-        public static void DebugGameObject(GameObject go, string cur_tab = "")
-        {
-            Debug.Log(cur_tab + "==== DEBUGGING " + go.name + " =====");
-
-            PrintComponents(go);
-
-            if (go.transform.childCount > 0)
-            {
-
-                Debug.Log(cur_tab + "==== CHILDREN");
-
-                for (int i = 0; i < go.transform.childCount; i++)
-                {
-                    Debug.Log(cur_tab + "- " + go.transform.GetChild(i).gameObject.name);
-
-                    DebugGameObject(go.transform.GetChild(i).gameObject, cur_tab + "    ");
-                }
-
-                Debug.Log(cur_tab + "==== END OF CHILDREN");
-            }
-
-            Debug.Log(cur_tab + "==== END DEBUG OF " + go.name + " =====");
-        }
-
-        public static void PrintComponents(GameObject go, string cur_tab = "")
-        {
-            Component[] all_comps = go.transform.GetComponents(typeof(Component));
-            foreach (Component cmp in all_comps)
-            {
-                Debug.Log(cur_tab + "Component type: " + cmp.GetType().ToString());
-
-                switch (cmp.GetType().ToString())
-                {
-                    case "AuroraElectrolizer":
-                        break;
-
-                    case "AudioToggle":
-                        break;
-
-                    case "Container":
-                        break;
                 }
             }
         }

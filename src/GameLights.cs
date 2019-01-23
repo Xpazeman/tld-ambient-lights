@@ -18,38 +18,17 @@ namespace AmbientLights
 
         public static TodAmbientLight gameAmbientLight = null;
 
-        public static void GetWindows()
-        {
-            List<GameObject> rObjs = ALUtils.GetRootObjects();
-            List<GameObject> result = new List<GameObject>();
+        /****** SETUP ******/
 
-            foreach (GameObject rootObj in rObjs)
-            {
-                ALUtils.GetChildrenWithName(rootObj, "windowglow", result);
-
-                if (result.Count > 0)
-                {
-                    foreach(GameObject child in result)
-                    {
-                        MeshRenderer renderer = child.GetComponent<MeshRenderer>();
-
-                        gameWindows.Add(renderer);
-                    }
-                }
-            }
-        }
-
-        public static void AddGameLights(InteriorLightingManager mngr)
+        internal static void AddGameLights(InteriorLightingManager mngr)
         {
             Debug.Log("[ambient-lights] InteriorLightingManager initialized.");
 
-            GameLights.gameLights = new GameObject();
+            gameLights = new GameObject();
 
-            
-
-            //Window Lights
             List<InteriorLightingGroup> lightGroups = Traverse.Create(mngr).Field("m_LightGroupList").GetValue<List<InteriorLightingGroup>>();
 
+            //Windows & Window Lights
             foreach (InteriorLightingGroup group in lightGroups)
             {
                 List<Light> lights = group.GetLights();
@@ -58,6 +37,7 @@ namespace AmbientLights
                 {
                     GameObject lightMark;
 
+                    //Add lights to list and to debug object
                     if (light.type == LightType.Point)
                     {
                         lightMark = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -94,7 +74,7 @@ namespace AmbientLights
 
                     foreach (Renderer rend in lightMark.GetComponentsInChildren<Renderer>())
                     {
-                        rend.material.color = new Color(1f, 0, 0);
+                        rend.material.color = light.color;
                         rend.receiveShadows = false;
                     }
                 }
@@ -104,11 +84,17 @@ namespace AmbientLights
 
                 foreach (MeshRenderer window in windows)
                 {
+                    window.gameObject.name = "XPZ_Window";
                     gameWindows.Add(window);
                 }
             }
 
+            //Main Ambient Light
+            gameAmbientLight = Traverse.Create(mngr).Field("m_AmbientLight").GetValue<TodAmbientLight>();
+            gameAmbientLight.name = "XPZ_Light";
+
             //Loose Lights
+            //No Manager
             Light[] sclights = UnityEngine.Object.FindObjectsOfType(typeof(Light)) as Light[];
             foreach (Light light in sclights)
             {
@@ -119,7 +105,7 @@ namespace AmbientLights
                 }
             }
 
-            //Fill Lights
+            //With Manager
             List<Light> looseLights = Traverse.Create(mngr).Field("m_LooseLightList").GetValue<List<Light>>();
             List<Light> looseLightsMidday = Traverse.Create(mngr).Field("m_LooseLightsMiddayList").GetValue<List<Light>>();
 
@@ -140,6 +126,7 @@ namespace AmbientLights
             gameExtraLightsList.AddRange(extraLights);
             gameExtraLightsColors.AddRange(extraLightsColor);
 
+            //Add fill lights to debug object
             foreach (Light light in gameExtraLightsList)
             {
                 GameObject eLightMark;
@@ -153,30 +140,59 @@ namespace AmbientLights
 
                 foreach (Renderer rend in eLightMark.GetComponentsInChildren<Renderer>())
                 {
-                    Color rendColor = light.color;
-                    rendColor.a = light.intensity;
                     rend.material.color = light.color;
                     rend.receiveShadows = false;
                 }
             }
-
-            Debug.Log(Utils.SerializeObject(gameExtraLightsList));
-            Debug.Log(Utils.SerializeObject(gameExtraLightsColors));
 
             if (!AmbientLights.showGameLights)
             {
                 gameLights.SetActive(false);
             }
 
-            //Main Ambient Light
-            gameAmbientLight = Traverse.Create(mngr).Field("m_AmbientLight").GetValue<TodAmbientLight>();
-
             AmbientLights.SetupGameLights();
-
-            
         }
 
-        public static void UpdateLights()
+        internal static void GetWindows()
+        {
+            List<GameObject> rObjs = ALUtils.GetRootObjects();
+            List<GameObject> result = new List<GameObject>();
+
+            foreach (GameObject rootObj in rObjs)
+            {
+                ALUtils.GetChildrenWithName(rootObj, "windowglow", result);
+
+                if (result.Count > 0)
+                {
+                    foreach (GameObject child in result)
+                    {
+                        if (child.name != "XPZ_Window")
+                        {
+                            MeshRenderer renderer = child.GetComponent<MeshRenderer>();
+                            gameWindows.Add(renderer);
+                        }
+                    }
+                }
+            }
+        }
+
+        /****** LIGHTS UPDATE ******/
+        internal static void UpdateLights()
+        {
+            if (AmbientLights.lightOverride)
+                return;
+
+            UpdateFillLights();
+            UpdateWindows();
+
+            //Ambient Light
+            if (gameAmbientLight != null && !AmbientLights.enableGameLights)
+            {
+                gameAmbientLight.SetAmbientLightValue(0, 0);
+            }
+        }
+
+        internal static void UpdateFillLights()
         {
             if (AmbientLights.lightOverride)
                 return;
@@ -204,15 +220,16 @@ namespace AmbientLights
 
                 eIndex++;
             }
+        }
+
+        internal static void UpdateWindows()
+        {
+            if (AmbientLights.lightOverride)
+                return;
 
             //Windows
-            UniStormWeatherSystem uniStorm = GameManager.GetUniStorm();
-            TODStateConfig state = uniStorm.GetActiveTODState();
-
-            ColorHSV bColor = state.m_FogColor;
-
-            bColor = AmbientLights.config.ApplyWeatherMod(bColor);
-            bColor.s *= 0.8f;
+            
+            Color bColor = AmbientLights.currentLightSet.windowColor;
 
             foreach (MeshRenderer window in gameWindows)
             {
@@ -231,29 +248,12 @@ namespace AmbientLights
                     }
                 }
             }
-
-            //Ambient Light
-            if (gameAmbientLight != null && !AmbientLights.enableGameLights)
-            {
-                gameAmbientLight.SetAmbientLightValue(0, 0);
-            }
         }
 
         internal static void UpdateLightshafts()
         {
-            float str = ALUtils.GetShadowStrength(TimeWeather.currentWeather);
-
-            if (TimeWeather.currentWeatherPct < 1f)
-            {
-                float prevStr = ALUtils.GetShadowStrength(TimeWeather.previousWeather);
-
-                str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
-            }
-
-            if (TimeWeather.currentPeriod == "night")
-            {
-                str = 0;
-            }
+            if (AmbientLights.lightOverride)
+                return;
 
             // Lightshafts
             foreach (Light sLight in gameSpotLightsList)
@@ -268,21 +268,7 @@ namespace AmbientLights
                     {
                         sLight.shadows = LightShadows.Soft;
 
-                        float shdwStr = ALUtils.GetShadowStrength(TimeWeather.currentWeather);
-
-                        if (TimeWeather.currentWeatherPct < 1f)
-                        {
-                            float prevStr = ALUtils.GetShadowStrength(TimeWeather.previousWeather);
-
-                            shdwStr = Mathf.Lerp(prevStr, shdwStr, TimeWeather.currentWeatherPct);
-                        }
-
-                        if (TimeWeather.currentPeriod == "night")
-                        {
-                            shdwStr *= .5f;
-                        }
-
-                        sLight.shadowStrength = shdwStr;
+                        sLight.shadowStrength = AmbientLights.currentLightSet.shadowStr;
                         sLight.renderMode = LightRenderMode.ForceVertex;
                     }
                     else
@@ -290,14 +276,26 @@ namespace AmbientLights
                         sLight.shadows = LightShadows.None;
                     }
 
-                    sLight.intensity *= str;
+                    sLight.intensity *= AmbientLights.currentLightSet.lightshaftStr;
 
-                    sLight.color = Color.red;
+                    sLight.color = AmbientLights.currentLightSet.lightshaftColor;
                 }
             }
         }
 
-        internal static void UpdateLooseLights()
+        internal static void UpdateAmbience(TodAmbientLight TodLightInstance, ref float multiplier)
+        {
+            if (AmbientLights.lightOverride)
+                return;
+
+            multiplier *= AmbientLights.options.ambienceLevel * AmbientLights.currentLightSet.intMod;
+
+            TodLightInstance.m_AmbientIndoorsDay = AmbientLights.currentLightSet.ambientDayColor;
+            TodLightInstance.m_AmbientIndoorsNight = AmbientLights.currentLightSet.ambientNightColor;
+        }
+
+        /****** UTILS ******/
+        internal static void ResetLooseLights()
         {
             foreach (Light eLight in gameExtraLightsList)
             {
@@ -306,47 +304,6 @@ namespace AmbientLights
                     eLight.intensity = 1;
                 }
             }
-        }
-
-        public static void UpdateAmbience(TodAmbientLight TodLightInstance, ref float multiplier)
-        {
-            if (AmbientLights.lightOverride)
-                return;
-
-            multiplier *= AmbientLights.options.ambienceLevel;
-
-            UniStormWeatherSystem uniStorm = GameManager.GetUniStorm();
-            TODStateConfig state = uniStorm.GetActiveTODState();
-
-            Color bColor = state.m_FogColor;
-
-            bColor = AmbientLights.config.ApplyWeatherMod(bColor);
-
-            ColorHSV fColor = bColor;
-            fColor.s *= 0.5f;
-            fColor.v = 0.1f;
-
-            ColorHSV nColor = fColor;
-            nColor.v = 0.01f;
-
-            TodLightInstance.m_AmbientIndoorsDay = fColor;
-            TodLightInstance.m_AmbientIndoorsNight = nColor;
-
-            float str = ALUtils.GetShadowStrength(TimeWeather.currentWeather);
-
-            if (TimeWeather.currentWeatherPct < 1f)
-            {
-                float prevStr = ALUtils.GetShadowStrength(TimeWeather.previousWeather);
-
-                str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
-            }
-
-            if (TimeWeather.currentPeriod == "night")
-            {
-                str = 0;
-            }
-
-            
         }
     }
 }

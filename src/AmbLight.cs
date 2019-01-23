@@ -54,7 +54,7 @@ namespace AmbientLights
         {
             float range = 3f;
             
-            //Search in light list and select closer ones
+            //Search in light list and select closer ones if any
             foreach (Light gLight in GameLights.gameLightsList)
             {
                 if (Vector3.Distance(gLight.gameObject.transform.position, go.transform.position) < range)
@@ -63,74 +63,6 @@ namespace AmbientLights
                     gameLights.Add(gLight);
                 }
             }
-
-            /*foreach (MeshRenderer window in GameLights.gameWindows)
-            {
-                if (Vector3.Distance(window.gameObject.transform.position, go.transform.position) < range)
-                {
-                    Debug.Log("Window found");
-                    MeshRenderer component = window.GetComponent<MeshRenderer>();
-                    if (!(component == null))
-                    {
-                        int num = window.materials.Length;
-                        if (num != 0)
-                        {
-                            for (int l = 0; l < num; l++)
-                            {
-                                if (window.materials[l].shader.name == "Shader Forge/TLD_StandardComplexProp")
-                                {
-                                    gameWindows.Add(window.materials[l]);
-                                }
-                            }
-                        }
-                    }
-                }
-            }*/
-        }
-
-        internal void UpdateGameLights()
-        {
-            //Window Lights
-            foreach (Light gLight in gameLights)
-            {
-                if (!AmbientLights.enableGameLights)
-                {
-                    gLight.intensity = 0f;
-                }
-                else
-                {
-                    ColorHSV lColor = (Color)currentSet.color;
-                    lColor.s *= 0.6f;
-                    gLight.color = lColor;
-                }
-            }
-
-            //Windows
-            /*foreach (Material wMat in gameWindows)
-            {
-                if (AmbientLights.enableGameLights)
-                {
-                    ColorHSV lColor = (Color)currentSet.color;
-
-                    AmbPeriod prd = AmbientLights.config.GetPeriodSet();
-
-                    float sMod = 0.6f;
-
-                    if (prd.orientations.ContainsKey(orientation))
-                    {
-                        if (prd.orientations[orientation].sat != null)
-                        {
-                            sMod *= Mathf.Lerp(prd.orientations[orientation].sat[0], prd.orientations[orientation].sat[1], TimeWeather.currentPeriodPct);
-                        }
-                    }
-
-                    lColor.s *= sMod;
-                    lColor.v = Mathf.Lerp(prd.intensity[0], prd.intensity[1], TimeWeather.currentPeriodPct);
-                    wMat.color = lColor;
-
-                    wMat.color = Color.red;
-                }
-            }*/
         }
 
         internal void SetLightParams(LightOrientation set, bool instantApply = false)
@@ -160,21 +92,7 @@ namespace AmbientLights
             {
                 light.shadows = LightShadows.Soft;
 
-                float str = ALUtils.GetShadowStrength(TimeWeather.currentWeather);
-
-                if (TimeWeather.currentWeatherPct < 1f)
-                {
-                    float prevStr = ALUtils.GetShadowStrength(TimeWeather.previousWeather);
-
-                    str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
-                }
-
-                if (TimeWeather.currentPeriod == "night")
-                {
-                    str *= .5f;
-                }
-
-                light.shadowStrength = str;
+                light.shadowStrength = AmbientLights.currentLightSet.shadowStr;
                 light.renderMode = LightRenderMode.ForceVertex;
             }
             else
