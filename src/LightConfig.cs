@@ -386,9 +386,6 @@ namespace AmbientLights
         {
             Color modColor;
 
-            //Debug.Log(TimeWeather.currentWeather);
-            //Debug.Log("Change from: " + (Color32)baseColor);
-            
             WeatherMod wthMod = GetWeatherMod(TimeWeather.currentWeather);
 
             float sMod = wthMod.sMod, vMod = wthMod.vMod, rMod = wthMod.rMod, gMod = wthMod.gMod, bMod = wthMod.bMod;
@@ -416,8 +413,6 @@ namespace AmbientLights
             modColor = cHSV;
 
             modColor.a = 1;
-
-            //Debug.Log("Change to: " + (Color32)modColor);
 
             return modColor;
         }
