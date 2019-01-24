@@ -61,6 +61,7 @@ namespace AmbientLights
         {
             uConsole.RegisterCommand("showgamelights", ShowGameLights);
             uConsole.RegisterCommand("disablelights", DisableGameLights);
+            uConsole.RegisterCommand("hidewindows", GameLights.ToggleWindows);
         }
 
         internal static void HandleHotkeys()

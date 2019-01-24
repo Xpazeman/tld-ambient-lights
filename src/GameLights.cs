@@ -12,11 +12,14 @@ namespace AmbientLights
 
         public static List<Light> gameLightsList = new List<Light>();
         public static List<Light> gameSpotLightsList = new List<Light>();
+        public static List<Renderer[]> gameShaftsList = new List<Renderer[]>();
         public static List<Light> gameExtraLightsList = new List<Light>();
         public static List<Color> gameExtraLightsColors = new List<Color>();
         public static List<MeshRenderer> gameWindows = new List<MeshRenderer>();
 
         public static TodAmbientLight gameAmbientLight = null;
+
+        public static bool hideWindows = false;
 
         /****** SETUP ******/
 
@@ -50,7 +53,7 @@ namespace AmbientLights
                         lightMark = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         lightMark.transform.rotation = light.gameObject.transform.rotation;
 
-                        light.gameObject.name = "XPZ_Light";
+                        
 
                         if (AmbientLights.options.castShadows)
                         {
@@ -98,6 +101,8 @@ namespace AmbientLights
             Light[] sclights = UnityEngine.Object.FindObjectsOfType(typeof(Light)) as Light[];
             foreach (Light light in sclights)
             {
+                Debug.Log(light.gameObject.name);
+
                 if (light.gameObject.name != "XPZ_Light" && light.type == LightType.Point)
                 {
                     gameExtraLightsList.Add(light);
@@ -207,15 +212,17 @@ namespace AmbientLights
                 }
                 else
                 {
+                    if (eLight.gameObject.name != "XPZ_Light")
+                    {
+                        ColorHSV lColor = gameExtraLightsColors[eIndex];
 
-                    ColorHSV lColor = gameExtraLightsColors[eIndex];
+                        lColor.s *= AmbientLights.options.fillColorLevel;
 
-                    lColor.s *= AmbientLights.options.fillColorLevel;
+                        //Debug.Log("From:" + (ColorHSV)gameExtraLightsColors[eIndex] + " To:" + lColor);
+                        eLight.color = lColor;
 
-                    //Debug.Log("From:" + (ColorHSV)gameExtraLightsColors[eIndex] + " To:" + lColor);
-                    eLight.color = lColor;
-
-                    eLight.intensity *= AmbientLights.options.fillLevel;
+                        eLight.intensity *= AmbientLights.options.fillLevel;
+                    }
                 }
 
                 eIndex++;
@@ -224,7 +231,7 @@ namespace AmbientLights
 
         internal static void UpdateWindows()
         {
-            if (AmbientLights.lightOverride)
+            if (AmbientLights.lightOverride || !AmbientLights.enableGameLights)
                 return;
 
             //Windows
@@ -233,17 +240,22 @@ namespace AmbientLights
 
             foreach (MeshRenderer window in gameWindows)
             {
-                MeshRenderer component = window.GetComponent<MeshRenderer>();
-                if (!(component == null))
+                if (AmbientLights.options.transparentWindows && window.gameObject.activeInHierarchy)
                 {
-                    if (window.materials.Length != 0)
+                    window.gameObject.SetActive(false);
+                }
+                else if (!AmbientLights.options.transparentWindows && !window.gameObject.activeInHierarchy)
+                {
+                    window.gameObject.SetActive(true);
+                }
+
+                if (window.materials.Length != 0)
+                {
+                    for (int l = 0; l < window.materials.Length; l++)
                     {
-                        for (int l = 0; l < window.materials.Length; l++)
+                        if (window.materials[l].shader.name == "Shader Forge/TLD_StandardComplexProp")
                         {
-                            if (window.materials[l].shader.name == "Shader Forge/TLD_StandardComplexProp")
-                            {
-                                window.materials[l].color = bColor;
-                            }
+                            window.materials[l].color = bColor;
                         }
                     }
                 }
@@ -281,6 +293,15 @@ namespace AmbientLights
                     sLight.color = AmbientLights.currentLightSet.lightshaftColor;
                 }
             }
+
+            foreach(Renderer[] shaft in gameShaftsList)
+            {
+                foreach(Renderer mat in shaft)
+                {
+                    float gain = mat.material.GetFloat("_Gain");
+                    mat.material.SetFloat("_Gain", gain * AmbientLights.currentLightSet.lightshaftStr);
+                }
+            }
         }
 
         internal static void UpdateAmbience(TodAmbientLight TodLightInstance, ref float multiplier)
@@ -299,11 +320,21 @@ namespace AmbientLights
         {
             foreach (Light eLight in gameExtraLightsList)
             {
-                if (AmbientLights.enableGameLights)
+                if (AmbientLights.enableGameLights && !AmbientLights.lightOverride && eLight.gameObject.name != "XPZ_Light")
                 {
                     eLight.intensity = 1;
                 }
             }
+        }
+
+        internal static void ToggleWindows()
+        {
+            foreach (MeshRenderer window in gameWindows)
+            {
+                window.gameObject.SetActive(hideWindows);
+            }
+
+            hideWindows = !hideWindows;
         }
     }
 }

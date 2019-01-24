@@ -21,6 +21,8 @@ namespace AmbientLights
         public float fillLevel = 1f;
         public float fillColorLevel = 1f;
 
+        public bool transparentWindows = false;
+
         //public float auroraIntensity = 2f;
         //public bool disableAuroraFlicker = false;
 
@@ -79,6 +81,10 @@ namespace AmbientLights
         [Slider(0f, 2f, 1)]
         public float fillColorLevel = 1f;
 
+        [Name("See-Through windows")]
+        [Description("Removes the window panes so it adds a bit of depth to windows. Kinda glitchy.")]
+        public bool transparentWindows = false;
+
         /*[Section("Aurora Powered Lights Settings")]
 
         [Name("Aurora powered lights intensity")]
@@ -120,6 +126,8 @@ namespace AmbientLights
                 fillLevel = setOptions.fillLevel;
                 fillColorLevel = setOptions.fillColorLevel;
 
+                transparentWindows = setOptions.transparentWindows;
+
                 //auroraIntensity = setOptions.auroraIntensity;
                 //disableAuroraFlicker = setOptions.disableAuroraFlicker;
 
@@ -141,6 +149,8 @@ namespace AmbientLights
             setOptions.ambienceLevel = ambienceLevel;
             setOptions.fillLevel = fillLevel;
             setOptions.fillColorLevel = fillColorLevel;
+
+            setOptions.transparentWindows = transparentWindows;
 
             //setOptions.auroraIntensity = (float)Math.Round(auroraIntensity, 1);
             //setOptions.disableAuroraFlicker = disableAuroraFlicker;
@@ -177,8 +187,8 @@ namespace AmbientLights
                     intensityMultiplier = 1.1f;
                     rangeMultiplier = 1.0f;
                     nightBrightness = 1;
-                    ambienceLevel = 0.5f;
-                    fillLevel = 0.3f;
+                    ambienceLevel = 0.6f;
+                    fillLevel = 0.7f;
                     fillColorLevel = 0.5f;
 
                     break;

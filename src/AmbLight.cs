@@ -54,13 +54,35 @@ namespace AmbientLights
         {
             float range = 3f;
             
-            //Search in light list and select closer ones if any
+            //Search in light list and select closer ones
             foreach (Light gLight in GameLights.gameLightsList)
             {
                 if (Vector3.Distance(gLight.gameObject.transform.position, go.transform.position) < range)
                 {
                     Debug.Log("Close light found");
+                    gLight.gameObject.name = "XPZ_Light";
                     gameLights.Add(gLight);
+                }
+            }
+        }
+
+        internal void UpdateGameLights()
+        {
+            //Window Lights
+            if (!AmbientLights.lightOverride)
+            {
+                foreach (Light gLight in gameLights)
+                {
+                    if (!AmbientLights.enableGameLights)
+                    {
+                        gLight.intensity = 0f;
+                    }
+                    else
+                    {
+                        ColorHSV lColor = (Color)currentSet.color;
+                        lColor.s *= Mathf.Min(AmbientLights.config.ApplyWeatherSaturationMod() - 0.2f, 0.7f);
+                        gLight.color = lColor;
+                    }
                 }
             }
         }
@@ -69,6 +91,8 @@ namespace AmbientLights
         {
             set.intensity *= ALUtils.GetIntensityModifier();
             set.range *= ALUtils.GetRangeModifier();
+
+            currentSet = set;
 
             if (set.intensity > 0)
             {
@@ -84,23 +108,23 @@ namespace AmbientLights
                 SetLightIntensity(set.intensity);
                 SetLightRange(set.range);
                 SetLightColor(set.color);
-            }
 
-            currentSet = set;
+                if (AmbientLights.options.castShadows)
+                {
+                    light.shadows = LightShadows.Soft;
 
-            if (AmbientLights.options.castShadows)
-            {
-                light.shadows = LightShadows.Soft;
-
-                light.shadowStrength = AmbientLights.currentLightSet.shadowStr;
-                light.renderMode = LightRenderMode.ForceVertex;
+                    light.shadowStrength = AmbientLights.currentLightSet.shadowStr;
+                    light.renderMode = LightRenderMode.ForceVertex;
+                }
+                else
+                {
+                    light.shadows = LightShadows.None;
+                }
             }
             else
             {
                 light.shadows = LightShadows.None;
             }
-
-            //DebugLightSet();
         }
 
         internal void SetLightIntensity(float newIntensity)

@@ -169,6 +169,11 @@ namespace AmbientLights
 
         public static void UpdateGameLights()
         {
+            foreach (AmbLight aLight in lightList)
+            {
+                aLight.UpdateGameLights();
+            }
+
             GameLights.UpdateLights();
         }
 

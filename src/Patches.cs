@@ -134,6 +134,8 @@ namespace AmbientLights
                 {
                     GameLights.gameSpotLightsList.Add(__instance.m_Light);
                 }
+
+                GameLights.gameShaftsList.Add(__instance.gameObject.GetComponentsInChildren<Renderer>());
             }
         }
 

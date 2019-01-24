@@ -207,10 +207,10 @@ namespace AmbientLights
             ls.lightshaftStr = GetLightshaftStrength();
 
             ColorHSV sColor = baseSun;
-            sColor.v = 0.93f;
-            ls.lightshaftColor = AmbientLights.config.ApplyWeatherMod(sColor);
+            sColor.v = 0.8f;
+            ls.lightshaftColor = ApplyWeatherMod(sColor);
 
-            Color bColor = AmbientLights.config.ApplyWeatherMod(baseFog);
+            Color bColor = ApplyWeatherMod(baseFog);
 
             ColorHSV dColor = bColor;
             dColor.s *= 0.5f;
@@ -223,16 +223,17 @@ namespace AmbientLights
             ls.ambientNightColor = nColor;
 
             ColorHSV wColor = bColor;
-            wColor.s *= ls.intMod;
+            wColor.s *= Mathf.Min(ApplyWeatherSaturationMod() - 0.2f, 0.5f);
+            wColor.v *= ls.intMod + 1f;
 
             ls.windowColor = wColor;
 
             if (AmbientLights.options.alPreset == ALPresets.Mushrooms)
             {
-                mushColor.h += 0.2f;
+                mushColor.h += 0.3f;
 
                 if (mushColor.h >= 360f)
-                    mushColor.h = 0f;
+                    mushColor.h -= 360f;
                 
                 ls.ambientDayColor = mushColor;
                 ls.ambientNightColor = mushColor;
@@ -362,6 +363,24 @@ namespace AmbientLights
             }
 
             return intMod;
+        }
+
+        internal float ApplyWeatherSaturationMod()
+        {
+            float sMod = 1f;
+
+            WeatherMod wthMod = GetWeatherMod(TimeWeather.currentWeather);
+
+            sMod = wthMod.sMod;
+
+            if (TimeWeather.currentWeatherPct < 1f)
+            {
+                WeatherMod wthPrev = GetWeatherMod(TimeWeather.previousWeather);
+
+                sMod = Mathf.Lerp(wthPrev.sMod, wthMod.sMod, TimeWeather.currentWeatherPct);
+            }
+
+            return sMod;
         }
 
         internal float ApplyWeatherRangeMod()
