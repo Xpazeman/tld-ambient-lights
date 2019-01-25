@@ -72,11 +72,15 @@ namespace AmbientLights
                 {
                     AmbientLights.lightOverride = false;
                     AmbientLights.MaybeUpdateLightsToPeriod(true);
+
+                    HUDMessage.AddMessage("Ambient Lights: On");
                 }
                 else
                 {
                     AmbientLights.lightOverride = true;
                     AmbientLights.SetLightsIntensity(0f);
+
+                    HUDMessage.AddMessage("Ambient Lights: Off");
                 }
             }
             else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)

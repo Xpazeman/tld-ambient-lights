@@ -29,6 +29,11 @@ namespace AmbientLights
         {
             Debug.Log("[ambient-lights] InteriorLightingManager initialized.");
 
+            gameLightsList.Clear();
+            gameExtraLightsList.Clear();
+            gameSpotLightsList.Clear();
+            gameExtraLightsColors.Clear();
+
             gameLights = new GameObject();
 
             List<InteriorLightingGroup> lightGroups = Traverse.Create(mngr).Field("m_LightGroupList").GetValue<List<InteriorLightingGroup>>();
@@ -190,6 +195,8 @@ namespace AmbientLights
 
             int wCount = 0;
 
+            gameWindows.Clear();
+
             foreach (GameObject rootObj in rObjs)
             {
                 ALUtils.GetChildrenWithName(rootObj, "windowglow", result);
@@ -201,8 +208,11 @@ namespace AmbientLights
                         if (child.name != "XPZ_Window")
                         {
                             MeshRenderer renderer = child.GetComponent<MeshRenderer>();
-                            gameWindows.Add(renderer);
-                            wCount++;
+                            if (renderer != null)
+                            {
+                                gameWindows.Add(renderer);
+                                wCount++;
+                            }
                         }
                     }
                 }
@@ -270,22 +280,33 @@ namespace AmbientLights
 
             foreach (MeshRenderer window in gameWindows)
             {
-                if (AmbientLights.options.transparentWindows && window.gameObject.activeInHierarchy)
+                try
                 {
-                    window.gameObject.SetActive(false);
+                    if (AmbientLights.options.transparentWindows && window.gameObject.activeInHierarchy)
+                    {
+                        window.gameObject.SetActive(false);
+                    }
+                    else if (!AmbientLights.options.transparentWindows && !window.gameObject.activeInHierarchy)
+                    {
+                        window.gameObject.SetActive(true);
+                    }
                 }
-                else if (!AmbientLights.options.transparentWindows && !window.gameObject.activeInHierarchy)
+                catch(Exception e)
                 {
-                    window.gameObject.SetActive(true);
+                    Debug.Log(e.Message);
+                    Debug.Log(Utils.SerializeObject(window));
                 }
 
-                if (window.materials.Length != 0)
+                if (window.materials != null)
                 {
-                    for (int l = 0; l < window.materials.Length; l++)
+                    if (window.materials.Length != 0)
                     {
-                        if (window.materials[l].shader.name == "Shader Forge/TLD_StandardComplexProp")
+                        for (int l = 0; l < window.materials.Length; l++)
                         {
-                            window.materials[l].color = bColor;
+                            if (window.materials[l].shader.name == "Shader Forge/TLD_StandardComplexProp")
+                            {
+                                window.materials[l].color = bColor;
+                            }
                         }
                     }
                 }
