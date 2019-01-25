@@ -81,8 +81,8 @@ namespace AmbientLights
         [Slider(0f, 2f, 1)]
         public float fillColorLevel = 1f;
 
-        [Name("See-Through windows")]
-        [Description("Removes the window panes so it adds a bit of depth to windows. Kinda glitchy.")]
+        [Name("Transparent windows (Experimental)")]
+        [Description("Removes the window panes so it adds a bit of depth to windows. Kinda glitchy and barebones.")]
         public bool transparentWindows = false;
 
         /*[Section("Aurora Powered Lights Settings")]

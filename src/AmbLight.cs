@@ -59,7 +59,6 @@ namespace AmbientLights
             {
                 if (Vector3.Distance(gLight.gameObject.transform.position, go.transform.position) < range)
                 {
-                    Debug.Log("Close light found");
                     gLight.gameObject.name = "XPZ_Light";
                     gameLights.Add(gLight);
                 }

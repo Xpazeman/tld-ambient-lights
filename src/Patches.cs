@@ -141,7 +141,7 @@ namespace AmbientLights
 
         [HarmonyPatch(typeof(LightShaftTod), "Start")]
         internal class LightShaftTod_Start
-        {
+        { 
             private static void Postfix(LightShaftTod __instance)
             {
                 if (__instance.m_Light)
@@ -156,7 +156,11 @@ namespace AmbientLights
         {
             private static void Postfix(LightShaftGimble __instance)
             {
-                GameLights.UpdateLightshafts();
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && GameLights.gameLightsReady)
+                {
+                    GameLights.UpdateLightshafts();
+                   
+                }
             }
         }
 
@@ -165,8 +169,28 @@ namespace AmbientLights
         {
             private static void Postfix(LightShaftTod __instance)
             {
-                GameLights.UpdateLightshafts();
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && GameLights.gameLightsReady)
+                    GameLights.UpdateLightshafts();
             }
         }
+
+        /****** Tests ******/
+        /*[HarmonyPatch(typeof(Weather), "IsIndoorScene")]
+        internal class Weather_IsIndoorScene
+        {
+            private static void Postfix(Weather __instance, ref bool __result)
+            {
+                __result = false;
+            }
+        }*/
+
+        /*[HarmonyPatch(typeof(ActiveEnvironment), "Refresh", new Type[] { typeof(WeatherStateConfig), typeof(WeatherStateConfig), typeof(float), typeof(TODBlendState), typeof(float), typeof(float), typeof(bool) })]
+        internal class ActiveEnvironment_Refresh
+        {
+            private static void Prefix(ActiveEnvironment __instance, ref bool isIndoors)
+            {
+                isIndoors = false;
+            }
+        }*/
     }
 }

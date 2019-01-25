@@ -72,9 +72,8 @@ namespace AmbientLights
                 GameLights.gameExtraLightsList.Clear();
                 GameLights.gameSpotLightsList.Clear();
                 GameLights.gameExtraLightsColors.Clear();
+                GameLights.gameShaftsList.Clear();
                 GameLights.gameWindows.Clear();
-
-                UnityEngine.Object.Destroy(GameLights.gameLights);
             }
         }
 
@@ -86,6 +85,8 @@ namespace AmbientLights
             }
 
             
+
+            UnityEngine.Object.Destroy(GameLights.gameLights);
         }
 
         public static void LoadConfigs()

@@ -195,6 +195,22 @@ namespace AmbientLights
             baseSun.a = 1;
             baseFog.a = 1;
 
+            float auroraFade = GameManager.GetAuroraManager().GetNormalizedAlphaSquare();
+
+            if (!Utils.IsZero(auroraFade))
+            {
+                Color auroraColour = GameManager.GetAuroraManager().GetAuroraColour();
+                if (!GameManager.GetAuroraManager().IsUsingCinematicColours())
+                {
+                    auroraColour.r *= 0.85f;
+                    auroraColour.g *= 2.5f;
+                    auroraColour.b *= 0.85f;
+                }
+
+                baseSun = auroraColour;
+                baseFog = auroraColour;
+            }
+
             float baseInt = 1f;
             float baseRng = 10f;
 
@@ -206,27 +222,29 @@ namespace AmbientLights
             ls.shadowStr = GetShadowStrength();
             ls.lightshaftStr = GetLightshaftStrength();
 
-            ColorHSV sColor = baseSun;
-            sColor.v = 0.8f;
-            ls.lightshaftColor = ApplyWeatherMod(sColor);
+            
+                ColorHSV sColor = baseSun;
+                sColor.v = 0.8f;
+                ls.lightshaftColor = ApplyWeatherMod(sColor);
 
-            Color bColor = ApplyWeatherMod(baseFog);
+                Color bColor = ApplyWeatherMod(baseFog);
 
-            ColorHSV dColor = bColor;
-            dColor.s *= 0.5f;
-            dColor.v = 0.3f;
+                ColorHSV dColor = bColor;
+                dColor.s *= 0.5f;
+                dColor.v = 0.3f;
 
-            ColorHSV nColor = dColor;
-            nColor.v = 0.01f;
+                ColorHSV nColor = dColor;
+                nColor.v = 0.01f;
 
-            ls.ambientDayColor = dColor;
-            ls.ambientNightColor = nColor;
+                ls.ambientDayColor = dColor;
+                ls.ambientNightColor = nColor;
 
-            ColorHSV wColor = bColor;
-            wColor.s *= Mathf.Min(ApplyWeatherSaturationMod() - 0.2f, 0.5f);
-            wColor.v *= ls.intMod + 1f;
+                ColorHSV wColor = bColor;
+                wColor.s *= Mathf.Min(ApplyWeatherSaturationMod() - 0.2f, 0.5f);
+                wColor.v *= ls.intMod + 1f;
 
-            ls.windowColor = wColor;
+                ls.windowColor = wColor;
+            
 
             if (AmbientLights.options.alPreset == ALPresets.Mushrooms)
             {

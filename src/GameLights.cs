@@ -21,6 +21,8 @@ namespace AmbientLights
 
         public static bool hideWindows = false;
 
+        public static bool gameLightsReady = false;
+
         /****** SETUP ******/
 
         internal static void AddGameLights(InteriorLightingManager mngr)
@@ -30,6 +32,12 @@ namespace AmbientLights
             gameLights = new GameObject();
 
             List<InteriorLightingGroup> lightGroups = Traverse.Create(mngr).Field("m_LightGroupList").GetValue<List<InteriorLightingGroup>>();
+
+            int pCount = 0;
+            int sCount = 0;
+            int wCount = 0;
+            int eCount = 0;
+            int lCount = 0;
 
             //Windows & Window Lights
             foreach (InteriorLightingGroup group in lightGroups)
@@ -47,13 +55,15 @@ namespace AmbientLights
                         (lightMark.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
 
                         gameLightsList.Add(light);
+
+                        pCount++;
                     }
                     else if (light.type == LightType.Spot)
                     {
                         lightMark = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         lightMark.transform.rotation = light.gameObject.transform.rotation;
 
-                        
+                        sCount++;
 
                         if (AmbientLights.options.castShadows)
                         {
@@ -89,24 +99,29 @@ namespace AmbientLights
                 {
                     window.gameObject.name = "XPZ_Window";
                     gameWindows.Add(window);
+                    wCount++;
                 }
             }
 
             //Main Ambient Light
             gameAmbientLight = Traverse.Create(mngr).Field("m_AmbientLight").GetValue<TodAmbientLight>();
-            gameAmbientLight.name = "XPZ_Light";
+            if (gameAmbientLight != null)
+            {
+                gameAmbientLight.name = "XPZ_Light";
+                Debug.Log("[ambient-lights] Ambient light found.");
+            }
 
             //Loose Lights
             //No Manager
             Light[] sclights = UnityEngine.Object.FindObjectsOfType(typeof(Light)) as Light[];
             foreach (Light light in sclights)
             {
-                Debug.Log(light.gameObject.name);
-
                 if (light.gameObject.name != "XPZ_Light" && light.type == LightType.Point)
                 {
                     gameExtraLightsList.Add(light);
                     gameExtraLightsColors.Add(light.color);
+
+                    eCount++;
                 }
             }
 
@@ -118,11 +133,18 @@ namespace AmbientLights
             List<Color> extraLightsColor = new List<Color>();
 
             if (looseLights != null)
+            {
                 looseLights.ForEach(l => extraLights.Add(l));
+                lCount += looseLights.Count;
+            }
+
 
             if (looseLightsMidday != null)
+            {
                 looseLightsMidday.ForEach(l => extraLights.Add(l));
-
+                lCount += looseLightsMidday.Count;
+            }
+            
             foreach (Light light in extraLights)
             {
                 extraLightsColor.Add(light.color);
@@ -155,6 +177,9 @@ namespace AmbientLights
                 gameLights.SetActive(false);
             }
 
+            Debug.Log("[ambient-lights] Gamelights setup done. Window Lights:" + pCount + ". Spotlights:" + sCount +  ". Loose Lights:" + lCount + ". Windows:" + wCount + ". Extra Lights:" + eCount);
+            gameLightsReady = true;
+
             AmbientLights.SetupGameLights();
         }
 
@@ -162,6 +187,8 @@ namespace AmbientLights
         {
             List<GameObject> rObjs = ALUtils.GetRootObjects();
             List<GameObject> result = new List<GameObject>();
+
+            int wCount = 0;
 
             foreach (GameObject rootObj in rObjs)
             {
@@ -175,16 +202,19 @@ namespace AmbientLights
                         {
                             MeshRenderer renderer = child.GetComponent<MeshRenderer>();
                             gameWindows.Add(renderer);
+                            wCount++;
                         }
                     }
                 }
             }
+
+            Debug.Log("[ambient-lights] Windows found outside lighting groups:" + wCount + ".");
         }
 
         /****** LIGHTS UPDATE ******/
         internal static void UpdateLights()
         {
-            if (AmbientLights.lightOverride)
+            if (AmbientLights.lightOverride || !gameLightsReady)
                 return;
 
             UpdateFillLights();
@@ -296,10 +326,16 @@ namespace AmbientLights
 
             foreach(Renderer[] shaft in gameShaftsList)
             {
-                foreach(Renderer mat in shaft)
+                if (shaft != null)
                 {
-                    float gain = mat.material.GetFloat("_Gain");
-                    mat.material.SetFloat("_Gain", gain * AmbientLights.currentLightSet.lightshaftStr);
+                    foreach (Renderer mat in shaft)
+                    {
+                        if (mat.material != null)
+                        {
+                            float gain = mat.material.GetFloat("_Gain");
+                            mat.material.SetFloat("_Gain", gain * AmbientLights.currentLightSet.lightshaftStr);
+                        }
+                    }
                 }
             }
         }
