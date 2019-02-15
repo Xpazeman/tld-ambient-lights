@@ -51,6 +51,7 @@ namespace AmbientLights
 
         public static void Reset(bool firstPass = true)
         {
+            Debug.Log("[ambient-lights] Scene reset.");
             lightList.Clear();
                         
             TimeWeather.Reset();
@@ -68,12 +69,12 @@ namespace AmbientLights
                 timeInit = false;
                 weatherInit = false;
 
-                GameLights.gameLightsList.Clear();
+                /*GameLights.gameLightsList.Clear();
                 GameLights.gameExtraLightsList.Clear();
                 GameLights.gameSpotLightsList.Clear();
                 GameLights.gameExtraLightsColors.Clear();
                 GameLights.gameShaftsList.Clear();
-                GameLights.gameWindows.Clear();
+                GameLights.gameWindows.Clear();*/
             }
         }
 
@@ -84,7 +85,12 @@ namespace AmbientLights
                 UnityEngine.Object.Destroy(light.go);
             }
 
-            
+            GameLights.gameLightsList.Clear();
+            GameLights.gameExtraLightsList.Clear();
+            GameLights.gameSpotLightsList.Clear();
+            GameLights.gameExtraLightsColors.Clear();
+            GameLights.gameShaftsList.Clear();
+            GameLights.gameWindows.Clear();
 
             UnityEngine.Object.Destroy(GameLights.gameLights);
         }

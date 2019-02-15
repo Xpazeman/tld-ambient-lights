@@ -30,8 +30,6 @@ namespace AmbientLights
             private static void Postfix(MissionServicesManager __instance)
             {
                 AmbientLights.LoadConfigs();
-
-                GameLights.GetWindows();
             }
         }
 
@@ -99,14 +97,14 @@ namespace AmbientLights
         {
             private static void Prefix(InteriorLightingManager __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null)
+                if (!GameManager.m_IsPaused && AmbientLights.config.ready)
                     GameLights.ResetLooseLights();
 
             }
 
             private static void Postfix(InteriorLightingManager __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null)
+                if (!GameManager.m_IsPaused && AmbientLights.config.ready)
                     AmbientLights.UpdateGameLights();
                 
             }
@@ -117,7 +115,7 @@ namespace AmbientLights
         {
             private static bool Prefix(TodAmbientLight __instance, ref float multiplier)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null)
+                if (!GameManager.m_IsPaused && AmbientLights.config.ready)
                     GameLights.UpdateAmbience(__instance, ref multiplier);
 
                 return true;
@@ -156,7 +154,7 @@ namespace AmbientLights
         {
             private static void Postfix(LightShaftGimble __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null && GameLights.gameLightsReady)
+                if (!GameManager.m_IsPaused && AmbientLights.config.ready && GameLights.gameLightsReady)
                 {
                     GameLights.UpdateLightshafts();
                    
@@ -169,7 +167,7 @@ namespace AmbientLights
         {
             private static void Postfix(LightShaftTod __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null && GameLights.gameLightsReady)
+                if (!GameManager.m_IsPaused && AmbientLights.config.ready && GameLights.gameLightsReady)
                     GameLights.UpdateLightshafts();
             }
         }

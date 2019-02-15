@@ -105,7 +105,7 @@ namespace AmbientLights
             {
                 TimeWeather.GetCurrentPeriodAndWeather();
 
-                HUDMessage.AddMessage(TimeWeather.GetCurrentTimeString() + " - " + TimeWeather.currentWeather + " (" + (Math.Round(TimeWeather.currentWeatherPct, 2) * 100) + " %)" + TimeWeather.currentPeriod + "(" + (Math.Round(TimeWeather.currentPeriodPct, 2) * 100) + "%)");
+                HUDMessage.AddMessage(AmbientLights.currentScene + " " + TimeWeather.GetCurrentTimeString() + " - " + TimeWeather.currentWeather + " (" + (Math.Round(TimeWeather.currentWeatherPct, 2) * 100) + " %)" + TimeWeather.currentPeriod + "(" + (Math.Round(TimeWeather.currentPeriodPct, 2) * 100) + "%)");
 
                 ALUtils.debugNext = true;
             }
@@ -116,10 +116,14 @@ namespace AmbientLights
             if (GameLights.gameLights.activeInHierarchy)
             {
                 GameLights.gameLights.SetActive(false);
+
+                HUDMessage.AddMessage("Show Game Lights Debug.");
             }
             else
             {
                 GameLights.gameLights.SetActive(true);
+
+                HUDMessage.AddMessage("Hide Game Lights Debug.");
             }
         }
 

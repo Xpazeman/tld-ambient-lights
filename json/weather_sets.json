@@ -28,7 +28,8 @@
 	},
 	"lightfog":{
 		"sMod":1.1,
-		"vMod":0.9,
+		"vMod":1.0,
+		"rMod":1.0,
 		"gMod":1.1,
 		"bMod":1.05,
 		"intMod":0.8,
@@ -37,9 +38,9 @@
 	"densefog":{
 		"sMod":1,
 		"vMod":0.75,
-		"rMod":0.9,
+		"rMod":0.95,
 		"gMod":1.1,
-		"bMod":0.9,
+		"bMod":0.8,
 		"intMod":0.7,
 		"rngMod":0.7
 	},

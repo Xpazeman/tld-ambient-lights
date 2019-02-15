@@ -33,6 +33,7 @@ namespace AmbientLights
             gameExtraLightsList.Clear();
             gameSpotLightsList.Clear();
             gameExtraLightsColors.Clear();
+            gameWindows.Clear();
 
             gameLights = new GameObject();
 
@@ -177,25 +178,25 @@ namespace AmbientLights
                 }
             }
 
+            int weCount = GetWindows();
+
             if (!AmbientLights.showGameLights)
             {
                 gameLights.SetActive(false);
             }
 
-            Debug.Log("[ambient-lights] Gamelights setup done. Window Lights:" + pCount + ". Spotlights:" + sCount +  ". Loose Lights:" + lCount + ". Windows:" + wCount + ". Extra Lights:" + eCount);
+            Debug.Log("[ambient-lights] Gamelights setup done. Window Lights:" + pCount + ". Spotlights:" + sCount +  ". Loose Lights:" + lCount + ". Windows:" + wCount + ". Windows outside lighting groups:" + weCount + ". Extra Lights:" + eCount);
             gameLightsReady = true;
 
             AmbientLights.SetupGameLights();
         }
 
-        internal static void GetWindows()
+        internal static int GetWindows()
         {
             List<GameObject> rObjs = ALUtils.GetRootObjects();
             List<GameObject> result = new List<GameObject>();
 
             int wCount = 0;
-
-            gameWindows.Clear();
 
             foreach (GameObject rootObj in rObjs)
             {
@@ -218,7 +219,8 @@ namespace AmbientLights
                 }
             }
 
-            Debug.Log("[ambient-lights] Windows found outside lighting groups:" + wCount + ".");
+            //Debug.Log("[ambient-lights] Windows found outside lighting groups:" + wCount + ".");
+            return wCount;
         }
 
         /****** LIGHTS UPDATE ******/
@@ -280,6 +282,8 @@ namespace AmbientLights
 
             foreach (MeshRenderer window in gameWindows)
             {
+                //Debug.Log(DumpData.DumpUtils.FormatGameObject(window.gameObject.name, window.gameObject));
+
                 try
                 {
                     if (AmbientLights.options.transparentWindows && window.gameObject.activeInHierarchy)
@@ -306,6 +310,9 @@ namespace AmbientLights
                             if (window.materials[l].shader.name == "Shader Forge/TLD_StandardComplexProp")
                             {
                                 window.materials[l].color = bColor;
+                                //window.materials[l].color = Color.red;
+                                float curStr = window.materials[l].GetFloat("_EmissiveStrength");
+                                window.materials[l].SetFloat("_EmissiveStrength", curStr * AmbientLights.currentLightSet.windowStrMod);
                             }
                         }
                     }

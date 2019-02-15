@@ -52,6 +52,7 @@ namespace AmbientLights
     {
         public float shadowStr;
         public float lightshaftStr;
+        public float windowStrMod;
         public float intMod;
         public float rngMod;
 
@@ -110,6 +111,11 @@ namespace AmbientLights
 
         private void LoadSceneConfig()
         {
+            if (scene.ToLower().Contains("cave"))
+            {
+                scene = "cave";
+            }
+
             string sceneFile = "scene_" + scene + ".json";
 
             if (File.Exists(Path.Combine(AmbientLights.modDataFolder, sceneFile)))
@@ -222,28 +228,32 @@ namespace AmbientLights
             ls.shadowStr = GetShadowStrength();
             ls.lightshaftStr = GetLightshaftStrength();
 
+            //Lightshaft
+            ColorHSV sColor = baseSun;
+            sColor.v = 0.8f;
+            ls.lightshaftColor = ApplyWeatherMod(sColor);
+
+            //Ambience
+            Color bColor = ApplyWeatherMod(baseFog);
+
+            ColorHSV dColor = bColor;
+            dColor.s *= 0.5f;
+            dColor.v = 0.3f;
+
+            ColorHSV nColor = dColor;
+            nColor.v = 0.01f;
+
+            ls.ambientDayColor = dColor;
+            ls.ambientNightColor = nColor;
+
+            //Windows
+            ColorHSV wColor = bColor;
+            wColor.s *= Mathf.Min(ApplyWeatherSaturationMod() - 0.2f, 0.4f);
+            wColor.v *= ls.intMod + 0.5f;
             
-                ColorHSV sColor = baseSun;
-                sColor.v = 0.8f;
-                ls.lightshaftColor = ApplyWeatherMod(sColor);
+            ls.windowColor = wColor;
 
-                Color bColor = ApplyWeatherMod(baseFog);
-
-                ColorHSV dColor = bColor;
-                dColor.s *= 0.5f;
-                dColor.v = 0.3f;
-
-                ColorHSV nColor = dColor;
-                nColor.v = 0.01f;
-
-                ls.ambientDayColor = dColor;
-                ls.ambientNightColor = nColor;
-
-                ColorHSV wColor = bColor;
-                wColor.s *= Mathf.Min(ApplyWeatherSaturationMod() - 0.2f, 0.5f);
-                wColor.v *= ls.intMod + 1f;
-
-                ls.windowColor = wColor;
+            ls.windowStrMod = ls.intMod;
             
 
             if (AmbientLights.options.alPreset == ALPresets.Mushrooms)
