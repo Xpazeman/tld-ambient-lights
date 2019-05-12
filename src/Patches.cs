@@ -17,7 +17,14 @@ namespace AmbientLights
             {
                 if (!InterfaceManager.IsMainMenuActive())
                 {
-                    AmbientLights.Reset();
+                    GameLights.gameLightsList.Clear();
+                    GameLights.gameExtraLightsList.Clear();
+                    GameLights.gameSpotLightsList.Clear();
+                    GameLights.gameExtraLightsColors.Clear();
+                    GameLights.gameShaftsList.Clear();
+                    GameLights.gameWindows.Clear();
+
+                    AmbientLights.Reset(true);
                 }
             }
         }
@@ -97,14 +104,14 @@ namespace AmbientLights
         {
             private static void Prefix(InteriorLightingManager __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config.ready)
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready)
                     GameLights.ResetLooseLights();
 
             }
 
             private static void Postfix(InteriorLightingManager __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config.ready)
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready)
                     AmbientLights.UpdateGameLights();
                 
             }
@@ -115,7 +122,7 @@ namespace AmbientLights
         {
             private static bool Prefix(TodAmbientLight __instance, ref float multiplier)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config.ready)
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready)
                     GameLights.UpdateAmbience(__instance, ref multiplier);
 
                 return true;
@@ -154,7 +161,7 @@ namespace AmbientLights
         {
             private static void Postfix(LightShaftGimble __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config.ready && GameLights.gameLightsReady)
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
                 {
                     GameLights.UpdateLightshafts();
                    
@@ -167,28 +174,9 @@ namespace AmbientLights
         {
             private static void Postfix(LightShaftTod __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config.ready && GameLights.gameLightsReady)
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
                     GameLights.UpdateLightshafts();
             }
         }
-
-        /****** Tests ******/
-        /*[HarmonyPatch(typeof(Weather), "IsIndoorScene")]
-        internal class Weather_IsIndoorScene
-        {
-            private static void Postfix(Weather __instance, ref bool __result)
-            {
-                __result = false;
-            }
-        }*/
-
-        /*[HarmonyPatch(typeof(ActiveEnvironment), "Refresh", new Type[] { typeof(WeatherStateConfig), typeof(WeatherStateConfig), typeof(float), typeof(TODBlendState), typeof(float), typeof(float), typeof(bool) })]
-        internal class ActiveEnvironment_Refresh
-        {
-            private static void Prefix(ActiveEnvironment __instance, ref bool isIndoors)
-            {
-                isIndoors = false;
-            }
-        }*/
     }
 }

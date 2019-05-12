@@ -46,8 +46,6 @@ namespace AmbientLights
             }
             
             light.enabled = false;
-
-            //Debug.Log(Utils.SerializeObject(ALUtils.gameLights));
         }
 
         internal void AssignGameLights()
@@ -78,9 +76,12 @@ namespace AmbientLights
                     }
                     else
                     {
-                        ColorHSV lColor = (Color)currentSet.color;
-                        lColor.s *= Mathf.Min(AmbientLights.config.ApplyWeatherSaturationMod() - 0.2f, 0.7f);
-                        gLight.color = lColor;
+                        if (currentSet != null)
+                        {
+                            ColorHSV lColor = (Color)currentSet.color;
+                            lColor.s *= Mathf.Min(AmbientLights.config.ApplyWeatherSaturationMod() - 0.2f, 0.7f);
+                            gLight.color = lColor;
+                        }
                     }
                 }
             }

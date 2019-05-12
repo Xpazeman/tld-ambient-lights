@@ -76,6 +76,7 @@ namespace AmbientLights
         public string override_shadows = "";
         public float intensity_multiplier = 1f;
         public float range_multiplier = 1f;
+        public float ambient_intensity_multiplier = 1f;
         public float aurora_range_multiplier = 1f;
         public float aurora_intensity_multiplier = 1f;
     }
@@ -160,8 +161,6 @@ namespace AmbientLights
                     data.weathers = weathersConfig;
 
                 ready = true;
-
-                //Debug.Log(Utils.SerializeObject(data));
             }
         }
 
@@ -256,7 +255,7 @@ namespace AmbientLights
             ls.windowStrMod = ls.intMod;
             
 
-            if (AmbientLights.options.alPreset == ALPresets.Mushrooms)
+            /*if (AmbientLights.options.alPreset == ALPresets.Mushrooms)
             {
                 mushColor.h += 0.3f;
 
@@ -266,7 +265,7 @@ namespace AmbientLights
                 ls.ambientDayColor = mushColor;
                 ls.ambientNightColor = mushColor;
                 ls.windowColor = mushColor;
-            }
+            }*/
 
             //Setup Orientations
             foreach (string dir in cardinal)

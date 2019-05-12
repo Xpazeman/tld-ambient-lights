@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using DumpData;
 using Harmony;
 using System;
 using System.Collections.Generic;
@@ -18,6 +17,9 @@ namespace AmbientLights
         public static List<MeshRenderer> gameWindows = new List<MeshRenderer>();
 
         public static TodAmbientLight gameAmbientLight = null;
+        public static float lastAmbientMultiplier = 1f;
+        public static Color defaultColorDay;
+        public static Color defaultColorNight;
 
         public static bool hideWindows = false;
 
@@ -219,7 +221,6 @@ namespace AmbientLights
                 }
             }
 
-            //Debug.Log("[ambient-lights] Windows found outside lighting groups:" + wCount + ".");
             return wCount;
         }
 
@@ -260,7 +261,6 @@ namespace AmbientLights
 
                         lColor.s *= AmbientLights.options.fillColorLevel;
 
-                        //Debug.Log("From:" + (ColorHSV)gameExtraLightsColors[eIndex] + " To:" + lColor);
                         eLight.color = lColor;
 
                         eLight.intensity *= AmbientLights.options.fillLevel;
@@ -282,8 +282,6 @@ namespace AmbientLights
 
             foreach (MeshRenderer window in gameWindows)
             {
-                //Debug.Log(DumpData.DumpUtils.FormatGameObject(window.gameObject.name, window.gameObject));
-
                 try
                 {
                     if (AmbientLights.options.transparentWindows && window.gameObject.activeInHierarchy)
@@ -370,10 +368,25 @@ namespace AmbientLights
 
         internal static void UpdateAmbience(TodAmbientLight TodLightInstance, ref float multiplier)
         {
-            if (AmbientLights.lightOverride)
-                return;
+            if (AmbientLights.lightOverride || AmbientLights.options.alPreset == ALPresets.TLD_Default)
+            {
+                TodLightInstance.m_AmbientIndoorsDay = defaultColorDay;
+                TodLightInstance.m_AmbientIndoorsNight = defaultColorNight;
 
-            multiplier *= AmbientLights.options.ambienceLevel * AmbientLights.currentLightSet.intMod;
+                return;
+            }
+
+            if (defaultColorDay == null)
+            {
+                defaultColorDay = TodLightInstance.m_AmbientIndoorsDay;
+            }
+
+            if (defaultColorNight == null)
+            {
+                defaultColorNight = TodLightInstance.m_AmbientIndoorsNight;
+            }
+
+            multiplier *= AmbientLights.options.ambienceLevel * AmbientLights.currentLightSet.intMod * AmbientLights.config.data.options.ambient_intensity_multiplier * AmbientLights.globalAmbienceLevel;
 
             TodLightInstance.m_AmbientIndoorsDay = AmbientLights.currentLightSet.ambientDayColor;
             TodLightInstance.m_AmbientIndoorsNight = AmbientLights.currentLightSet.ambientNightColor;

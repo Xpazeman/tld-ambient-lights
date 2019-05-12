@@ -66,7 +66,7 @@ namespace AmbientLights
 
         internal static void HandleHotkeys()
         {
-            if (Input.GetKeyUp(KeyCode.L) && !Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.LeftShift) && AmbientLights.options.enableDebugKey)
             {
                 if (AmbientLights.lightOverride)
                 {
@@ -83,7 +83,7 @@ namespace AmbientLights
                     HUDMessage.AddMessage("Ambient Lights: Off");
                 }
             }
-            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.RightShift) && AmbientLights.options.enableDebugKey && AmbientLights.debugVer)
             {
                 AmbientLights.Unload();
                 AmbientLights.Reset(false);
@@ -92,11 +92,11 @@ namespace AmbientLights
 
             }
 
-            if (Input.GetKeyUp(KeyCode.K) && !Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            if (Input.GetKeyUp(KeyCode.K) && !Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey && AmbientLights.debugVer)
             {
                 ShowGameLights();
             }
-            else if (Input.GetKeyUp(KeyCode.K) && Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey)
+            else if (Input.GetKeyUp(KeyCode.K) && Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey && AmbientLights.debugVer)
             {
                 DisableGameLights();
             }
@@ -170,11 +170,11 @@ namespace AmbientLights
                     break;
 
                 case 2:
-                    nightMod = 1.3f;
+                    nightMod = 1.5f;
                     break;
 
                 case 3:
-                    nightMod = 1.7f;
+                    nightMod = 1.8f;
                     break;
             }
 

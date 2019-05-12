@@ -1,9 +1,7 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
-using System;
 using UnityEngine;
-using Harmony;
 
 namespace AmbientLights
 {
@@ -20,6 +18,7 @@ namespace AmbientLights
         public static LightConfig config = null;
         public static float globalIntMultiplier = 0.9f;
         public static float globalRngMultiplier = 1f;
+        public static float globalAmbienceLevel = 0.5f;
 
         public static List<AmbLight> lightList = new List<AmbLight>();
 
@@ -30,6 +29,7 @@ namespace AmbientLights
         public static bool lightOverride = false;
 
         public static bool verbose = true;
+        public static bool debugVer = false;
         public static bool showGameLights = false;
         public static bool enableGameLights = true;
 
@@ -43,7 +43,7 @@ namespace AmbientLights
             modDataFolder = Path.Combine(modsFolder, "ambient-lights");
 
             AmbLitSettings ambLitSettings = new AmbLitSettings();
-            ambLitSettings.AddToModSettings("Ambient Lighting Settings");
+            ambLitSettings.AddToModSettings("Ambient Lights Settings");
             options = ambLitSettings.setOptions;
 
             ALUtils.RegisterCommands();
@@ -68,13 +68,6 @@ namespace AmbientLights
             {
                 timeInit = false;
                 weatherInit = false;
-
-                /*GameLights.gameLightsList.Clear();
-                GameLights.gameExtraLightsList.Clear();
-                GameLights.gameSpotLightsList.Clear();
-                GameLights.gameExtraLightsColors.Clear();
-                GameLights.gameShaftsList.Clear();
-                GameLights.gameWindows.Clear();*/
             }
         }
 
@@ -130,7 +123,7 @@ namespace AmbientLights
             }
             else
             {
-                Debug.Log("[ambient-lights] ERROR: Config isn't ready.");
+                Debug.Log("[ambient-lights] ERROR: Config isn't ready or not present.");
             }
         }
 
