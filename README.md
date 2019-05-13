@@ -12,6 +12,9 @@ Also, in particular to this mod, you'll need **ModSettings 1.5** installed in or
 * Installed manually from https://github.com/zeobviouslyfakeacc/ModSettings/releases/tag/v1.5
 
 ## Updates
+### v1.0.2
+* Fixed issue that was throwing errors on some locations.
+
 ### v1.0.1
 * Fixed issue with some lightshafts not reacting properly to cloudy weathers (they stayed lit like in the base game).
 
