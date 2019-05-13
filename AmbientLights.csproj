@@ -72,6 +72,7 @@
   <ItemGroup>
     <None Include="json\global_sets.json" />
     <None Include="json\global_sets_v1.json" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\weather_sets.json" />
