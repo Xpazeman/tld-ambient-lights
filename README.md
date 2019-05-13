@@ -12,6 +12,9 @@ Also, in particular to this mod, you'll need **ModSettings 1.5** installed in or
 * Installed manually from https://github.com/zeobviouslyfakeacc/ModSettings/releases/tag/v1.5
 
 ## Updates
+### v1.0.1
+* Fixed issue with some lightshafts not reacting properly to cloudy weathers (they stayed lit like in the base game).
+
 ### v1.0.0
 Major overhaul:
 * Changed time system to be based on game states instead of clock, makes the mod compatible with any other mod that changes day duration like Solstice.
@@ -45,7 +48,7 @@ Major overhaul:
 * Window orientations. For example, with clear weather during dawn, the east side of a place will be brighter and will have a warmer color than the west side.
 * Window panels, ambient light, fill lights and lightshafts are controlled by the Ambient Lights Manager, so all light sources in the scene are affected by weather and sun position.
 * Experimental feature: making window lights cast shadows. It's still basic, and might make the game take a good performance hit, but with a 970 gtx, I get around 60 FPS with everyhting maxed out and this toggled on.
-* Light shafts disappear on every weather type except for clear and partly cloudy, to reflect the outside environment better. Not all scenes have this implemented.
+* Light shafts now fade out on every weather type except for clear and partly cloudy instead of shining all the time, to reflect the outside environment better.
 * Optional debugging keys to check if everything's working and to make easier the process of changing the lighting settings (disabled by default).
 
 ## Installation with Mod Installer

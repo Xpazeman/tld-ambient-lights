@@ -130,6 +130,13 @@ namespace AmbientLights
                     gameExtraLightsColors.Add(light.color);
 
                     eCount++;
+                }else if (light.gameObject.name != "XPZ_Light" && light.type == LightType.Spot)
+                {
+                    if (light.cookie.ToString().Contains("Window"))
+                    {
+                        light.gameObject.name = "XPZ_Light";
+                        gameSpotLightsList.Add(light);
+                    }
                 }
             }
 
