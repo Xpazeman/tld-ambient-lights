@@ -31,5 +31,11 @@
 	],
 	"periods":{
 		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 0.8,
+		"range_multiplier": 0.7,
+		"ambient_intensity_multiplier": 1,
 	}
 }

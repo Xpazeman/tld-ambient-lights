@@ -3,44 +3,52 @@
 		{
 			"description":"South wall bottom floor",
 			"position":"-5.7, 1.8, 1.7",
-			"orientation":"south"
+			"orientation":"south",
+			"priority": 3
 		},
 		{
 			"description":"Stove Top Floor",
 			"position":"-5.7, 5.7, 0.4",
-			"orientation":"south"
+			"orientation":"south",
+			"priority": 1
 		},
 		{
 			"description":"Near stove with curtains",
 			"position":"3.9, 1.8, -3.1",
 			"orientation":"east",
-			"cover":0.5
+			"cover":0.5,
+			"priority": 1
 		},
 		{
 			"description":"Over workbench",
 			"position":"-0.3, 1.8, -4.8",
-			"orientation":"east",
-			"size":0.7
+			"orientation":"north",
+			"size":0.7,
+			"priority": 3
 		},
 		{
 			"description":"Under stairs bottom floor",
 			"position":"6.9, 1.8, -2.0",
-			"orientation":"north"
+			"orientation":"north",
+			"priority": 5
 		},
 		{
 			"description":"Stairs top floor",
 			"position":"6.9, 5.7, 0.4",
-			"orientation":"north"
+			"orientation":"north",
+			"priority": 1
 		},
 		{
 			"description":"Door wall near stairs",
 			"position":"1.2, 1.8, 4",
-			"orientation":"west"
+			"orientation":"west",
+			"priority": 1
 		},
 		{
 			"description":"Door wall near hanger",
 			"position":"-4.1, 1.8, 4",
-			"orientation":"west"
+			"orientation":"west",
+			"priority": 5
 		}
 	],
 	"periods":{

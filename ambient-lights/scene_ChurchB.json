@@ -84,52 +84,13 @@
 		{
 			"description": "Pointlight (55)",
 			"position": "9.0, 7.5, -1.2",
-			"orientation":"rosetonR",
-			"size": 0.6,
-			"cover": 0
-		},
-		{
-			"description": "Pointlight (55)",
-			"position": "9.0, 9, 0.0",
-			"orientation":"rosetonG",
-			"size": 0.6,
-			"cover": 0
-		},
-		{
-			"description": "Pointlight (55)",
-			"position": "9.0, 7.0, 1.2",
-			"orientation":"rosetonB",
+			"orientation":"south",
 			"size": 0.6,
 			"cover": 0
 		}
 	],
 	"periods":{
-		"default":{
-			"weathers":{
-				"default":{
-					"orientations":{
-						"rosetonR":{
-							"color": "255,160,160",
-							"intensity": 1,
-							"range": 8.0,
-							"shadows": "none"
-						},
-						"rosetonG":{
-							"color": "160,255,160",
-							"intensity": 1,
-							"range": 7.0,
-							"shadows": "none"
-						},
-						"rosetonB":{
-							"color": "160,160,255",
-							"intensity": 1,
-							"range": 10.0,
-							"shadows": "none"
-						}
-					}
-				}
-			}
-		}
+		
 	},
 	"options":{
 		"override_shadows":"",
