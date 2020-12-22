@@ -30,16 +30,30 @@
 		},
 		{
 			"description":"Offices NW",
-			"position":"-10.2, 4.7, -10.4",
+			"position":"-8.5, 4.7, -10.4",
 			"orientation":"west",
-			"size": 4,
+			"size": 2.2,
+			"cover": 0
+		},
+		{
+			"description":"Offices NW",
+			"position":"-11.8, 4.7, -10.4",
+			"orientation":"west",
+			"size": 2,
 			"cover": 0
 		},
 		{
 			"description":"Offices SW",
-			"position":"-0.1, 4.7, -10.4",
+			"position":"-1.8, 4.7, -10.4",
 			"orientation":"west",
-			"size": 4,
+			"size": 2,
+			"cover": 0
+		},
+		{
+			"description":"Offices SW",
+			"position":"1.5, 4.7, -10.4",
+			"orientation":"west",
+			"size": 2,
 			"cover": 0
 		}
 	],

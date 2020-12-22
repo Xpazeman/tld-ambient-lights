@@ -3,51 +3,51 @@
 		{
 			"description":"South wall bottom floor",
 			"position":"-5.7, 1.8, 1.7",
-			"orientation":"south",
+			"orientation":"west",
 			"priority": 3
 		},
 		{
 			"description":"Stove Top Floor",
 			"position":"-5.7, 5.7, 0.4",
-			"orientation":"south",
+			"orientation":"west",
 			"priority": 1
 		},
 		{
 			"description":"Near stove with curtains",
 			"position":"3.9, 1.8, -3.1",
-			"orientation":"east",
+			"orientation":"south",
 			"cover":0.5,
 			"priority": 1
 		},
 		{
 			"description":"Over workbench",
 			"position":"-0.3, 1.8, -4.8",
-			"orientation":"north",
+			"orientation":"east",
 			"size":0.7,
 			"priority": 3
 		},
 		{
 			"description":"Under stairs bottom floor",
 			"position":"6.9, 1.8, -2.0",
-			"orientation":"north",
+			"orientation":"east",
 			"priority": 5
 		},
 		{
 			"description":"Stairs top floor",
 			"position":"6.9, 5.7, 0.4",
-			"orientation":"north",
+			"orientation":"east",
 			"priority": 1
 		},
 		{
 			"description":"Door wall near stairs",
-			"position":"1.2, 1.8, 4",
-			"orientation":"west",
+			"position":"1.2, 1.8, 4.0",
+			"orientation":"north",
 			"priority": 1
 		},
 		{
 			"description":"Door wall near hanger",
-			"position":"-4.1, 1.8, 4",
-			"orientation":"west",
+			"position":"-4.1, 1.8, 4.0",
+			"orientation":"north",
 			"priority": 5
 		}
 	],
@@ -57,8 +57,8 @@
 	"options":{
 		"override_shadows":"",
 		"intensity_multiplier": 1,
-		"range_multiplier": 1.2,
+		"range_multiplier": 1.1,
 		"aurora_intensity_multiplier": 0.8,
-		"aurora_range_multiplier": 3.5
+		"aurora_range_multiplier": 3.5,
 	}
 }

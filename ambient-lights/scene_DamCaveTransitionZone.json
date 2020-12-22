@@ -1,0 +1,71 @@
+{
+	"emitters": [
+		{
+			"position":"-74.0, 4.0, -55.3",
+			"orientation":"south",
+			"size": 5,
+			"cover": 0
+		},{
+			"position":"-86.2, 22.5, 138.6",
+			"orientation":"west",
+			"size": 5,
+			"cover": 0
+		},{
+			"position":"-87.0, -0.2, 21.5",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},{
+			"position":"-93.0, 2.2, 21.5",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"position":"-70.4, 4.3, 25.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"position":"-70.0, 0.4, 35.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		},
+		{
+			"position":"-51.0, 6.4, 53.7",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0
+		},{
+			"position":"-61.0, 25.8, 95.4",
+			"orientation":"north",
+			"size": 2.5,
+			"cover": 0
+		},{
+			"position":"-62.6, 25.8, 85.8",
+			"orientation":"north",
+			"size": 2.5,
+			"cover": 0
+		},{
+			"position":"-69.5, 7.0, 71.3",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0
+		},{
+			"position":"-39.7, 18.4, 120.6",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1.5,
+		"range_multiplier": 1.1,
+	}
+}

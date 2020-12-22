@@ -1,0 +1,26 @@
+{
+	"emitters": [
+		{
+			 "description": "Exit",
+			 "position": "-26.3, -21.5, -124.2",
+			 "orientation":"east",
+			 "size": 10,
+			 "cover": 0,
+		},{
+			 "description": "Exit",
+			 "position": "-8.6, 43.4, 62.4",
+			 "orientation":"west",
+			 "size": 6,
+			 "cover": 0,
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1.5,
+		"ambient_intensity_multiplier": 0.6
+	}
+}

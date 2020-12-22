@@ -1,1 +1,1 @@
-{"alPreset":"Default","intensityMultiplier":1.1,"rangeMultiplier":1,"nightBrightness":1,"castShadows":true,"disableAmbience":false,"ambienceLevel":0.8,"disableFill":false,"fillLevel":0.7,"fillColorLevel":0.5,"transparentWindows":false,"enableDebugKey":true}
+{"alPreset":"Custom","intensityMultiplier":1.1,"rangeMultiplier":1,"nightBrightness":1,"castShadows":false,"disableAmbience":false,"ambienceLevel":0.8,"disableFill":false,"fillLevel":0.7,"fillColorLevel":0.5,"transparentWindows":false,"enableDebugKey":true}

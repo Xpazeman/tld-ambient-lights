@@ -83,7 +83,7 @@
 
 		{
 			"description": "Pointlight (55)",
-			"position": "9.0, 7.5, -1.2",
+			"position": "9.0, 7.5, 0.0",
 			"orientation":"south",
 			"size": 0.6,
 			"cover": 0
@@ -94,7 +94,7 @@
 	},
 	"options":{
 		"override_shadows":"",
-		"intensity_multiplier": 0.85,
-		"range_multiplier": 0.8
+		"intensity_multiplier": 1.0,
+		"range_multiplier": 1.0
 	}
 }

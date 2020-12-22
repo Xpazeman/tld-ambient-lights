@@ -1,0 +1,97 @@
+{
+	"emitters": [
+		{
+			 "description": "Exit",
+			 "position": "-125.4, 23.5, 76.2",
+			 "orientation":"north",
+			 "size": 3,
+			 "cover": 0,
+		},
+		{
+			 "description": "Exit",
+			 "position": "94.7, 29.5, 133.2",
+			 "orientation":"east",
+			 "size": 3,
+			 "cover": 0,
+		},
+		{
+			 "description": "Small Shaft",
+			 "position": "-102.8, 23.8, 81.6",
+			 "orientation":"west",
+			 "size": 0.5,
+			 "cover": 0,
+		},
+		{
+			 "description": "Small Shaft",
+			 "position": "48.1, 29.1, 60.0",
+			 "orientation":"west",
+			 "size": 0.5,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "-94.5, 26.9, 75.9",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "-87.1, 26.1, 76.3",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "-52.5, 23.2, 69.0",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "-19.1, 24.2, 49.4",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "38.6, 30.4, 45.8",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "39.1, 31.2, 52.8",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "84.0, 36.6, 91.8",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "84.7, 37.0, 99.2",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1.5,
+		"ambient_intensity_multiplier": 0.6
+	}
+}

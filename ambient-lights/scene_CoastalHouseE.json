@@ -29,13 +29,6 @@
 			 "cover": 0,
 		},
 		{
-			 "description": "Point light ambience",
-			 "position": "-2.6, 1.7, -1.9",
-			 "orientation":"north",
-			 "size": 0.7,
-			 "cover": 0.5,
-		},
-		{
 			 "description": "Point light Kitchen",
 			 "position": "-4.7, 1.7, -1.4",
 			 "orientation":"east",
@@ -64,6 +57,13 @@
 			 "cover": 0,
 		},
 		{
+			 "description": "Point light ambience",
+			 "position": "3.2, 7.4, -4.5",
+			 "orientation":"north",
+			 "size": 0.7,
+			 "cover": 0,
+		},
+		{
 			 "description": "Point light",
 			 "position": "-4.7, 5.0, -1.5",
 			 "orientation":"east",
@@ -83,8 +83,8 @@
 	},
 	"options":{
 		"override_shadows":"",
-		"intensity_multiplier": 1,
-		"range_multiplier": 0.9,
+		"intensity_multiplier": 1.0,
+		"range_multiplier": 1.0,
 		"aurora_intensity_multiplier": 2,
 		"aurora_range_multiplier": 5
 	}

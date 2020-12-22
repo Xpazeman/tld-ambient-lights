@@ -71,9 +71,10 @@
 			"cover": 0.5
 		},
 
+		
 		{
 			"description": "Spotlight (15)",
-			"position": "8.1, -0.8, 1.7",
+			"position": "9.3, -0.6, 1.5",
 			"orientation":"south",
 			"size": 0.5,
 			"cover": 0

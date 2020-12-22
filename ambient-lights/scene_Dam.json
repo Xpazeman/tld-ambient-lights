@@ -82,14 +82,14 @@
 			"position":"5.0, 5.5, -49.3",
 			"orientation":"west",
 			"size": 3,
-			"cover": 0.4
+			"cover": 0.2
 		},
 		{
 			"description":"Bigroom W",
 			"position":"5.0, 5.5, -49.3",
 			"orientation":"west",
 			"size": 3,
-			"cover": 0.4
+			"cover": 0.2
 		},
 		{
 			"description":"Bigroom W",
@@ -133,7 +133,7 @@
 	"options":{
 		"override_shadows":"",
 		"intensity_multiplier": 1.2,
-		"range_multiplier": 0.7,
+		"range_multiplier": 0.9,
 		"ambient_intensity_multiplier": 0.1,
 		"aurora_intensity_multiplier": 0.9,
 		"aurora_range_multiplier": 1.25

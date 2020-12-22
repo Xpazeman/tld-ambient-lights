@@ -26,7 +26,7 @@
 			"description": "Point light_WindowInt (Bathroom)",
 			"position": "-1.2, 3.2, 6.0",
 			"orientation":"north",
-			"size": 0.3,
+			"size": 0.6,
 			"cover": 0
 		},
 
@@ -34,14 +34,14 @@
 			"description": "Point light_WindowInt (1)",
 			"position": "-6.6, 3.0, -6.3",
 			"orientation":"south",
-			"size": 0.6,
+			"size": 0.7,
 			"cover": 0
 		},
 		{
 			"description": "Point light_WindowInt",
 			"position": "-4.6, 3.1, -6.2",
 			"orientation":"south",
-			"size": 0.6,
+			"size": 0.7,
 			"cover": 0
 		}
 	],
@@ -51,7 +51,7 @@
 	"options":{
 		"override_shadows":"",
 		"intensity_multiplier": 1,
-		"range_multiplier": 1,
+		"range_multiplier": 1.2,
 		"aurora_intensity_multiplier": 0.9,
 		"aurora_range_multiplier": 1.3
 	}

@@ -1,0 +1,19 @@
+{
+	"emitters": [
+		{
+			 "description": "Spotlight (2)",
+			 "position": "1.4, 3.9, -0.2",
+			 "orientation":"west",
+			 "size": 0.8,
+			 "cover": 0,
+		},
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 0.8,
+		"range_multiplier": 1.6,
+	}
+}

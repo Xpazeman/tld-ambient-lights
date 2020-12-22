@@ -10,17 +10,17 @@
 
 		{
 			"description": "WindowAfternoonGlow_Pointlight (70)",
-			"position": "-4.6, 2.2, -2.1",
+			"position": "-4.6, 1.5, -2.1",
 			"orientation":"west",
-			"size": 1,
-			"cover": 0.4
+			"size": 1.1,
+			"cover": 0.2
 		},
 		{
 			"description": "WindowAfternoonGlow_Pointlight (19)",
-			"position": "-6.1, 2.1, -0.9",
+			"position": "-6.1, 1.5, -0.9",
 			"orientation":"north",
-			"size": 1,
-			"cover": 0.2
+			"size": 1.2,
+			"cover": 0
 		},
 
 		{
@@ -70,10 +70,10 @@
 
 		{
 			"description": "WindowAfternoonGlow_Pointlight (35)",
-			"position": "0.0, 6.7, -4.8",
+			"position": "0.0, 5.4, -4.8",
 			"orientation":"west",
 			"size": 0.5,
-			"cover": 0
+			"cover": 0.3
 		},
 
 		{
@@ -103,7 +103,7 @@
 	},
 	"options":{
 		"override_shadows":"",
-		"intensity_multiplier": 1,
+		"intensity_multiplier": 1.2,
 		"range_multiplier": 0.9,
 		"ambient_intensity_mulñtiplier": 0.8,
 		"aurora_intensity_multiplier": 1.3,

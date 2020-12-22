@@ -66,6 +66,7 @@
 		"range_multiplier": 0.7,
 		"ambient_intensity_multiplier": 0.6,
 		"aurora_intensity_multiplier": 1.5,
-		"aurora_range_multiplier": 3
+		"aurora_range_multiplier": 3,
+		"window_shadow_off": true
 	}
 }

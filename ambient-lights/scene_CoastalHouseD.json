@@ -15,18 +15,10 @@
 			 "cover": 0,
 		},
 		{
-			 "description": "Point light shadow",
-			 "position": "-3.0, 1.5, 2.0",
-			 "orientation":"east",
-			 "size": 1,
-			 "cover": 0,
-		},
-		{
 			 "description": "Point light",
 			 "position": "-2.8, 2.2, 3.1",
 			 "orientation":"east",
-			 "size": 0.8,
-			 "cover": 0.5,
+			 "size": 1,
 		},
 		{
 			 "description": "Point light",
@@ -53,14 +45,14 @@
 			 "description": "Point light",
 			 "position": "4.8, 1.8, 2.6",
 			 "orientation":"east",
-			 "size": 1,
+			 "size": 0.5,
 			 "cover": 0.5,
 		},
 		{
 			 "description": "Point light",
 			 "position": "4.8, 1.0, 2.7",
 			 "orientation":"east",
-			 "size": 1,
+			 "size": 0.5,
 			 "cover": 0.5,
 		}
 	],
@@ -69,7 +61,7 @@
 	},
 	"options":{
 		"override_shadows":"",
-		"intensity_multiplier": 1,
+		"intensity_multiplier": 1.5,
 		"range_multiplier": 1,
 		"aurora_intensity_multiplier": 1.6,
 		"aurora_range_multiplier": 5

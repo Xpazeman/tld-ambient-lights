@@ -1,0 +1,64 @@
+{
+	"emitters": [
+		{
+			"description": "BarnWindow",
+			"position": "0.4, 2.1, 5.9",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0,
+		},{
+			"description": "BarnWindow",
+			"position": "-6.1, 2.1, 5.9",
+			"orientation":"east",
+			"size": 1,
+			"cover": 0,
+		},{
+			"description": "BarnWindow",
+			"position": "-11.0, 2.4, 8.6",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0.4,
+		},{
+			"description": "BarnWindow",
+			"position": "-11.0, 2.4, 12.0",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0,
+		},{
+			"description": "BarnWindowUp",
+			"position": "-11.0, 6.4, 10.5",
+			"orientation":"south",
+			"size": 1,
+			"cover": 0,
+		},{
+			"description": "BarnWindow",
+			"position": "0.4, 2.1, 15.0",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0,
+		},{
+			"description": "BarnWindow",
+			"position": "-6.1, 2.1, 15.0",
+			"orientation":"west",
+			"size": 1,
+			"cover": 0,
+		},{
+			"description": "DoorHole",
+			"position": "4.7, 0.5, 10.2",
+			"orientation":"north",
+			"size": 1,
+			"cover": 0,
+		}
+		
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1,
+		"aurora_intensity_multiplier": 1.2,
+		"aurora_range_multiplier": 2.5
+	}
+}

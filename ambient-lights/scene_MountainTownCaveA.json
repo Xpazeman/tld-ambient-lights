@@ -1,0 +1,48 @@
+{
+	"emitters": [
+		{
+			 "description": "Exit",
+			 "position": "-129.4, 25.7, -120.9",
+			 "orientation":"south",
+			 "size": 3,
+			 "cover": 0,
+		},
+		{
+			 "description": "Exit",
+			 "position": "-59.1, 30.9, 10.2",
+			 "orientation":"west",
+			 "size": 3,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "-87.1, 28.0, -83.8",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "-67.4, 22.9, -20.1",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		},
+		{
+			 "description": "Shaft",
+			 "position": "-65.9, 26.4, -15.0",
+			 "orientation":"west",
+			 "size": 1,
+			 "cover": 0,
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier": 1.5,
+		"ambient_intensity_multiplier": 0.6
+	}
+}
