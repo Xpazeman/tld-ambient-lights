@@ -1,4 +1,6 @@
 ﻿using System;
+//using System.Collections.Generic;
+using Il2CppSystem.Collections.Generic;
 using Harmony;
 using UnityEngine;
 
@@ -20,6 +22,7 @@ namespace AmbientLights
                     GameLights.gameExtraLightsList.Clear();
                     GameLights.gameSpotLightsList.Clear();
                     GameLights.gameExtraLightsColors.Clear();
+                    GameLights.gameExtraLightsIntensity.Clear();
                     GameLights.gameShaftsList.Clear();
                     GameLights.gameWindows.Clear();
 
@@ -30,12 +33,18 @@ namespace AmbientLights
 
         /****** Load & Unload scene ******/
 
-        [HarmonyPatch(typeof(MissionServicesManager), "SceneLoadCompleted")]
-        internal class MissionServicesManager_SceneLoadCompleted
+        
+
+        [HarmonyPatch(typeof(SaveGameSystem), "LoadSceneData", new Type[] { typeof(string), typeof(string) })]
+        internal class SaveGameSystem_LoadSceneData
         {
-            private static void Postfix(MissionServicesManager __instance)
+            public static void Postfix(SaveGameSystem __instance, string name, string sceneSaveName)
             {
+
+                //MelonLoader.MelonLogger.Log("[AL] Unload and load");
+                AmbientLights.Unload();
                 AmbientLights.LoadConfigs();
+                
             }
         }
 
@@ -44,6 +53,7 @@ namespace AmbientLights
         {
             private static void Postfix(MissionServicesManager __instance)
             {
+                //MelonLoader.MelonLogger.Log("[AL] SceneUnloaded");
                 AmbientLights.Unload();
             }
         }
@@ -65,10 +75,10 @@ namespace AmbientLights
             }
         }
 
-        [HarmonyPatch(typeof(Weather), "Deserialize")]
-        internal class Weather_Deserialize
+        [HarmonyPatch(typeof(UniStormWeatherSystem), "InitializeForScene")]
+        internal class UniStormWeatherSystem_InitializeForScene
         {
-            public static void Postfix(Weather __instance)
+            public static void Postfix(UniStormWeatherSystem __instance)
             {
                 AmbientLights.weatherInit = true;
                 AmbientLights.MaybeUpdateLightsToPeriod(true);
@@ -77,10 +87,10 @@ namespace AmbientLights
 
         /****** Main Update ******/
 
-        [HarmonyPatch(typeof(TimeOfDay), "Update")]
-        internal class TimeOfDay_Update
+        [HarmonyPatch(typeof(GameManager), "Update")]
+        internal class GameManager_Update
         {
-            public static void Postfix(TimeOfDay __instance)
+            public static void Postfix(GameManager __instance)
             {
                 if(!GameManager.m_IsPaused)
                     AmbientLights.Update();
@@ -94,34 +104,99 @@ namespace AmbientLights
         {
             private static void Postfix(InteriorLightingManager __instance)
             {
-                GameLights.AddGameLights(__instance);
+                if (GameLights.mngr != null)
+                {
+                    GameLights.mngr = __instance;
+                    GameLights.AddGameLights();
+                }
             }
         }
 
         [HarmonyPatch(typeof(InteriorLightingManager), "Update")]
         internal class InteriorLightingManager_Update
         {
-            private static void Prefix(InteriorLightingManager __instance)
-            {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready)
-                    GameLights.ResetLooseLights();
-
-            }
-
+            
             private static void Postfix(InteriorLightingManager __instance)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready)
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
                     AmbientLights.UpdateGameLights();
                 
             }
         }
+
+        [HarmonyPatch(typeof(DarkLightingManager), "Start")]
+        internal class DarkLightingManager_Initialize
+        {
+            private static void Postfix(DarkLightingManager __instance)
+            {
+                GameLights.darkMngr = __instance;
+                GameLights.AddGameLights();
+            }
+        }
+
+        [HarmonyPatch(typeof(DarkLightingManager), "UpdateConstantLights")]
+        internal class DarkLightingManager_UpdateConstantLights
+        {
+            private static void Postfix(DarkLightingManager __instance)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                    GameLights.UpdateConstantLights();
+
+            }
+        }
+
+        [HarmonyPatch(typeof(DarkLightingManager), "UpdateNonTodLights")]
+        internal class DarkLightingManager_UpdateNonTodLights
+        {
+            private static void Postfix(DarkLightingManager __instance)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                    GameLights.UpdateNonTodLights();
+
+            }
+        }
+
+        [HarmonyPatch(typeof(DarkLightingManager), "UpdateColouredLights")]
+        internal class DarkLightingManager_UpdateColouredLights
+        {
+            private static void Postfix(DarkLightingManager __instance)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                    GameLights.UpdateColouredLights();
+
+            }
+        }
+
+        [HarmonyPatch(typeof(DarkLightingManager), "UpdateGimbles")]
+        internal class DarkLightingManager_UpdateGimbles
+        {
+            private static void Postfix(DarkLightingManager __instance)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                    GameLights.UpdateDarkLightshafts();
+
+            }
+        }
+
+        [HarmonyPatch(typeof(DarkLightingManager), "UpdateGlowObjects")]
+        internal class DarkLightingManager_UpdateGlowObjects
+        {
+            private static void Postfix(DarkLightingManager __instance)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                    GameLights.UpdateWindows();
+
+            }
+        }
+
+        /**/
 
         [HarmonyPatch(typeof(TodAmbientLight), "SetAmbientLightValue", new Type[] { typeof(float), typeof(float) })]
         internal class TodAmbientLight_SetAmbientLightValue
         {
             private static bool Prefix(TodAmbientLight __instance, ref float multiplier)
             {
-                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready)
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
                     GameLights.UpdateAmbience(__instance, ref multiplier);
 
                 return true;
@@ -134,11 +209,6 @@ namespace AmbientLights
         {
             private static void Postfix(LightShaftGimble __instance)
             {
-                if (__instance.m_Light)
-                {
-                    GameLights.gameSpotLightsList.Add(__instance.m_Light);
-                }
-
                 GameLights.gameShaftsList.Add(__instance.gameObject.GetComponentsInChildren<Renderer>());
             }
         }
@@ -148,10 +218,7 @@ namespace AmbientLights
         { 
             private static void Postfix(LightShaftTod __instance)
             {
-                if (__instance.m_Light)
-                {
-                    GameLights.gameSpotLightsList.Add(__instance.m_Light);
-                }
+                GameLights.gameShaftsList.Add(__instance.gameObject.GetComponentsInChildren<Renderer>());
             }
         }
 
@@ -175,6 +242,76 @@ namespace AmbientLights
             {
                 if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
                     GameLights.UpdateLightshafts();
+            }
+        }
+
+        [HarmonyPatch(typeof(InteriorLightingManager), "FindLightGroups")]
+        internal class InteriorLightingManager_FindLightGroups
+        {
+            private static void Postfix(InteriorLightingManager __instance)
+            {
+                List<string> logger = new List<string>();
+                Color[] colors = new Color[20];
+                colors[0] = new Color(1f, 0, 0);
+                colors[1] = new Color(0, 1f, 0);
+                colors[2] = new Color(0, 0, 1f);
+                colors[3] = new Color(1f, 1f, 0);
+                colors[4] = new Color(1f, 0, 1f);
+                colors[5] = new Color(0, 1f, 1f);
+                colors[6] = new Color(1f, 1f, 1f);
+                colors[7] = new Color(0, 0, 0);
+                colors[8] = new Color(0.5f, 0, 0);
+                colors[9] = new Color(0, 0.5f, 0);
+                colors[10] = new Color(0, 0, 0.5f);
+                colors[11] = new Color(0.5f, 0.5f, 0);
+                colors[12] = new Color(0.5f, 0, 0.5f);
+                colors[13] = new Color(0, 0.5f, 0.5f);
+                colors[14] = new Color(0.5f, 0.5f, 0.5f);
+                colors[15] = new Color(1f, 0.5f, 0);
+                colors[16] = new Color(1f, 0, 0.5f);
+                colors[17] = new Color(0, 1f, 0.5f);
+                colors[18] = new Color(0.5f, 1f, 0);
+                colors[19] = new Color(1f, 0.5f, 0.5f);
+                int color_index = 0;
+
+                List<InteriorLightingGroup> lightGroups = __instance.m_LightGroupList;
+
+                foreach (InteriorLightingGroup group in lightGroups)
+                {
+                    Color new_color = colors[color_index];
+
+                    logger.Add("GROUP: " + group.gameObject.name + " - " + new_color.ToString());
+
+                    List<Light> lights = group.GetLights();
+
+                    foreach (Light light in lights)
+                    {
+                        logger.Add("{" + "|" + string.Format("\"description\": \"{0}\",", light.gameObject.name) + "|" + string.Format("\"position\": \"{0}\",", light.gameObject.transform.position.ToString()) + "|" + "\"orientation\":\"\"," + "|" + "\"size\": 1," + "|" + "\"cover\": 0" + "|" + "},");
+                    }
+
+                    color_index++;
+                    if (color_index >= colors.Length)
+                    {
+                        color_index = 0;
+                    }
+                }
+                
+                //Debug.Log(Utils.SerializeObject(logger));
+            }
+        }
+
+        [HarmonyPatch(typeof(UniStormWeatherSystem), "UpdateSunTransform")]
+        internal class UniStormWeatherSystem_UpdateSunTransform
+        {
+            public static void Postfix(UniStormWeatherSystem __instance)
+            {
+                if (__instance.m_SunLight == null || __instance.m_SunLight.transform == null || GameLights.theSun == null || !Settings.options.trueSun)
+                {
+                    return;
+                }
+
+                GameLights.theSun.transform.rotation = Quaternion.AngleAxis( GameLights.sunOffset - 90f, Vector3.up);
+                GameLights.theSun.transform.rotation *= Quaternion.AngleAxis(__instance.m_NormalizedTime * 360f - 90f - __instance.m_MasterTimeKeyOffset * 15f, Vector3.right + Vector3.up * __instance.m_SunAngle * 0.1f);
             }
         }
     }

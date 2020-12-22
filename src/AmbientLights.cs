@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using MelonLoader;
 
 namespace AmbientLights
 {
-    internal class AmbientLights
+    internal class AmbientLights : MelonMod
     {
-        public static string modsFolder;
-        public static string modDataFolder;
-        public static string settingsFile = "config.json";
-
-        public static AmbLitOptions options;
+        public static readonly string MODS_FOLDER_PATH = Path.GetFullPath(typeof(MelonMod).Assembly.Location + @"\..\..\Mods\ambient-lights");
 
         public static string currentScene;
 
@@ -28,34 +25,26 @@ namespace AmbientLights
 
         public static bool lightOverride = false;
 
-        public static bool verbose = true;
-        public static bool debugVer = false;
+        public static bool verbose = false;
+        public static bool debugVer = true;
         public static bool showGameLights = false;
         public static bool enableGameLights = true;
 
         public static LightSet currentLightSet;
 
-        public static void OnLoad()
+        public override void OnApplicationStart()
         {
+            Settings.OnLoad();
+
             Debug.Log("[ambient-lights] Version " + Assembly.GetExecutingAssembly().GetName().Version);
-
-            modsFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            modDataFolder = Path.Combine(modsFolder, "ambient-lights");
-
-            AmbLitSettings ambLitSettings = new AmbLitSettings();
-            ambLitSettings.AddToModSettings("Ambient Lights Settings");
-            options = ambLitSettings.setOptions;
-
-            ALUtils.RegisterCommands();
         }
 
         public static void Reset(bool firstPass = true)
         {
-            Debug.Log("[ambient-lights] Scene reset.");
+            if (AmbientLights.debugVer) Debug.Log("[ambient-lights] Scene reset.");
+
             lightList.Clear();
                         
-            TimeWeather.Reset();
-
             config = null;
 
             lightsInit = false;
@@ -66,26 +55,33 @@ namespace AmbientLights
 
             if (firstPass)
             {
+                TimeWeather.Reset();
                 timeInit = false;
                 weatherInit = false;
             }
         }
 
-        public static void Unload()
+        public static void Unload(bool reload = false)
         {
             foreach (AmbLight light in lightList)
             {
                 UnityEngine.Object.Destroy(light.go);
             }
 
-            GameLights.gameLightsList.Clear();
-            GameLights.gameExtraLightsList.Clear();
-            GameLights.gameSpotLightsList.Clear();
-            GameLights.gameExtraLightsColors.Clear();
-            GameLights.gameShaftsList.Clear();
-            GameLights.gameWindows.Clear();
+            if (!reload)
+            {
+                GameLights.gameLightsList.Clear();
+                GameLights.gameExtraLightsList.Clear();
+                GameLights.gameSpotLightsList.Clear();
+                GameLights.gameExtraLightsColors.Clear();
+                GameLights.gameExtraLightsIntensity.Clear();
+                GameLights.gameShaftsList.Clear();
+                GameLights.gameWindows.Clear();
 
-            UnityEngine.Object.Destroy(GameLights.gameLights);
+                GameLights.gameLightsReady = false;
+
+                UnityEngine.Object.Destroy(GameLights.gameLights);
+            }
         }
 
         public static void LoadConfigs()
@@ -99,6 +95,9 @@ namespace AmbientLights
                 config = new LightConfig();
                 config.Load();
 
+                if (config.ready)
+                    currentLightSet = config.GetCurrentLightSet();
+
                 SetupLights();
             }
         }
@@ -111,6 +110,8 @@ namespace AmbientLights
 
                 foreach (AmbEmitter emitter in config.data.emitters)
                 {
+                    //Debug.Log("Emitter pos: " + emitter.position);
+
                     Vector3 newPos = ALUtils.StringToVector3(emitter.position);
 
                     AmbLight newLight = new AmbLight(newPos, emitter.orientation, emitter.size, emitter.cover);
@@ -120,6 +121,11 @@ namespace AmbientLights
 
                 lightsInit = true;
                 MaybeUpdateLightsToPeriod(true);
+
+                if (!GameLights.gameLightsReady)
+                {
+                    GameLights.AddGameLights();
+                }
             }
             else
             {
@@ -147,7 +153,15 @@ namespace AmbientLights
                         {
                             light.SetLightParams(set, forceUpdate);
                         }
+                        else
+                        {
+                            MelonLoader.MelonLogger.Log("[AL] No set matches orientation.");
+                        }
                     }
+                }
+                else
+                {
+                    MelonLoader.MelonLogger.Log("[AL] No lightset defined");
                 }
             }
         }
@@ -167,14 +181,19 @@ namespace AmbientLights
             }
         }
 
-        public static void UpdateGameLights()
+        public static void UpdateGameLights(bool isDarkMngr = false)
         {
             foreach (AmbLight aLight in lightList)
             {
                 aLight.UpdateGameLights();
             }
 
-            GameLights.UpdateLights();
+            if (!isDarkMngr)
+            {
+                GameLights.UpdateLights();
+            }
+            
+            
         }
 
         public static void SetLightsIntensity(float intensity = -1f, string set = "")

@@ -16,6 +16,8 @@ namespace AmbientLights
         internal float lightSize = 1f;
         internal float lightCover = 0f;
 
+        internal GameObject eLightMark;
+
         internal LightOrientation currentSet = null;
 
         internal AmbLight(Vector3 lightPos, string orientation, float lightSize, float lightCover)
@@ -30,33 +32,55 @@ namespace AmbientLights
             light = newLight;
 
             go.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-            go.transform.position = lightPos;
+            go.transform.position = new Vector3(lightPos.x, lightPos.y, lightPos.z);
+
+            eLightMark = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            eLightMark.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+            eLightMark.transform.position = go.transform.position;
+
+            eLightMark.transform.parent = go.transform;
+
+            foreach (Renderer rend in eLightMark.GetComponentsInChildren<Renderer>())
+            {
+                if (orientation == "west")
+                {
+                    rend.material.color = Color.red;
+                }else if (orientation == "east")
+                {
+                    rend.material.color = Color.yellow;
+                }else if (orientation == "north")
+                {
+                    rend.material.color = Color.green;
+                }else if (orientation == "south")
+                {
+                    rend.material.color = Color.magenta;
+                }
+                else
+                {
+                    rend.material.color = Color.green;
+                }
+                rend.receiveShadows = false;
+            }
+
+            eLightMark.SetActive(false);
 
             go.name = "XPZ_Light";
 
             light.intensity = 0f;
             light.range = 0f;
-            if (AmbientLights.options.castShadows)
-            {
-                light.shadows = LightShadows.Soft;
-            }
-            else
-            {
-                light.shadows = LightShadows.None;
-            }
             
             light.enabled = false;
         }
 
         internal void AssignGameLights()
         {
-            float range = 3f;
+            float range = 5f;
             
             //Search in light list and select closer ones
             foreach (Light gLight in GameLights.gameLightsList)
             {
-                if (Vector3.Distance(gLight.gameObject.transform.position, go.transform.position) < range)
-                {
+                if (Vector3.Distance(gLight.gameObject.transform.position, go.transform.position) < (range * lightSize))
+                { 
                     gLight.gameObject.name = "XPZ_Light";
                     gameLights.Add(gLight);
                 }
@@ -81,9 +105,23 @@ namespace AmbientLights
                             ColorHSV lColor = (Color)currentSet.color;
                             lColor.s *= Mathf.Min(AmbientLights.config.ApplyWeatherSaturationMod() - 0.2f, 0.7f);
                             gLight.color = lColor;
+
+                            if (gLight.shadows != LightShadows.None)
+                            {
+                                gLight.shadowStrength = AmbientLights.currentLightSet.shadowStr;
+                            }
                         }
                     }
                 }
+            }
+
+            if (AmbientLights.showGameLights && !eLightMark.active)
+            {
+                eLightMark.SetActive(true);
+            }
+            else if (!AmbientLights.showGameLights && eLightMark.active)
+            {
+                eLightMark.SetActive(false);
             }
         }
 
@@ -109,17 +147,7 @@ namespace AmbientLights
                 SetLightRange(set.range);
                 SetLightColor(set.color);
 
-                if (AmbientLights.options.castShadows)
-                {
-                    light.shadows = LightShadows.Soft;
-
-                    light.shadowStrength = AmbientLights.currentLightSet.shadowStr;
-                    light.renderMode = LightRenderMode.ForceVertex;
-                }
-                else
-                {
-                    light.shadows = LightShadows.None;
-                }
+                
             }
             else
             {
@@ -146,7 +174,7 @@ namespace AmbientLights
 
         internal void DebugLightSet()
         {
-            if (AmbientLights.verbose)
+            if (AmbientLights.debugVer)
                 Debug.Log("Intensity: " + light.intensity + ", Range: " + light.range + ", Color: " + light.color);
         }
 

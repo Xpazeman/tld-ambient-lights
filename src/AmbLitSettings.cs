@@ -5,36 +5,13 @@ using System;
 
 namespace AmbientLights
 {
-    internal class AmbLitOptions
-    {
-        public ALPresets alPreset = ALPresets.Default;
-
-        public float intensityMultiplier = 1.1f;
-        public float rangeMultiplier = 1f;
-        public int nightBrightness = 1;
-
-        public bool castShadows = false;
-
-        public bool disableAmbience = false;
-        public float ambienceLevel = 0.5f;
-        public bool disableFill = false;
-        public float fillLevel = 0.7f;
-        public float fillColorLevel = 0.5f;
-
-        public bool transparentWindows = false;
-
-        public bool enableDebugKey = false;
-    }
-
     internal enum ALPresets
     {
         Default, TLD_Default, Realistic, Darker_Interiors, Brighter_Interiors, Endless_Day, Dark_World, Custom
     }
 
-    internal class AmbLitSettings : ModSettingsBase
+    internal class AmbLitSettings : JsonModSettings
     {
-        internal readonly AmbLitOptions setOptions = new AmbLitOptions();
-
         [Section("Lighting Preset")]
         [Name("Choose Base Preset")]
         [Description("Choose a default preset to load options.\n *** WARNING *** Changing this will overwrite your current settings.")]
@@ -45,7 +22,7 @@ namespace AmbientLights
         [Name("General Intensity Multiplier")]
         [Description("Values above 1 make the lights brighter, under 1 they become dimmer than default. 0 turns the ambient lights off and makes it game default.")]
         [Slider(0f, 2f, 1)]
-        public float intensityMultiplier = 1.1f;
+        public float intensityMultiplier = 1f;
 
         [Name("General Range Multiplier")]
         [Description("Values above 1 make the ambient lights cast light further. 2 will make them reach double the distance than default, 0 turns the lights off.")]
@@ -57,88 +34,44 @@ namespace AmbientLights
         [Choice("Game Default", "Mod Default", "Brighter Nights", "Endless day")]
         public int nightBrightness = 1;
 
-        [Name("Cast Shadows (Performance hit)")]
-        [Description("Experimental Feature. Enable this to simulate light through the windows casting shadows. Needs a beefy GPU to work properly as most scenes will take a drop in FPS, and some scenes will probably be laggy, depending on geometry, number of windows, etc. Will also make everything considerably darker, so it is recommended to set the Default Ambience and/or Fill Lights Level to at least 0.1")]
-        public bool castShadows = false;
+        [Name("True Sun Lightshafts (Experimental)")]
+        [Description("Experimental Feature. This makes lightshafts come from the real sun position. Might impact performance. To reduce impact, set this option before loading a game.")]
+        public bool trueSun = true;
 
         [Section("Game Lights Settings")]
 
         [Name("Default Ambience Level")]
         [Description("How bright is the default game ambience light (1 is game default, 0 would make interiors darker)")]
         [Slider(0f, 2f, 1)]
-        public float ambienceLevel = 0.4f;
+        public float ambienceLevel = 0.3f;
 
         [Name("Default Fill Lights Level")]
         [Description("How bright are the default game fill lights (1 is game default, 0 would make interiors darker)")]
         [Slider(0f, 2f, 1)]
-        public float fillLevel = 0.7f;
+        public float fillLevel = 0.4f;
 
         [Name("Colored Fill Lights")]
         [Description("Here you can set how saturated will be the fill lights that are colored (These are the green, cyan, red, etc. lights on some interiors.)")]
         [Slider(0f, 2f, 1)]
         public float fillColorLevel = 0.5f;
 
+        [Section("Weather Settings")]
+
+        [Name("Base Aurora Intensity")]
+        [Description("How bright is the aurora light that come through windows")]
+        [Slider(0f, 2f, 1)]
+        public float auroraIntensity = 0.8f;
+
+        [Name("Base Aurora Saturation")]
+        [Description("How colorful is the aurora light that come through windows")]
+        [Slider(0f, 2f, 1)]
+        public float auroraSaturation = 1.4f;
+
         [Section("Misc Settings")]
 
         [Name("Enable debug keys")]
         [Description("If enabled, with Shift+L you can disable/enable the mod.")]
         public bool enableDebugKey = false;
-
-        internal AmbLitSettings()
-        {
-            //Load settings
-            if (File.Exists(Path.Combine(AmbientLights.modDataFolder, AmbientLights.settingsFile)))
-            {
-                string opts = File.ReadAllText(Path.Combine(AmbientLights.modDataFolder, AmbientLights.settingsFile));
-                setOptions = FastJson.Deserialize<AmbLitOptions>(opts);
-
-                alPreset = setOptions.alPreset;
-
-                intensityMultiplier = setOptions.intensityMultiplier;
-                rangeMultiplier = setOptions.rangeMultiplier;
-                nightBrightness = setOptions.nightBrightness;
-
-                castShadows = setOptions.castShadows;
-
-                ambienceLevel = setOptions.ambienceLevel;
-                fillLevel = setOptions.fillLevel;
-                fillColorLevel = setOptions.fillColorLevel;
-
-                //transparentWindows = setOptions.transparentWindows;
-
-                //auroraIntensity = setOptions.auroraIntensity;
-                //disableAuroraFlicker = setOptions.disableAuroraFlicker;
-
-                enableDebugKey = setOptions.enableDebugKey;
-            }
-        }
-
-        protected override void OnConfirm()
-        {
-            //Save settings
-            setOptions.alPreset = alPreset;
-
-            setOptions.intensityMultiplier = (float)Math.Round(intensityMultiplier, 1);
-            setOptions.rangeMultiplier = (float)Math.Round(rangeMultiplier, 1);
-            setOptions.nightBrightness = nightBrightness;
-
-            setOptions.castShadows = castShadows;
-
-            setOptions.ambienceLevel = ambienceLevel;
-            setOptions.fillLevel = fillLevel;
-            setOptions.fillColorLevel = fillColorLevel;
-
-            //setOptions.transparentWindows = transparentWindows;
-
-            //setOptions.auroraIntensity = (float)Math.Round(auroraIntensity, 1);
-            //setOptions.disableAuroraFlicker = disableAuroraFlicker;
-
-            setOptions.enableDebugKey = enableDebugKey;
-
-            string jsonOpts = FastJson.Serialize(setOptions);
-
-            File.WriteAllText(Path.Combine(AmbientLights.modDataFolder, AmbientLights.settingsFile), jsonOpts);
-        }
 
         protected override void OnChange(FieldInfo field, object oldVal, object newVal)
         {
@@ -161,12 +94,14 @@ namespace AmbientLights
             switch (preset)
             {
                 case ALPresets.Default:
-                    intensityMultiplier = 1.1f;
+                    intensityMultiplier = 1.0f;
                     rangeMultiplier = 1.0f;
                     nightBrightness = 1;
-                    ambienceLevel = 0.8f;
-                    fillLevel = 0.7f;
+                    ambienceLevel = 0.2f;
+                    fillLevel = 0.4f;
                     fillColorLevel = 0.5f;
+                    auroraIntensity = 0.8f;
+                    auroraSaturation = 1.6f;
 
                     break;
 
@@ -177,16 +112,20 @@ namespace AmbientLights
                     ambienceLevel = 1f;
                     fillLevel = 1f;
                     fillColorLevel = 1f;
+                    auroraIntensity = 1f;
+                    auroraSaturation = 1f;
 
                     break;
 
                 case ALPresets.Realistic:
-                    intensityMultiplier = 1.2f;
-                    rangeMultiplier = 1.2f;
+                    intensityMultiplier = 1f;
+                    rangeMultiplier = 1.1f;
                     nightBrightness = 0;
-                    ambienceLevel = 0.2f;
+                    ambienceLevel = 0f;
                     fillLevel = 0.1f;
                     fillColorLevel = 0f;
+                    auroraIntensity = 0.3f;
+                    auroraSaturation = 1.4f;
 
                     break;
 
@@ -197,16 +136,20 @@ namespace AmbientLights
                     ambienceLevel = 0.2f;
                     fillLevel = 0.1f;
                     fillColorLevel = 0f;
+                    auroraIntensity = 0.1f;
+                    auroraSaturation = 0.8f;
 
                     break;
 
                 case ALPresets.Brighter_Interiors:
-                    intensityMultiplier = 1.5f;
-                    rangeMultiplier = 1.5f;
+                    intensityMultiplier = 1.3f;
+                    rangeMultiplier = 1.3f;
                     nightBrightness = 2;
                     ambienceLevel = 1.4f;
                     fillLevel = 1.2f;
                     fillColorLevel = 1f;
+                    auroraIntensity = 1.2f;
+                    auroraSaturation = 1.6f;
 
                     break;
 
@@ -217,6 +160,8 @@ namespace AmbientLights
                     ambienceLevel = 1.7f;
                     fillLevel = 1.5f;
                     fillColorLevel = 2f;
+                    auroraIntensity = 2f;
+                    auroraSaturation = 2f;
 
                     break;
 
@@ -227,9 +172,22 @@ namespace AmbientLights
                     ambienceLevel = 0f;
                     fillLevel = 0f;
                     fillColorLevel = 0f;
+                    auroraIntensity = 0f;
+                    auroraSaturation = 0f;
 
                     break;
             }
+        }
+    }
+
+    internal static class Settings
+    {
+        public static AmbLitSettings options;
+
+        public static void OnLoad()
+        {
+            options = new AmbLitSettings();
+            options.AddToModSettings("Ambient Lights Settings");
         }
     }
 }

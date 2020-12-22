@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+//using Il2CppSystem.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using MelonLoader.TinyJSON;
 
 namespace AmbientLights
 {
@@ -27,6 +29,7 @@ namespace AmbientLights
         public Dictionary<string, AmbSet> orientations = new Dictionary<string, AmbSet>();
         public float[] intensity = null;
         public float[] range = null;
+        public float[] sun_strength = null;
     }
 
     internal class WeatherMod
@@ -52,6 +55,7 @@ namespace AmbientLights
     {
         public float shadowStr;
         public float lightshaftStr;
+        public float sunStr;
         public float windowStrMod;
         public float intMod;
         public float rngMod;
@@ -79,6 +83,8 @@ namespace AmbientLights
         public float ambient_intensity_multiplier = 1f;
         public float aurora_range_multiplier = 1f;
         public float aurora_intensity_multiplier = 1f;
+        public float sun_offset = 0f;
+        public bool window_shadow_off = false;
     }
 
     internal class LightConfig
@@ -94,6 +100,13 @@ namespace AmbientLights
         private static Dictionary<string, WeatherMod> weathersConfig = null;
 
         private ColorHSV mushColor = new ColorHSV(0f, 1f, 1f, 1f);
+
+        private bool flickChange = true;
+        private float flickChance = 0f;
+        private float flickPosition = -1f;
+        private float flickStart = 0f;
+        private float flickTarget = 0f;
+        private float flickInc = 0f;
         
         public void Load()
         {
@@ -112,16 +125,11 @@ namespace AmbientLights
 
         private void LoadSceneConfig()
         {
-            if (scene.ToLower().Contains("cave"))
-            {
-                scene = "cave";
-            }
-
             string sceneFile = "scene_" + scene + ".json";
 
-            if (File.Exists(Path.Combine(AmbientLights.modDataFolder, sceneFile)))
+            if (File.Exists(Path.Combine(AmbientLights.MODS_FOLDER_PATH, sceneFile)))
             {
-                data = Utils.DeserializeObject<SceneConfig>(File.ReadAllText(Path.Combine(AmbientLights.modDataFolder, sceneFile)));
+                data = JSON.Load(File.ReadAllText(Path.Combine(AmbientLights.MODS_FOLDER_PATH, sceneFile))).Make<SceneConfig>();
             }
             else
             {
@@ -131,18 +139,18 @@ namespace AmbientLights
 
         private void LoadGlobalConfig()
         {
-            if (File.Exists(Path.Combine(AmbientLights.modDataFolder, "weather_sets.json")))
+            if (File.Exists(Path.Combine(AmbientLights.MODS_FOLDER_PATH, "weather_sets.json")))
             {
-                weathersConfig = Utils.DeserializeObject<Dictionary<string, WeatherMod>>(File.ReadAllText(Path.Combine(AmbientLights.modDataFolder, "weather_sets.json")));
+                weathersConfig = JSON.Load(File.ReadAllText(Path.Combine(AmbientLights.MODS_FOLDER_PATH, "weather_sets.json"))).Make<Dictionary<string, WeatherMod>>();
             }
             else
             {
                 Debug.Log("[ambient-lights] ERROR: No weather sets data found");
             }
 
-            if (File.Exists(Path.Combine(AmbientLights.modDataFolder, "global_sets.json")))
+            if (File.Exists(Path.Combine(AmbientLights.MODS_FOLDER_PATH, "global_sets.json")))
             {
-                periodsConfig = Utils.DeserializeObject<Dictionary<string, AmbPeriod>>(File.ReadAllText(Path.Combine(AmbientLights.modDataFolder, "global_sets.json")));
+                periodsConfig = JSON.Load(File.ReadAllText(Path.Combine(AmbientLights.MODS_FOLDER_PATH, "global_sets.json"))).Make<Dictionary<string, AmbPeriod>>();
             }
             else
             {
@@ -161,11 +169,20 @@ namespace AmbientLights
                     data.weathers = weathersConfig;
 
                 ready = true;
+                if (!GameLights.gameLightsReady)
+                {
+                    GameLights.AddGameLights();
+                }
             }
         }
 
         internal AmbPeriod GetPeriodSet(string periodName = "")
         {
+            if (!ready)
+            {
+                return null;
+            }
+
             AmbPeriod period = null;
 
             if (periodName == "")
@@ -185,6 +202,11 @@ namespace AmbientLights
 
         internal LightSet GetCurrentLightSet()
         {
+            if (data == null)
+            {
+                return null;
+            }
+
             TimeWeather.GetCurrentPeriodAndWeather();
 
             LightSet ls = new LightSet();
@@ -196,7 +218,9 @@ namespace AmbientLights
 
             //Base Colors
             Color baseSun = state.m_SunLight;
+            Color origSun = state.m_SunLight;
             Color baseFog = state.m_FogColor;
+            Color origFog = state.m_FogColor;
             baseSun.a = 1;
             baseFog.a = 1;
 
@@ -205,15 +229,18 @@ namespace AmbientLights
             if (!Utils.IsZero(auroraFade))
             {
                 Color auroraColour = GameManager.GetAuroraManager().GetAuroraColour();
+                ColorHSV auroraModColor = auroraColour;
+
                 if (!GameManager.GetAuroraManager().IsUsingCinematicColours())
                 {
-                    auroraColour.r *= 0.85f;
-                    auroraColour.g *= 2.5f;
-                    auroraColour.b *= 0.85f;
+                    auroraModColor.s *= Settings.options.auroraSaturation;
+                    auroraModColor.v *= Settings.options.auroraIntensity;
                 }
 
-                baseSun = auroraColour;
-                baseFog = auroraColour;
+                float auroraLevel = Mathf.Clamp01(GameManager.GetAuroraManager().m_NormalizedActive / GameManager.GetAuroraManager().m_FullyActiveValue);
+
+                baseSun = Color.Lerp(origSun, auroraModColor, auroraLevel);
+                baseFog = Color.Lerp(origFog, auroraModColor, auroraLevel);
             }
 
             float baseInt = 1f;
@@ -221,11 +248,12 @@ namespace AmbientLights
 
             //Setup Global values
 
-            ls.intMod = ApplyWeatherIntensityMod();
+            ls.intMod = ApplyWeatherIntensityMod() + (GetFlickeringMod() * 1f);
             ls.rngMod = ApplyWeatherRangeMod();
 
             ls.shadowStr = GetShadowStrength();
             ls.lightshaftStr = GetLightshaftStrength();
+            ls.sunStr = (GetLightshaftStrength() + (GetFlickeringMod() * 0.4f)) * GetSunStrength();
 
             //Lightshaft
             ColorHSV sColor = baseSun;
@@ -233,11 +261,13 @@ namespace AmbientLights
             ls.lightshaftColor = ApplyWeatherMod(sColor);
 
             //Ambience
-            Color bColor = ApplyWeatherMod(baseFog);
+            Color bColor = ApplyWeatherMod(baseSun);
 
             ColorHSV dColor = bColor;
             dColor.s *= 0.5f;
-            dColor.v = 0.3f;
+            //Flicker doesn't affect ambience
+            //dColor.v = 0.4f + (GetFlickeringMod() * 0.1f);
+            dColor.v = 0.4f;
 
             ColorHSV nColor = dColor;
             nColor.v = 0.01f;
@@ -248,24 +278,11 @@ namespace AmbientLights
             //Windows
             ColorHSV wColor = bColor;
             wColor.s *= Mathf.Min(ApplyWeatherSaturationMod() - 0.2f, 0.4f);
-            wColor.v *= ls.intMod + 0.5f;
+            wColor.v *= (ls.intMod + 0.5f) + GetFlickeringMod();
             
             ls.windowColor = wColor;
 
             ls.windowStrMod = ls.intMod;
-            
-
-            /*if (AmbientLights.options.alPreset == ALPresets.Mushrooms)
-            {
-                mushColor.h += 0.3f;
-
-                if (mushColor.h >= 360f)
-                    mushColor.h -= 360f;
-                
-                ls.ambientDayColor = mushColor;
-                ls.ambientNightColor = mushColor;
-                ls.windowColor = mushColor;
-            }*/
 
             //Setup Orientations
             foreach (string dir in cardinal)
@@ -350,12 +367,22 @@ namespace AmbientLights
                 str = Mathf.Lerp(prevStr, str, TimeWeather.currentWeatherPct);
             }
 
-            if (TimeWeather.currentPeriod == "night")
+            return str;
+
+            
+        }
+
+        internal float GetSunStrength()
+        {
+            AmbPeriod prd = GetPeriodSet();
+            float prdMod = 1;
+
+            if (prd != null)
             {
-                str = 0;
+                prdMod = Mathf.Lerp(prd.sun_strength[0], prd.sun_strength[1], TimeWeather.currentPeriodPct);
             }
 
-            return str;
+            return prdMod;
         }
 
         internal WeatherMod GetWeatherMod(string weather)
@@ -390,6 +417,90 @@ namespace AmbientLights
             }
 
             return intMod;
+        }
+
+        internal float GetFlickeringMod()
+        {
+            if (TimeWeather.currentWeather == "clear" || TimeWeather.currentWeather == "aurora" || TimeWeather.currentWeather == "lightfog" || TimeWeather.currentWeather == "densefog")
+            {
+                return 0f;
+            }
+
+            float flickerMod = 0f;
+
+            if (flickChange)
+            {
+                flickChange = false;
+                flickPosition = 0;
+                flickStart = flickTarget;
+
+                flickInc = GameManager.GetWindComponent().GetSpeedMPH() / 2000f;
+
+                switch (TimeWeather.currentWeather)
+                {
+                    case "partlycloudy":
+                        if (flickTarget <= 0)
+                        {
+                            flickTarget = ((float)ALUtils.GetRandomNumber(0.5, 1)) * 0.4f;
+                        }
+                        else
+                        {
+                            flickTarget = ((float)ALUtils.GetRandomNumber(0.5, 1)) * -0.2f;
+                        }
+
+                        flickInc = ((float)ALUtils.GetRandomNumber(0.05, 0.8)) * flickInc;
+                        flickChance = 0.0005f;
+                        break;
+
+                    case "cloudy":
+                    case "lightsnow":
+                    case "heavysnow":
+                        if (flickTarget <= 0)
+                        {
+                            flickTarget = ((float)ALUtils.GetRandomNumber(0.5, 1)) * 0.1f;
+                        }
+                        else
+                        {
+                            flickTarget = ((float)ALUtils.GetRandomNumber(0.5, 1)) * -0.1f;
+                        }
+
+                        flickInc = ((float)ALUtils.GetRandomNumber(0.5, 1)) * flickInc;
+                        flickChance = 0.002f;
+                        break;
+
+                    case "blizzard":
+                        if (flickTarget <= 0)
+                        {
+                            
+                            flickTarget = ((float)ALUtils.GetRandomNumber(0.5, 1)) * 0.04f;
+                        }
+                        else
+                        {
+                            flickTarget = ((float)ALUtils.GetRandomNumber(0.7, 1)) * -0.04f;
+                        }
+
+                        flickInc = ((float)ALUtils.GetRandomNumber(0.3, 2)) * flickInc;
+                        flickChance = 0.75f;
+                        break;
+                }
+            }
+
+            if (flickPosition < 1f)
+            {
+                flickerMod = Mathf.Lerp(flickStart, flickTarget, flickPosition);
+                flickPosition += flickInc;
+            }
+            else
+            {
+                flickerMod = flickTarget;
+
+                if ((float)ALUtils.GetRandomNumber(0, 1) < flickChance)
+                {
+                    flickChange = true;
+                }
+            }
+
+            return flickerMod;
         }
 
         internal float ApplyWeatherSaturationMod()

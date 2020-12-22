@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
+using Il2CppSystem.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -14,6 +16,8 @@ namespace AmbientLights
 
         public static bool debugMode = true;
 
+        public static bool windowShadow = false;
+
         public static Vector3 StringToVector3(string sVector)
         {
             // Remove the parentheses
@@ -27,9 +31,10 @@ namespace AmbientLights
 
             // store as a Vector3
             Vector3 result = new Vector3(
-                float.Parse(sArray[0]),
-                float.Parse(sArray[1]),
-                float.Parse(sArray[2]));
+                Convert.ToSingle(sArray[0], CultureInfo.InvariantCulture),
+                Convert.ToSingle(sArray[1], CultureInfo.InvariantCulture),
+                Convert.ToSingle(sArray[2], CultureInfo.InvariantCulture)
+            );
 
             return result;
         }
@@ -59,14 +64,16 @@ namespace AmbientLights
 
         internal static void RegisterCommands()
         {
-            uConsole.RegisterCommand("showgamelights", ShowGameLights);
+            /*uConsole.RegisterCommand("showgamelights", ShowGameLights);
             uConsole.RegisterCommand("disablelights", DisableGameLights);
             uConsole.RegisterCommand("hidewindows", GameLights.ToggleWindows);
+            uConsole.RegisterCommand("sunoffset", ChangeSunOffset);*/
         }
 
         internal static void HandleHotkeys()
         {
-            if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.LeftShift) && AmbientLights.options.enableDebugKey)
+            
+            if ((InputManager.GetKeyDown(InputManager.m_CurrentContext, KeyCode.L) && !InputManager.GetSprintDown(InputManager.m_CurrentContext) && AmbientLights.debugVer) || (InputManager.GetKeyDown(InputManager.m_CurrentContext, KeyCode.L) && InputManager.GetSprintDown(InputManager.m_CurrentContext) && Settings.options.enableDebugKey && !AmbientLights.debugVer))
             {
                 if (AmbientLights.lightOverride)
                 {
@@ -74,6 +81,8 @@ namespace AmbientLights
                     AmbientLights.MaybeUpdateLightsToPeriod(true);
 
                     HUDMessage.AddMessage("Ambient Lights: On");
+                    if (AmbientLights.debugVer)
+                        Debug.Log("Ambient Lights: On");
                 }
                 else
                 {
@@ -81,27 +90,26 @@ namespace AmbientLights
                     AmbientLights.SetLightsIntensity(0f);
 
                     HUDMessage.AddMessage("Ambient Lights: Off");
+                    if (AmbientLights.debugVer)
+                        Debug.Log("Ambient Lights: Off");
                 }
             }
-            else if (Input.GetKeyUp(KeyCode.L) && Input.GetKey(KeyCode.RightShift) && AmbientLights.options.enableDebugKey && AmbientLights.debugVer)
+
+            if (InputManager.GetKeyDown(InputManager.m_CurrentContext, KeyCode.L) && InputManager.GetSprintDown(InputManager.m_CurrentContext) && AmbientLights.debugVer)
             {
-                AmbientLights.Unload();
+                AmbientLights.Unload(true);
                 AmbientLights.Reset(false);
                 AmbientLights.LoadConfigs();
                 HUDMessage.AddMessage("Reloading Config");
 
             }
 
-            if (Input.GetKeyUp(KeyCode.K) && !Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey && AmbientLights.debugVer)
+            if (InputManager.GetKeyDown(InputManager.m_CurrentContext, KeyCode.F7) && AmbientLights.debugVer)
             {
-                ShowGameLights();
-            }
-            else if (Input.GetKeyUp(KeyCode.K) && Input.GetKey(KeyCode.RightControl) && AmbientLights.options.enableDebugKey && AmbientLights.debugVer)
-            {
-                DisableGameLights();
+                GetPoint();
             }
 
-            if (Input.GetKeyUp(KeyCode.F7) && Input.GetKey(KeyCode.RightControl))
+            if (InputManager.GetKeyDown(InputManager.m_CurrentContext, KeyCode.F6) && AmbientLights.debugVer)
             {
                 TimeWeather.GetCurrentPeriodAndWeather();
 
@@ -111,31 +119,61 @@ namespace AmbientLights
             }
         }
 
+        public static void GetPoint()
+        {
+            vp_FPSCamera cam = GameManager.GetVpFPSPlayer().FPSCamera;
+            RaycastHit raycastHit = DoRayCast(cam.transform.position, cam.transform.forward);
+            Debug.Log(raycastHit.point.x+","+ raycastHit.point.y+","+ raycastHit.point.z);
+            HUDMessage.AddMessage(raycastHit.point.x + "," + raycastHit.point.y + "," + raycastHit.point.z);
+        }
+
+        public static RaycastHit DoRayCast(Vector3 start, Vector3 direction)
+        {
+            RaycastHit result;
+            Physics.Raycast(start, direction, out result, float.PositiveInfinity);
+            return result;
+        }
+
         internal static void ShowGameLights()
         {
-            if (GameLights.gameLights.activeInHierarchy)
+            if (GameLights.gameLights.active == true)
             {
                 GameLights.gameLights.SetActive(false);
-
-                HUDMessage.AddMessage("Show Game Lights Debug.");
+                AmbientLights.showGameLights = false;
+                HUDMessage.AddMessage("Game Lights Debug OFF.");
             }
             else
             {
                 GameLights.gameLights.SetActive(true);
-
-                HUDMessage.AddMessage("Hide Game Lights Debug.");
+                AmbientLights.showGameLights = true;
+                HUDMessage.AddMessage("Game Lights Debug ON.");
             }
         }
 
         internal static void DisableGameLights()
         {
             AmbientLights.enableGameLights = !AmbientLights.enableGameLights;
-            Debug.Log("[ambient-lights] Game lights disabled.");
+            Debug.Log("[ambient-lights] Show game lights:"+ AmbientLights.enableGameLights);
+        }
+
+        internal static void ChangeSunOffset()
+        {
+
+            if (uConsole.GetNumParameters() == 0)
+            {
+                Debug.Log("[ambient-lights] Current offset: " + GameLights.sunOffset);
+            }
+            else if (uConsole.GetNumParameters() == 1)
+            {
+                GameLights.sunOffset = uConsole.GetFloat();
+
+                Debug.Log("[ambient-lights] New offset: " + GameLights.sunOffset);
+            }
         }
 
         internal static float GetIntensityModifier()
         {
-            float intMod = AmbientLights.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier * AmbientLights.currentLightSet.intMod * AmbientLights.globalIntMultiplier;
+            float intMod = Settings.options.intensityMultiplier * AmbientLights.config.data.options.intensity_multiplier * AmbientLights.currentLightSet.intMod * AmbientLights.globalIntMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {
@@ -148,7 +186,7 @@ namespace AmbientLights
 
         internal static float GetRangeModifier()
         {
-            float rngMod = AmbientLights.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier * AmbientLights.currentLightSet.rngMod * AmbientLights.globalRngMultiplier;
+            float rngMod = Settings.options.rangeMultiplier * AmbientLights.config.data.options.range_multiplier * AmbientLights.currentLightSet.rngMod * AmbientLights.globalRngMultiplier;
 
             if (TimeWeather.currentPeriod == "night")
             {
@@ -161,12 +199,17 @@ namespace AmbientLights
 
         internal static float GetIntensityNightMod()
         {
+            float baseMod = 1f;
             float nightMod = 1f;
 
-            switch (AmbientLights.options.nightBrightness)
+            switch (Settings.options.nightBrightness)
             {
                 case 0:
                     nightMod = 0f;
+                    break;
+
+                case 1:
+                    nightMod = 1f;
                     break;
 
                 case 2:
@@ -178,14 +221,25 @@ namespace AmbientLights
                     break;
             }
 
-            return nightMod;
+            TODBlendState bState = GameManager.GetUniStorm().GetTODBlendState();
+
+            if (bState == TODBlendState.DuskToNightStart)
+            {
+                baseMod = Mathf.Lerp(1f, nightMod, GameManager.GetUniStorm().GetTODBlendPercent(bState));
+            }
+            else if (bState == TODBlendState.NightEndToDawn)
+            {
+                baseMod = Mathf.Lerp(nightMod, 1f, GameManager.GetUniStorm().GetTODBlendPercent(bState));
+            }
+
+            return baseMod;
         }
 
         internal static float GetRangeNightMod()
         {
             float nightMod = 1f;
 
-            switch (AmbientLights.options.nightBrightness)
+            switch (Settings.options.nightBrightness)
             {
                 case 0:
                     nightMod = 0f;
@@ -214,7 +268,7 @@ namespace AmbientLights
                     break;
 
                 case "partlycloudy":
-                    str = 0.5f;
+                    str = 0.6f;
                     break;
 
                 case "cloudy":
@@ -224,8 +278,9 @@ namespace AmbientLights
 
                 case "densefog":
                 case "lightsnow":
+                case "heavysnow":
                 case "blizzard":
-                    str = 0;
+                    str = 0.0f;
                     break;
             }
 
@@ -262,6 +317,12 @@ namespace AmbientLights
             return colors[index];
         }
 
+        internal static double GetRandomNumber(double minimum, double maximum)
+        {
+            System.Random random = new System.Random();
+            return random.NextDouble() * (maximum - minimum) + minimum;
+        }
+
         internal static List<GameObject> GetRootObjects()
         {
             List<GameObject> rootObj = new List<GameObject>();
@@ -281,20 +342,67 @@ namespace AmbientLights
             return rootObj;
         }
 
-        internal static void GetChildrenWithName(GameObject obj, string name, List<GameObject> result)
+        internal static void GetChildrenWithName(GameObject obj, string name, List<GameObject> result, bool isRegex = false, string[] aliases = null)
         {
+            Regex rgx = null;
+
+            if (isRegex)
+            {
+                rgx = new Regex(name);
+            }
+            
+
             if (obj.transform.childCount > 0) {
 
                 for (int i = 0; i < obj.transform.childCount; i++)
                 {
                     GameObject child = obj.transform.GetChild(i).gameObject;
 
-                    if (child.name.ToLower().Contains(name))
+                    if (!isRegex)
                     {
-                        result.Add(child);
+
+                        if (child.name.ToLower().Contains(name))
+                        {
+                            result.Add(child);
+                            continue;
+                        }
+
+                        if (aliases != null)
+                        {
+                            for (int j = 0; j < aliases.Length; j++)
+                            {
+                                if (child.name.ToLower().Contains(aliases[j]))
+                                {
+                                    result.Add(child);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (rgx.IsMatch(child.name))
+                        {
+                            result.Add(child);
+                            continue;
+                        }
+
+                        if (aliases != null)
+                        {
+                            for (int j = 0; j < aliases.Length; j++)
+                            {
+                                Regex rgxa = new Regex(aliases[j]);
+
+                                if (rgxa.IsMatch(child.name))
+                                {
+                                    result.Add(child);
+                                    break;
+                                }
+                            }
+                        }
                     }
 
-                    GetChildrenWithName(child, name, result);
+                    GetChildrenWithName(child, name, result, isRegex, aliases);
                 }
             }
         }

@@ -58,8 +58,8 @@ namespace AmbientLights
                     break;
             }
 
-            float transTime = Traverse.Create(uniStorm).Field("m_WeatherTransitionTime").GetValue<float>();
-            float transTimeElapsed = Traverse.Create(uniStorm).Field("m_SecondsSinceLastWeatherChange").GetValue<float>();
+            float transTime = uniStorm.m_WeatherTransitionTime;
+            float transTimeElapsed = uniStorm.m_SecondsSinceLastWeatherChange;
 
             currentWeatherPct = Mathf.Clamp01(transTimeElapsed / transTime);
 
@@ -104,6 +104,9 @@ namespace AmbientLights
                     break;
 
                 case WeatherStage.HeavySnow:
+                    weatherName = "heavysnow";
+                    break;
+
                 case WeatherStage.Blizzard:
                     weatherName = "blizzard";
                     break;
