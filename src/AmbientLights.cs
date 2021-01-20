@@ -26,7 +26,7 @@ namespace AmbientLights
         public static bool lightOverride = false;
 
         public static bool verbose = false;
-        public static bool debugVer = true;
+        public static bool debugVer = false;
         public static bool showGameLights = false;
         public static bool enableGameLights = true;
 

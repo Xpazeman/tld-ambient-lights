@@ -226,7 +226,7 @@ namespace AmbientLights
 
             float auroraFade = GameManager.GetAuroraManager().GetNormalizedAlphaSquare();
 
-            if (!Utils.IsZero(auroraFade))
+            if (Mathf.Abs(auroraFade) > 0.0001f)
             {
                 Color auroraColour = GameManager.GetAuroraManager().GetAuroraColour();
                 ColorHSV auroraModColor = auroraColour;

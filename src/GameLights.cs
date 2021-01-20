@@ -683,7 +683,7 @@ namespace AmbientLights
 
                     //Hide
                     if (renderer.gameObject.name.ToLower().Contains("shadow_caster")
-                        || renderer.gameObject.name.ToLower().Contains("cylinder")
+                        || (renderer.gameObject.name.ToLower().Contains("cylinder") && !renderer.material.name.StartsWith("FX_"))
                         || renderer.gameObject.name.ToLower().Contains("sphere")
                     )
                     {
