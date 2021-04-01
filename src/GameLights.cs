@@ -100,6 +100,7 @@ namespace AmbientLights
                 if (AmbientLights.debugVer)
                     MelonLoader.MelonLogger.Log("[AL] Add sun");
                 theSun = new GameObject();
+                theSun.name = "AmbientLightsSun";
                 sunlight = theSun.AddComponent<Light>();
                 sunlight.type = LightType.Directional;
                 sunlight.shadows = LightShadows.Soft;
@@ -107,6 +108,9 @@ namespace AmbientLights
                 sunlight.shadowNormalBias = 0;
                 sunlight.shadowBias = 0;
                 sunlight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.VeryHigh;
+
+                sunlight.cullingMask &= ~(1 << 7);
+
 
                 sunlight.intensity = 1f;
 
@@ -715,7 +719,8 @@ namespace AmbientLights
                     {
                         renderer.receiveShadows = true;
                         qd_Decal decalInst = renderer.GetComponent<qd_Decal>();
-                        
+
+                        vp_Layer.Set(renderer.gameObject, 7, false);
 
                         continue;
                     }
@@ -729,7 +734,11 @@ namespace AmbientLights
 
                         foreach (Material mat in mats)
                         {
-                            
+                            if (mat.name.ToLower().Contains("glass"))
+                            {
+                                renderer.gameObject.layer = 7;
+                                continue;
+                            }
                         }
                         
                     }
