@@ -21,12 +21,12 @@ namespace AmbientLights
 
         [Name("General Intensity Multiplier")]
         [Description("Values above 1 make the lights brighter, under 1 they become dimmer than default. 0 turns the ambient lights off and makes it game default.")]
-        [Slider(0f, 2f, 1)]
+        [Slider(0f, 2f, 1, NumberFormat = "{0:F2}")]
         public float intensityMultiplier = 1f;
 
         [Name("General Range Multiplier")]
         [Description("Values above 1 make the ambient lights cast light further. 2 will make them reach double the distance than default, 0 turns the lights off.")]
-        [Slider(0f, 2f, 1)]
+        [Slider(0f, 2f, 1, NumberFormat = "{0:F2}")]
         public float rangeMultiplier = 1f;
 
         [Name("Night Brightness")]
@@ -42,29 +42,29 @@ namespace AmbientLights
 
         [Name("Default Ambience Level")]
         [Description("How bright is the default game ambience light (1 is game default, 0 would make interiors darker)")]
-        [Slider(0f, 2f, 1)]
+        [Slider(0f, 2f, 1, NumberFormat = "{0:F2}")]
         public float ambienceLevel = 0.3f;
 
         [Name("Default Fill Lights Level")]
         [Description("How bright are the default game fill lights (1 is game default, 0 would make interiors darker)")]
-        [Slider(0f, 2f, 1)]
+        [Slider(0f, 2f, 1, NumberFormat = "{0:F2}")]
         public float fillLevel = 0.4f;
 
         [Name("Colored Fill Lights")]
         [Description("Here you can set how saturated will be the fill lights that are colored (These are the green, cyan, red, etc. lights on some interiors.)")]
-        [Slider(0f, 2f, 1)]
+        [Slider(0f, 2f, 1, NumberFormat = "{0:F2}")]
         public float fillColorLevel = 0.5f;
 
         [Section("Weather Settings")]
 
         [Name("Base Aurora Intensity")]
         [Description("How bright is the aurora light that come through windows")]
-        [Slider(0f, 2f, 1)]
+        [Slider(0f, 2f, 1, NumberFormat = "{0:F2}")]
         public float auroraIntensity = 0.8f;
 
         [Name("Base Aurora Saturation")]
         [Description("How colorful is the aurora light that come through windows")]
-        [Slider(0f, 2f, 1)]
+        [Slider(0f, 2f, 1, NumberFormat = "{0:F2}")]
         public float auroraSaturation = 1.4f;
 
         [Section("Misc Settings")]
