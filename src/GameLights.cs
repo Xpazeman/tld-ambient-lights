@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using Harmony;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
-//using Il2CppSystem.Collections.Generic;
 
 namespace AmbientLights
 {
@@ -42,11 +41,13 @@ namespace AmbientLights
                 return;
             }
 
-            if (AmbientLights.debugVer)
-                Debug.Log("[ambient-lights] InteriorLightingManager initialized.");
+            //if (AmbientLights.debugVer)
+            //    Debug.Log("[ambient-lights] InteriorLightingManager initialized.");
 
-            if (AmbientLights.debugVer)
-                MelonLoader.MelonLogger.Log("[AL] Game Lights init");
+            //if (AmbientLights.debugVer)
+            //    MelonLoader.MelonLogger.Log("[AL] Game Lights init");
+
+            ALUtils.Log("Game Lights Manager initialized.");
 
             if (gameLightsList != null)
                 gameLightsList.Clear();
@@ -69,8 +70,9 @@ namespace AmbientLights
             theSun = null;
             sunlight = null;
 
-            if (AmbientLights.debugVer)
-                MelonLoader.MelonLogger.Log("[AL] Add Game Lights");
+            //if (AmbientLights.debugVer)
+            //    MelonLoader.MelonLogger.Log("[AL] Add Game Lights");
+            ALUtils.Log("Adding game lights.", false);
 
             gameLights = new GameObject();
 
@@ -95,10 +97,12 @@ namespace AmbientLights
             int lCount = 0;
 
             //Add sun
-            if (!AmbientLights.currentScene.ToLower().Contains("cave"))
+            if (!AmbientLights.currentScene.ToLower().Contains("cave") && Settings.options.trueSun)
             {
-                if (AmbientLights.debugVer)
-                    MelonLoader.MelonLogger.Log("[AL] Add sun");
+                //if (AmbientLights.debugVer)
+                //    MelonLoader.MelonLogger.Log("[AL] Add sun");
+                ALUtils.Log("Creating sun", false);
+
                 theSun = new GameObject();
                 theSun.name = "AmbientLightsSun";
                 sunlight = theSun.AddComponent<Light>();
@@ -120,15 +124,15 @@ namespace AmbientLights
                 Vector3 sunRotation = new Vector3(10f, 10f, 0);
                 theSun.transform.localRotation = Quaternion.Euler(sunRotation);
 
-                if (Settings.options.trueSun)
-                {
-                    PrepareSceneShadows();
-                }
+                PrepareSceneShadows();
             }
 
             //Window Lights
-            if (AmbientLights.debugVer)
-                MelonLoader.MelonLogger.Log("[AL] Window lights");
+            //if (AmbientLights.debugVer)
+            //    MelonLoader.MelonLogger.Log("[AL] Window lights");
+
+            ALUtils.Log("Adding window lights", false);
+
             foreach (InteriorLightingGroup group in lightGroups)
             {
                 List<Light> lights = new List<Light>();
@@ -142,11 +146,12 @@ namespace AmbientLights
                     }
                     else
                     {
-                        if (AmbientLights.debugVer)
-                            Debug.Log("[ambient-lights] gLight is null.");
-                        
+                        //if (AmbientLights.debugVer)
+                        //    Debug.Log("[ambient-lights] gLight is null.");
+                        ALUtils.Log("gLight is null", false);
+
                     }
-                    
+
                 }
 
                 foreach (Light light in lights)
@@ -195,8 +200,11 @@ namespace AmbientLights
             }
 
             //Main Ambient Light
-            if (AmbientLights.debugVer)
-                MelonLoader.MelonLogger.Log("[AL] Main Ambient Light");
+            //if (AmbientLights.debugVer)
+            //    MelonLoader.MelonLogger.Log("[AL] Main Ambient Light");
+
+            ALUtils.Log("Adding main ambient light", false);
+
             if (mngr != null)
             {
                 gameAmbientLight = mngr.m_AmbientLight;
@@ -206,7 +214,7 @@ namespace AmbientLights
                 TodAmbientLight[] array = UnityEngine.Object.FindObjectsOfType<TodAmbientLight>();
                 if (array.Length > 0)
                     gameAmbientLight = array[0];
-                
+
             }
 
             if (gameAmbientLight != null)
@@ -215,19 +223,24 @@ namespace AmbientLights
                 defaultColorNight = gameAmbientLight.m_AmbientIndoorsNight;
 
                 gameAmbientLight.name += "_XPZ_AmbientLight";
-                if (AmbientLights.debugVer)
-                    Debug.Log("[ambient-lights] Ambient light found.");
+                //if (AmbientLights.debugVer)
+                //    Debug.Log("[ambient-lights] Ambient light found.");
+                ALUtils.Log("Main ambient light found", false);
             }
             else
             {
-                if (AmbientLights.debugVer)
-                    Debug.Log("[ambient-lights] Ambient light NOT found.");
+                //if (AmbientLights.debugVer)
+                //    Debug.Log("[ambient-lights] Ambient light NOT found.");
+                ALUtils.Log("Main ambient light missing", false);
             }
 
             //Loose Lights
             //With Manager
-            if (AmbientLights.debugVer)
-                MelonLoader.MelonLogger.Log("[AL] Managed Loose Lights");
+            //if (AmbientLights.debugVer)
+            //    MelonLoader.MelonLogger.Log("[AL] Managed Loose Lights");
+
+            ALUtils.Log("Adding managed loose lights", false);
+
             List<Light> looseLights = new List<Light>();
             List<Light> looseLightsMidday = new List<Light>();
 
@@ -278,8 +291,11 @@ namespace AmbientLights
             }
 
 
-            if (AmbientLights.debugVer)
-                MelonLoader.MelonLogger.Log("[AL] Unmanaged Loose Lights");
+            //if (AmbientLights.debugVer)
+            //    MelonLoader.MelonLogger.Log("[AL] Unmanaged Loose Lights");
+
+            ALUtils.Log("Adding unmanaged loose lights", false);
+
             //No Manager
             UnhollowerBaseLib.Il2CppReferenceArray<UnityEngine.Object> sclights = UnityEngine.Object.FindObjectsOfType(UnhollowerRuntimeLib.Il2CppType.Of<Light>());
 
@@ -287,7 +303,7 @@ namespace AmbientLights
             {
                 Light light = lightItem.Cast<Light>();
 
-                if (!light.gameObject.name.Contains("XPZ_GameLight") && light.type == LightType.Point)
+                if (!light.gameObject.name.Contains("XPZ_GameLight") && !light.gameObject.name.Contains("XPZ_Light") && light.type == LightType.Point)
                 {
                     light.gameObject.name += "_XPZ_GameLight";
                     gameExtraLightsList.Add(light);
@@ -315,8 +331,11 @@ namespace AmbientLights
             }
 
             //Add fill lights to debug object
-            if (AmbientLights.debugVer)
-                MelonLoader.MelonLogger.Log("[AL] Add to debug");
+            //if (AmbientLights.debugVer)
+            //    MelonLoader.MelonLogger.Log("[AL] Add to debug");
+
+            ALUtils.Log("Adding fill lights to debug object", false);
+
             foreach (Light light in gameExtraLightsList)
             {
                 GameObject eLightMark;
@@ -343,8 +362,10 @@ namespace AmbientLights
             }
 
             //MelonLoader.MelonModLogger.Log("[AL] Done Preparing");
-            if (AmbientLights.debugVer)
-                Debug.Log("[ambient-lights] Gamelights setup done. Window Lights:" + pCount + ". Spotlights:" + sCount +  ". Loose Lights:" + lCount + ". Windows:" + wCount + ". Windows outside lighting groups:" + weCount + ". Extra Lights:" + eCount);
+            //if (AmbientLights.debugVer)
+            //    Debug.Log("[ambient-lights] Gamelights setup done. Window Lights:" + pCount + ". Spotlights:" + sCount +  ". Loose Lights:" + lCount + ". Windows:" + wCount + ". Windows outside lighting groups:" + weCount + ". Extra Lights:" + eCount);
+
+            ALUtils.Log("Gamelights setup complete. Window Lights:" + pCount + ". Spotlights:" + sCount + ". Loose Lights:" + lCount + ". Windows:" + wCount + ". Windows outside lighting groups:" + weCount + ". Extra Lights:" + eCount, false);
 
             AmbientLights.SetupGameLights();
 
@@ -353,7 +374,7 @@ namespace AmbientLights
 
         internal static int GetWindows()
         {
-            
+
             GameObject[] rObjs = ALUtils.GetRootObjects().ToArray();
 
             int wCount = 0;
@@ -362,7 +383,8 @@ namespace AmbientLights
             {
                 Renderer childRenderer = rootObj.GetComponent<Renderer>();
                 Renderer[] allRenderers = rootObj.GetComponentsInChildren<Renderer>();
-                allRenderers.Add(childRenderer);
+                //allRenderers.Add(childRenderer);
+                allRenderers.AddItem(childRenderer);
 
                 foreach (Renderer renderer in allRenderers)
                 {
@@ -378,7 +400,7 @@ namespace AmbientLights
                                 WindowsCastShadow(renderer.gameObject);
                                 renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                                 renderer.receiveShadows = false;
-                                
+
                                 wCount++;
                                 break;
                             }
@@ -417,6 +439,11 @@ namespace AmbientLights
             int eIndex = 0;
             foreach (Light eLight in gameExtraLightsList)
             {
+                if (eLight == null || eLight.gameObject == null)
+                {
+                    continue;
+                }
+
                 if (!AmbientLights.enableGameLights)
                 {
                     eLight.intensity = 0;
@@ -459,7 +486,7 @@ namespace AmbientLights
                 return;
 
             //Windows
-            
+
             Color bColor = AmbientLights.currentLightSet.windowColor;
 
             foreach (Renderer window in gameWindows)
@@ -517,7 +544,7 @@ namespace AmbientLights
                 }
             }
 
-            foreach(Renderer[] shaft in gameShaftsList)
+            foreach (Renderer[] shaft in gameShaftsList)
             {
                 if (shaft != null)
                 {
@@ -530,14 +557,14 @@ namespace AmbientLights
                         }
                     }
 
-                    
+
                 }
             }
         }
 
         internal static void UpdateAmbience(TodAmbientLight TodLightInstance, ref float multiplier)
         {
-            
+
             if (AmbientLights.lightOverride || Settings.options.alPreset == ALPresets.TLD_Default)
             {
                 TodLightInstance.m_AmbientIndoorsDay = defaultColorDay;
@@ -579,7 +606,7 @@ namespace AmbientLights
                 theSun.SetActive(true);
                 sunlight.intensity = 5f * AmbientLights.currentLightSet.sunStr;
                 sunlight.color = AmbientLights.currentLightSet.ambientDayColor;
-                
+
             }
         }
 
@@ -667,15 +694,27 @@ namespace AmbientLights
             {
                 MeshRenderer childRenderer = rootObj.GetComponent<MeshRenderer>();
                 MeshRenderer[] allRenderers = rootObj.GetComponentsInChildren<MeshRenderer>();
-                allRenderers.Add(childRenderer);
+                //allRenderers.Add(childRenderer);
+                allRenderers.AddItem(childRenderer);
 
                 foreach (MeshRenderer renderer in allRenderers)
                 {
-                    
 
-                        //Ignore
+                    //Remove glass from sun layer
+                    Material[] mats = renderer.materials;
+
+                    foreach (Material mat in mats)
+                    {
+                        if (mat.name.ToLower().Contains("glass"))
+                        {
+                            renderer.gameObject.layer = 7;
+                            continue;
+                        }
+                    }
+
+                    //Ignore
                     if (renderer == null || renderer.gameObject.name.Contains("XPZ_Wall") || renderer.gameObject.name.Contains("XPZ_BaseWindow") ||
-                        (renderer.gameObject.name.StartsWith("OBJ_") && !renderer.gameObject.name.ToLower().Contains("door") && !renderer.gameObject.name.ToLower().Contains("curtain")) ||
+                        (renderer.gameObject.name.StartsWith("OBJ_") && !renderer.gameObject.name.ToLower().Contains("door") && !renderer.gameObject.name.ToLower().Contains("curtain") && !renderer.gameObject.name.ToLower().Contains("car")) ||
                         renderer.gameObject.name.StartsWith("GEAR_") ||
                         renderer.gameObject.name.StartsWith("FX_") ||
                         renderer.gameObject.name.StartsWith("CONTAINER_") ||
@@ -691,7 +730,7 @@ namespace AmbientLights
                         || renderer.gameObject.name.ToLower().Contains("sphere")
                     )
                     {
-                        
+
                         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                         renderer.gameObject.SetActive(false);
 
@@ -728,19 +767,19 @@ namespace AmbientLights
                     //Rest - Cast shadows if not transparent
                     if (renderer.shadowCastingMode == UnityEngine.Rendering.ShadowCastingMode.Off || renderer.shadowCastingMode == UnityEngine.Rendering.ShadowCastingMode.On)
                     {
-                        Material[] mats = renderer.materials;
+                        //Material[] mats = renderer.materials;
 
                         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.TwoSided;
 
-                        foreach (Material mat in mats)
+                        /*foreach (Material mat in mats)
                         {
                             if (mat.name.ToLower().Contains("glass"))
                             {
                                 renderer.gameObject.layer = 7;
                                 continue;
                             }
-                        }
-                        
+                        }*/
+
                     }
                     else if (renderer.shadowCastingMode == UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly)
                     {
@@ -825,7 +864,7 @@ namespace AmbientLights
             {
                 foreach (Light eLight in gameExtraLightsList)
                 {
-                    if (eLight.gameObject.name != "XPZ_Light")
+                    if (!eLight.gameObject.name.StartsWith("XPZ_Light"))
                     {
                         eLight.intensity = 1;
                     }
@@ -843,6 +882,6 @@ namespace AmbientLights
             hideWindows = !hideWindows;
         }
 
-        
+
     }
 }

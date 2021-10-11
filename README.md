@@ -4,7 +4,7 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 
 ## Installation
 * If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
-* You'll need to download and install [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/download/v1.7/ModSettings.dll) by Zeo. **MOD WON'T WORK WITHOUT IT**
+* You'll need to download and install [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/latest/download/ModSettings.dll) by Zeo. **MOD WON'T WORK WITHOUT IT**
 * Download the latest version of AmbientLigths.zip from the [releases page](https://github.com/Xpazeman/tld-ambient-lights/releases/latest).
 * Extract the zip file into your **Mods** folder, you should have AmbientLights.dll and ambient-lights folder.
 * **IMPORTANT: DO NOT leave the .zip folder in the Mods folder as this will make Melon Loader error.**
@@ -14,6 +14,21 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 ![Your Mods folder should look like this](https://raw.githubusercontent.com/Xpazeman/tld-ambient-lights/master/screenshots/folder.jpg "Your Mods folder should look like this")
 
 ## Updates
+
+### v2.5
+* Updated to work with TLD 1.95 - Fury, then silence.
+
+### v2.4
+* Mapped Ash Canyon interiors
+* Fixed some glass illumination issues whil under sunlight
+* Added extra decimal to mod settings
+* Added verbose option to settings for troubleshooting
+
+### v2.3
+* Fixed decals and glass being too bright in low light environments
+
+### v2.2
+* Fixed for TLD 1.93
 
 ### v2.1
 * Major rewrite to make it work with newer versions

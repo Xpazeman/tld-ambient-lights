@@ -49,9 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\Il2CppSystem.dll</HintPath>
     </Reference>
-    <Reference Include="MelonLoader.ModHandler, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MelonLoader, Version=0.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
+      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\MelonLoader.dll</HintPath>
     </Reference>
     <Reference Include="ModSettings, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -133,7 +133,8 @@ namespace AmbientLights
             }
             else
             {
-                Debug.Log("[ambient-lights] No lighting data for scene " + scene + " found. Using game default.");
+                //Debug.Log("[ambient-lights] No lighting data for scene " + scene + " found. Using game default.");
+                ALUtils.Log("No lighting data for scene " + scene + " found. Using game default.", false, true);
             }
         }
 
@@ -145,7 +146,8 @@ namespace AmbientLights
             }
             else
             {
-                Debug.Log("[ambient-lights] ERROR: No weather sets data found");
+                //Debug.Log("[ambient-lights] ERROR: No weather sets data found");
+                ALUtils.Log("ERROR: No weather sets data found.", false, true);
             }
 
             if (File.Exists(Path.Combine(AmbientLights.MODS_FOLDER_PATH, "global_sets.json")))
@@ -154,7 +156,8 @@ namespace AmbientLights
             }
             else
             {
-                Debug.Log("[ambient-lights] ERROR: No light sets data found");
+                //Debug.Log("[ambient-lights] ERROR: No light sets data found");
+                ALUtils.Log("ERROR: No light sets data found.", false, true);
             }
         }
 

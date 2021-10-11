@@ -26,7 +26,7 @@ namespace AmbientLights
         public static bool lightOverride = false;
 
         public static bool verbose = false;
-        public static bool debugVer = false;
+        public static bool debugVer = true;
         public static bool showGameLights = false;
         public static bool enableGameLights = true;
 
@@ -37,11 +37,15 @@ namespace AmbientLights
             Settings.OnLoad();
 
             Debug.Log("[ambient-lights] Version " + Assembly.GetExecutingAssembly().GetName().Version);
+                        
         }
 
         public static void Reset(bool firstPass = true)
         {
-            if (AmbientLights.debugVer) Debug.Log("[ambient-lights] Scene reset.");
+            debugVer = Settings.options.verbose;
+            verbose = Settings.options.verbose;
+
+            ALUtils.Log("Scene reset.", false);
 
             lightList.Clear();
                         
@@ -63,6 +67,9 @@ namespace AmbientLights
 
         public static void Unload(bool reload = false)
         {
+            debugVer = Settings.options.verbose;
+            verbose = Settings.options.verbose;
+
             foreach (AmbLight light in lightList)
             {
                 UnityEngine.Object.Destroy(light.go);
@@ -88,7 +95,8 @@ namespace AmbientLights
         {
             currentScene = GameManager.m_ActiveScene;
 
-            Debug.Log("[ambient-lights] Loaded Scene: " + currentScene);
+            //Debug.Log("[ambient-lights] Loaded Scene: " + currentScene);
+            ALUtils.Log("Loading Scene: " + currentScene, false, true);
 
             if (currentScene != "MainMenu")
             {
@@ -106,7 +114,8 @@ namespace AmbientLights
         {
             if (config.ready)
             {
-                Debug.Log("[ambient-lights] Setting up " + config.data.emitters.Count + " light sources for scene.");
+                //Debug.Log("[ambient-lights] Setting up " + config.data.emitters.Count + " light sources for scene.");
+                ALUtils.Log("Setting up " + config.data.emitters.Count + " light sources for scene.", false, true);
 
                 foreach (AmbEmitter emitter in config.data.emitters)
                 {
@@ -129,7 +138,8 @@ namespace AmbientLights
             }
             else
             {
-                Debug.Log("[ambient-lights] ERROR: Config isn't ready or not present.");
+                //Debug.Log("[ambient-lights] ERROR: Config isn't ready or not present.");
+                ALUtils.Log("ERROR: Config isn't ready or not present.", false, true);
             }
         }
 
@@ -138,13 +148,11 @@ namespace AmbientLights
             if (lightsInit && timeInit && weatherInit && config.ready)
             {
                 //Generate lightsets for emitters based on time, weather and transition progress
-
                 LightSet lightSet = config.GetCurrentLightSet();
                 
                 if (lightSet != null)
                 {
                     currentLightSet = lightSet;
-
                     foreach (var light in lightList)
                     {
                         LightOrientation set = lightSet.orientations[light.orientation];
@@ -155,13 +163,15 @@ namespace AmbientLights
                         }
                         else
                         {
-                            MelonLoader.MelonLogger.Log("[AL] No set matches orientation.");
+                            //MelonLoader.MelonLogger.Log("[AL] No set matches orientation.");
+                            ALUtils.Log("ERROR: No set matches orientation.", false, true);
                         }
                     }
                 }
                 else
                 {
-                    MelonLoader.MelonLogger.Log("[AL] No lightset defined");
+                    //MelonLoader.MelonLogger.Log("[AL] No lightset defined");
+                    ALUtils.Log("ERROR: No lightset defined.", false, true);
                 }
             }
         }
@@ -183,10 +193,10 @@ namespace AmbientLights
 
         public static void UpdateGameLights(bool isDarkMngr = false)
         {
-            foreach (AmbLight aLight in lightList)
+            /*foreach (AmbLight aLight in lightList)
             {
                 aLight.UpdateGameLights();
-            }
+            }*/
 
             if (!isDarkMngr)
             {

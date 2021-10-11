@@ -1,7 +1,7 @@
 ﻿using System;
 //using System.Collections.Generic;
 using Il2CppSystem.Collections.Generic;
-using Harmony;
+using HarmonyLib;
 using UnityEngine;
 
 namespace AmbientLights
@@ -16,7 +16,7 @@ namespace AmbientLights
         {
             public static void Prefix()
             {
-                if (!InterfaceManager.IsMainMenuActive())
+                if (!InterfaceManager.IsMainMenuEnabled())
                 {
                     GameLights.gameLightsList.Clear();
                     GameLights.gameExtraLightsList.Clear();
@@ -33,7 +33,7 @@ namespace AmbientLights
 
         /****** Load & Unload scene ******/
 
-        
+
 
         [HarmonyPatch(typeof(SaveGameSystem), "LoadSceneData", new Type[] { typeof(string), typeof(string) })]
         internal class SaveGameSystem_LoadSceneData
@@ -44,7 +44,7 @@ namespace AmbientLights
                 //MelonLoader.MelonLogger.Log("[AL] Unload and load");
                 AmbientLights.Unload();
                 AmbientLights.LoadConfigs();
-                
+
             }
         }
 
@@ -61,22 +61,26 @@ namespace AmbientLights
         /****** Initial Time & Weather setup ******/
 
         [HarmonyPatch(typeof(TimeOfDay), "Deserialize")]
-        internal class TimeOfDay_Deserialize
+        //[HarmonyPatch(typeof(TimeOfDay), "Start")]
+        internal class TimeOfDay_Start
         {
             public static void Postfix(TimeOfDay __instance)
             {
                 ALUtils.hourNow = GameManager.GetTimeOfDayComponent().GetHour();
                 ALUtils.minuteNow = GameManager.GetTimeOfDayComponent().GetMinutes();
 
-                Debug.Log("[ambient-lights] Initialized at: " + ALUtils.hourNow + ":" + ALUtils.minuteNow);
+                //Debug.Log("[ambient-lights] Initialized at: " + ALUtils.hourNow + ":" + ALUtils.minuteNow);
+                ALUtils.Log("Initialized at: " + ALUtils.hourNow + ":" + ALUtils.minuteNow, false, true);
 
                 AmbientLights.timeInit = true;
                 AmbientLights.MaybeUpdateLightsToPeriod(true);
             }
         }
 
-        [HarmonyPatch(typeof(UniStormWeatherSystem), "InitializeForScene")]
-        internal class UniStormWeatherSystem_InitializeForScene
+        //[HarmonyPatch(typeof(UniStormWeatherSystem), "InitializeForScene")]
+        //[HarmonyPatch(typeof(UniStormWeatherSystem), "InitializeAfterSceneLoad")]
+        [HarmonyPatch(typeof(TimeOfDay), "InstantiateUniStorm")]
+        internal class TimeOfDay_InstantiateUniStorm
         {
             public static void Postfix(UniStormWeatherSystem __instance)
             {
@@ -92,13 +96,18 @@ namespace AmbientLights
         {
             public static void Postfix(GameManager __instance)
             {
-                if(!GameManager.m_IsPaused)
+                //AmbientLights.Update();
+                //ALUtils.Log("GameManager Update 1.", false, true);
+                if (!InterfaceManager.m_Panel_PauseMenu.IsEnabled())
+                {
+                    //ALUtils.Log("GameManager Update 1.", false, true);
                     AmbientLights.Update();
+                }
             }
         }
 
         /****** Game Lights ******/
-        
+
         [HarmonyPatch(typeof(InteriorLightingManager), "Initialize")]
         internal class InteriorLightingManager_Initialize
         {
@@ -115,12 +124,15 @@ namespace AmbientLights
         [HarmonyPatch(typeof(InteriorLightingManager), "Update")]
         internal class InteriorLightingManager_Update
         {
-            
+
             private static void Postfix(InteriorLightingManager __instance)
             {
                 if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
-                    AmbientLights.UpdateGameLights();
-                
+                {
+                    //AmbientLights.UpdateGameLights();
+                    GameLights.UpdateLights();
+                }
+
             }
         }
 
@@ -215,7 +227,7 @@ namespace AmbientLights
 
         [HarmonyPatch(typeof(LightShaftTod), "Start")]
         internal class LightShaftTod_Start
-        { 
+        {
             private static void Postfix(LightShaftTod __instance)
             {
                 GameLights.gameShaftsList.Add(__instance.gameObject.GetComponentsInChildren<Renderer>());
@@ -230,7 +242,7 @@ namespace AmbientLights
                 if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
                 {
                     GameLights.UpdateLightshafts();
-                   
+
                 }
             }
         }
@@ -295,7 +307,7 @@ namespace AmbientLights
                         color_index = 0;
                     }
                 }
-                
+
                 //Debug.Log(Utils.SerializeObject(logger));
             }
         }
@@ -310,7 +322,7 @@ namespace AmbientLights
                     return;
                 }
 
-                GameLights.theSun.transform.rotation = Quaternion.AngleAxis( GameLights.sunOffset - 90f, Vector3.up);
+                GameLights.theSun.transform.rotation = Quaternion.AngleAxis(GameLights.sunOffset - 90f, Vector3.up);
                 GameLights.theSun.transform.rotation *= Quaternion.AngleAxis(__instance.m_NormalizedTime * 360f - 90f - __instance.m_MasterTimeKeyOffset * 15f, Vector3.right + Vector3.up * __instance.m_SunAngle * 0.1f);
             }
         }

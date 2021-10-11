@@ -64,7 +64,7 @@ namespace AmbientLights
 
             eLightMark.SetActive(false);
 
-            go.name = "XPZ_Light";
+            go.name = "XPZ_Light_"+orientation;
 
             light.intensity = 0f;
             light.range = 0f;
@@ -81,7 +81,7 @@ namespace AmbientLights
             {
                 if (Vector3.Distance(gLight.gameObject.transform.position, go.transform.position) < (range * lightSize))
                 { 
-                    gLight.gameObject.name = "XPZ_Light";
+                    gLight.gameObject.name = "XPZ_Light_Companion";
                     gameLights.Add(gLight);
                 }
             }
@@ -115,14 +115,7 @@ namespace AmbientLights
                 }
             }
 
-            if (AmbientLights.showGameLights && !eLightMark.active)
-            {
-                eLightMark.SetActive(true);
-            }
-            else if (!AmbientLights.showGameLights && eLightMark.active)
-            {
-                eLightMark.SetActive(false);
-            }
+            
         }
 
         internal void SetLightParams(LightOrientation set, bool instantApply = false)
@@ -153,6 +146,15 @@ namespace AmbientLights
             {
                 light.shadows = LightShadows.None;
             }
+
+            if (AmbientLights.showGameLights)
+            {
+                eLightMark.SetActive(true);
+            }
+            else
+            {
+                eLightMark.SetActive(false);
+            }
         }
 
         internal void SetLightIntensity(float newIntensity)
@@ -174,8 +176,9 @@ namespace AmbientLights
 
         internal void DebugLightSet()
         {
-            if (AmbientLights.debugVer)
-                Debug.Log("Intensity: " + light.intensity + ", Range: " + light.range + ", Color: " + light.color);
+            //if (AmbientLights.debugVer)
+            //Debug.Log("Intensity: " + light.intensity + ", Range: " + light.range + ", Color: " + light.color);
+            ALUtils.Log("Current Lightset - Intensity: " + light.intensity + ", Range: " + light.range + ", Color: " + light.color, false);
         }
 
         
