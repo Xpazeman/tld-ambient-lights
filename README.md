@@ -15,6 +15,9 @@ These lights are just ambiental and not "real" lights, so to craft or do things 
 
 ## Updates
 
+### v2.6
+* Fixed vanilla lightshafts so they doesn't look like a rave in some locations and so they also adapt properly to outside weather.
+
 ### v2.5
 * Updated to work with TLD 1.95 - Fury, then silence.
 
