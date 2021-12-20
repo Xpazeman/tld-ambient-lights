@@ -201,6 +201,51 @@ namespace AmbientLights
             }
         }
 
+        [HarmonyPatch(typeof(InteriorLightingManager), "UpdateLightShaft", new Type[] { typeof(float), typeof(bool) })]
+        internal class InteriorLightingManager_UpdateLightShaft
+        {
+            private static void Prefix(InteriorLightingManager __instance, ref float timeOfDayIntensity, bool followTod)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                {
+                    timeOfDayIntensity *= AmbientLights.currentLightSet.lightshaftStr;
+                }
+
+            }
+        }
+
+        [HarmonyPatch(typeof(LightTOD), "UpdateLights")]
+        internal class LightTOD_UpdateLights
+        {
+            private static void Postfix(LightTOD __instance)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                {
+                    if (__instance.m_DayLights != null)
+                    {
+                        for (int i = 0; i < __instance.m_DayLights.Count; i++)
+                        {
+                            if (!(__instance.m_DayLights[i] == null))
+                            {
+                                __instance.m_DayLights[i].intensity = __instance.m_DayLightOriginal[i] * __instance.m_TODMultiplier * AmbientLights.currentLightSet.lightshaftStr;
+                            }
+                        }
+                    }
+                    if (__instance.m_NightLights != null)
+                    {
+                        for (int j = 0; j < __instance.m_NightLights.Count; j++)
+                        {
+                            if (!(__instance.m_NightLights[j] == null))
+                            {
+                                __instance.m_NightLights[j].intensity = __instance.m_NightLightOriginal[j] * __instance.m_TONMultiplier * AmbientLights.currentLightSet.lightshaftStr;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
         /**/
 
         [HarmonyPatch(typeof(TodAmbientLight), "SetAmbientLightValue", new Type[] { typeof(float), typeof(float) })]

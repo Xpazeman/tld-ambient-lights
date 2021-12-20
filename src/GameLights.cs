@@ -537,14 +537,14 @@ namespace AmbientLights
                     {
                         sLight.gameObject.SetActive(true);
 
-                        sLight.intensity *= AmbientLights.currentLightSet.lightshaftStr;
+                        //sLight.intensity *= AmbientLights.currentLightSet.lightshaftStr;
 
-                        sLight.color = AmbientLights.currentLightSet.lightshaftColor;
+                        //sLight.color = AmbientLights.currentLightSet.lightshaftColor;
                     }
                 }
             }
 
-            foreach (Renderer[] shaft in gameShaftsList)
+            /*foreach (Renderer[] shaft in gameShaftsList)
             {
                 if (shaft != null)
                 {
@@ -559,7 +559,7 @@ namespace AmbientLights
 
 
                 }
-            }
+            }*/
         }
 
         internal static void UpdateAmbience(TodAmbientLight TodLightInstance, ref float multiplier)
@@ -666,6 +666,12 @@ namespace AmbientLights
                         darkMngr.m_LightShaftList[i].gameObject.SetActive(true);
                     }
 
+                    //Light
+                    /*if (darkMngr.m_LightShaftList[i].m_Light)
+                    {
+                        darkMngr.m_LightShaftList[i].m_Light.intensity *= AmbientLights.currentLightSet.lightshaftStr;
+                    }
+
                     //Material
                     if (darkMngr.m_LightShaftList[i].m_LightShaftRenderer != null)
                     {
@@ -674,13 +680,9 @@ namespace AmbientLights
                             float gainBase = darkMngr.m_LightShaftList[i].m_LightShaftRenderer[j].material.GetFloat("_Gain");
                             darkMngr.m_LightShaftList[i].m_LightShaftRenderer[j].material.SetFloat("_Gain", gainBase * AmbientLights.currentLightSet.lightshaftStr);
                         }
-                    }
+                    }*/
 
-                    //Light
-                    if (darkMngr.m_LightShaftList[i].m_Light)
-                    {
-                        darkMngr.m_LightShaftList[i].m_Light.intensity *= AmbientLights.currentLightSet.lightshaftStr;
-                    }
+                    
                 }
             }
         }
