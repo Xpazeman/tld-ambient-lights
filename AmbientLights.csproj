@@ -1,111 +1,206 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91BAE7A1-1E22-4FD2-A508-294CD0EF51CF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AmbientLights</RootNamespace>
-    <AssemblyName>AmbientLights</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2CppSystem, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\Il2CppSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="MelonLoader, Version=0.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\MelonLoader.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\Mods\ModSettings.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UnhollowerBaseLib, Version=0.4.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
-    </Reference>
-    <Reference Include="UnhollowerRuntimeLib, Version=0.4.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.InputModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\UnityEngine.InputModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\SteamLibrary\steamapps\common\TheLongDark\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\ALUtils.cs" />
-    <Compile Include="src\AmbientLights.cs" />
-    <Compile Include="src\AmbLight.cs" />
-    <Compile Include="src\AmbLitSettings.cs" />
-    <Compile Include="src\GameLights.cs" />
-    <Compile Include="src\LightConfig.cs" />
-    <Compile Include="src\Patches.cs" />
-    <Compile Include="src\TimeWeather.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="json\global_sets.json" />
-    <None Include="json\global_sets_v1.json" />
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="json\weather_sets.json" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
+    <!--This is an xml comment. Comments have no impact on compiling.-->
+
+    <PropertyGroup>
+        <!--This needs to be changed for the mod to compile.-->
+        <TheLongDarkPath>E:\SteamLibrary\steamapps\common\TheLongDark</TheLongDarkPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!--This is the .NET version the mod will be compiled with. Don't change it.-->
+        <TargetFramework>net6.0</TargetFramework>
+
+        <!--This tells the compiler to use the latest C# version.-->
+        <LangVersion>Latest</LangVersion>
+
+        <!--This adds global usings for a few common System namespaces.-->
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <!--This enables nullable annotation and analysis. It's good coding form.-->
+        <Nullable>enable</Nullable>
+
+        <!--This tells the compiler to use assembly attributes instead of generating its own.-->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+        <!--PDB files are mostly useless for modding since they can't be loaded.-->
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+
+    <!--This tells the compiler where to look for assemblies. Don't change it.-->
+    <PropertyGroup>
+        <MelonLoaderPath>$(TheLongDarkPath)/MelonLoader/net6</MelonLoaderPath>
+        <ManagedPath>$(TheLongDarkPath)/MelonLoader/Managed</ManagedPath>
+        <Il2CppPath>$(TheLongDarkPath)/MelonLoader/Il2CppAssemblies</Il2CppPath>
+        <ModsPath>$(TheLongDarkPath)/Mods</ModsPath>
+        <AssemblySearchPaths>$(AssemblySearchPaths);$(MelonLoaderPath);$(ManagedPath);$(Il2CppPath);$(ModsPath);</AssemblySearchPaths>
+    </PropertyGroup>
+
+    <!--This tells the compiler to not include referenced assemblies in the output folder.-->
+    <ItemDefinitionGroup>
+        <Reference>
+            <Private>False</Private>
+        </Reference>
+    </ItemDefinitionGroup>
+
+    <!--This is the list of assemblies that the mod references. Most of these are unnecessary for normal mods, but are included here for completeness.-->
+    <ItemGroup>
+        <Reference Include="ModSettings"/>
+        <Reference Include="MelonLoader"/>
+        <Reference Include="0Harmony"/>
+        <Reference Include="AssetRipper.VersionUtilities"/>
+        <Reference Include="AssetsTools.NET"/>
+        <Reference Include="Il2CppInterop.Common"/>
+        <Reference Include="Il2CppInterop.Runtime"/>
+        <Reference Include="Tomlet"/>
+        <Reference Include="Assembly-CSharp-firstpass"/>
+        <Reference Include="Assembly-CSharp"/>
+        <Reference Include="Il2CppAk.Wwise.Api.WAAPI"/>
+        <Reference Include="Il2CppAK.Wwise.Unity.API"/>
+        <Reference Include="Il2CppAK.Wwise.Unity.API.WwiseTypes"/>
+        <Reference Include="Il2CppAK.Wwise.Unity.MonoBehaviour"/>
+        <Reference Include="Il2CppAK.Wwise.Unity.Timeline"/>
+        <Reference Include="Il2CppAmazingAssets.TerrainToMesh"/>
+        <Reference Include="Il2CppAmplifyBloom.Runtime"/>
+        <Reference Include="Il2CppCameraPath3.Runtime"/>
+        <Reference Include="Il2Cppcom.rlabrecque.steamworks.net"/>
+        <Reference Include="Il2CppDelaunayER"/>
+        <Reference Include="Il2CppEasyRoads3Dv3"/>
+        <Reference Include="Il2CppEOS-SDK.Runtime"/>
+        <Reference Include="Il2CppGdkUtilities"/>
+        <Reference Include="Il2CppHint.OptionalContent"/>
+        <Reference Include="Il2CppHOTween"/>
+        <Reference Include="Il2CppInfinityCode.MeshToTerrain.Runtime"/>
+        <Reference Include="Il2CppMegaWire.Runtime"/>
+        <Reference Include="Il2CppMeshBaker.Runtime"/>
+        <Reference Include="Il2CppMono.Security"/>
+        <Reference Include="Il2Cppmscorlib"/>
+        <Reference Include="Il2CppNavMeshComponents"/>
+        <Reference Include="Il2CppNewtonsoft.Json"/>
+        <Reference Include="Il2CppProCore.QuickBrush.Runtime"/>
+        <Reference Include="Il2CppRewindTools.Shared.Runtime"/>
+        <Reference Include="Il2CppRewired_Core"/>
+        <Reference Include="Il2CppRewired_Windows"/>
+        <Reference Include="Il2CppRewired_Windows_Functions"/>
+        <Reference Include="Il2CppSimpleLightProbePlacer.Runtime"/>
+        <Reference Include="Il2CppSimpleWaypointSystem.Runtime"/>
+        <Reference Include="Il2CppSuperSplines.Core"/>
+        <Reference Include="Il2CppSystem.Configuration"/>
+        <Reference Include="Il2CppSystem.Core"/>
+        <Reference Include="Il2CppSystem.Data"/>
+        <Reference Include="Il2CppSystem"/>
+        <Reference Include="Il2CppSystem.Numerics"/>
+        <Reference Include="Il2CppSystem.Runtime.Serialization"/>
+        <Reference Include="Il2CppSystem.Xml"/>
+        <Reference Include="Il2CppSystem.Xml.Linq"/>
+        <Reference Include="Il2CppTaskThreads"/>
+        <Reference Include="Il2CppTerrainFormer.Runtime"/>
+        <Reference Include="Il2CppTerrainMountainRoadMaker.Runtime"/>
+        <Reference Include="Il2CppTLD.Addressables"/>
+        <Reference Include="Il2CppTLD.Encryption"/>
+        <Reference Include="Il2CppTLD.Game.Events.Runtime"/>
+        <Reference Include="Il2CppTLD.GameplayTag"/>
+        <Reference Include="Il2CppTLD.IO"/>
+        <Reference Include="Il2CppTLD.Logging"/>
+        <Reference Include="Il2CppTLD.OptionalContent"/>
+        <Reference Include="Il2CppTLD.PDID"/>
+        <Reference Include="Il2CppTLD.Platform"/>
+        <Reference Include="Il2CppTLD.Profiling"/>
+        <Reference Include="Il2CppTLD.RuntimeTest"/>
+        <Reference Include="Il2CppTLD.SaveState"/>
+        <Reference Include="Il2CppTLD.Serialization"/>
+        <Reference Include="Il2CppTLD.Stats"/>
+        <Reference Include="Il2CppTLD.TimeLib"/>
+        <Reference Include="Il2CppTLD.Trial"/>
+        <Reference Include="Il2CppTLD.UserGeneratedContent"/>
+        <Reference Include="Il2CppTotalBaker.Runtime"/>
+        <Reference Include="Il2CppUniStorm.Runtime"/>
+        <Reference Include="Il2Cppuniumlib"/>
+        <Reference Include="Il2CppUserReporting"/>
+        <Reference Include="Il2CppVolumetricObjects.Runtime"/>
+        <Reference Include="Il2CppXGamingRuntime"/>
+        <Reference Include="Unity.Addressables"/>
+        <Reference Include="Unity.Analytics.DataPrivacy"/>
+        <Reference Include="Unity.Analytics.StandardEvents"/>
+        <Reference Include="Unity.Burst"/>
+        <Reference Include="Unity.Burst.Unsafe"/>
+        <Reference Include="Unity.Mathematics"/>
+        <Reference Include="Unity.ResourceManager"/>
+        <Reference Include="Unity.ScriptableBuildPipeline"/>
+        <Reference Include="Unity.TextMeshPro"/>
+        <Reference Include="Unity.Timeline"/>
+        <Reference Include="Unity.VisualScripting.Antlr3.Runtime"/>
+        <Reference Include="Unity.VisualScripting.Core"/>
+        <Reference Include="Unity.VisualScripting.Flow"/>
+        <Reference Include="Unity.VisualScripting.State"/>
+        <Reference Include="UnityEngine.AccessibilityModule"/>
+        <Reference Include="UnityEngine.AIModule"/>
+        <Reference Include="UnityEngine.AndroidJNIModule"/>
+        <Reference Include="UnityEngine.AnimationModule"/>
+        <Reference Include="UnityEngine.ARModule"/>
+        <Reference Include="UnityEngine.AssetBundleModule"/>
+        <Reference Include="UnityEngine.AudioModule"/>
+        <Reference Include="UnityEngine.ClothModule"/>
+        <Reference Include="UnityEngine.ClusterInputModule"/>
+        <Reference Include="UnityEngine.ClusterRendererModule"/>
+        <Reference Include="UnityEngine.CoreModule"/>
+        <Reference Include="UnityEngine.CrashReportingModule"/>
+        <Reference Include="UnityEngine.DirectorModule"/>
+        <Reference Include="UnityEngine"/>
+        <Reference Include="UnityEngine.DSPGraphModule"/>
+        <Reference Include="UnityEngine.GameCenterModule"/>
+        <Reference Include="UnityEngine.GIModule"/>
+        <Reference Include="UnityEngine.GridModule"/>
+        <Reference Include="UnityEngine.HotReloadModule"/>
+        <Reference Include="UnityEngine.ImageConversionModule"/>
+        <Reference Include="UnityEngine.IMGUIModule"/>
+        <Reference Include="UnityEngine.InputLegacyModule"/>
+        <Reference Include="UnityEngine.InputModule"/>
+        <Reference Include="UnityEngine.JSONSerializeModule"/>
+        <Reference Include="UnityEngine.LocalizationModule"/>
+        <Reference Include="UnityEngine.NVIDIAModule"/>
+        <Reference Include="UnityEngine.ParticleSystemModule"/>
+        <Reference Include="UnityEngine.PerformanceReportingModule"/>
+        <Reference Include="UnityEngine.Physics2DModule"/>
+        <Reference Include="UnityEngine.PhysicsModule"/>
+        <Reference Include="UnityEngine.ProfilerModule"/>
+        <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule"/>
+        <Reference Include="UnityEngine.ScreenCaptureModule"/>
+        <Reference Include="UnityEngine.SharedInternalsModule"/>
+        <Reference Include="UnityEngine.SpriteMaskModule"/>
+        <Reference Include="UnityEngine.SpriteShapeModule"/>
+        <Reference Include="UnityEngine.StreamingModule"/>
+        <Reference Include="UnityEngine.SubstanceModule"/>
+        <Reference Include="UnityEngine.SubsystemsModule"/>
+        <Reference Include="UnityEngine.TerrainModule"/>
+        <Reference Include="UnityEngine.TerrainPhysicsModule"/>
+        <Reference Include="UnityEngine.TextCoreFontEngineModule"/>
+        <Reference Include="UnityEngine.TextCoreTextEngineModule"/>
+        <Reference Include="UnityEngine.TextRenderingModule"/>
+        <Reference Include="UnityEngine.TilemapModule"/>
+        <Reference Include="UnityEngine.TLSModule"/>
+        <Reference Include="UnityEngine.UI"/>
+        <Reference Include="UnityEngine.UIElementsModule"/>
+        <Reference Include="UnityEngine.UIElementsNativeModule"/>
+        <Reference Include="UnityEngine.UIModule"/>
+        <Reference Include="UnityEngine.UmbraModule"/>
+        <Reference Include="UnityEngine.UNETModule"/>
+        <Reference Include="UnityEngine.UnityAnalyticsModule"/>
+        <Reference Include="UnityEngine.UnityConnectModule"/>
+        <Reference Include="UnityEngine.UnityCurlModule"/>
+        <Reference Include="UnityEngine.UnityTestProtocolModule"/>
+        <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule"/>
+        <Reference Include="UnityEngine.UnityWebRequestAudioModule"/>
+        <Reference Include="UnityEngine.UnityWebRequestModule"/>
+        <Reference Include="UnityEngine.UnityWebRequestTextureModule"/>
+        <Reference Include="UnityEngine.UnityWebRequestWWWModule"/>
+        <Reference Include="UnityEngine.VehiclesModule"/>
+        <Reference Include="UnityEngine.VFXModule"/>
+        <Reference Include="UnityEngine.VideoModule"/>
+        <Reference Include="UnityEngine.VirtualTexturingModule"/>
+        <Reference Include="UnityEngine.VRModule"/>
+        <Reference Include="UnityEngine.WindModule"/>
+        <Reference Include="UnityEngine.XRModule"/>
+        <Reference Include="UnityEngine.Il2CppAssetBundleManager"/>
+        <Reference Include="UnityEngine.Il2CppImageConversionManager"/>
+    </ItemGroup>
 </Project>

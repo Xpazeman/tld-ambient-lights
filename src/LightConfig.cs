@@ -3,6 +3,7 @@
 using System.IO;
 using UnityEngine;
 using MelonLoader.TinyJSON;
+using Il2Cpp;
 
 namespace AmbientLights
 {
@@ -215,7 +216,7 @@ namespace AmbientLights
             LightSet ls = new LightSet();
 
             UniStormWeatherSystem uniStorm = GameManager.GetUniStorm();
-            TODStateConfig state = uniStorm.GetActiveTODState();
+            TODStateData state = uniStorm.GetActiveTODState();
 
             AmbPeriod prd = GetPeriodSet();
 

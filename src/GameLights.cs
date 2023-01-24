@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using HarmonyLib;
+using Il2Cpp;
 using System;
 using System.Collections.Generic;
+using Il2CppInterop.Runtime;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace AmbientLights
 {
@@ -162,7 +165,7 @@ namespace AmbientLights
                     if (light.type == LightType.Point)
                     {
                         lightMark = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                        (lightMark.GetComponent(UnhollowerRuntimeLib.Il2CppType.Of<SphereCollider>()).Cast<Collider>()).enabled = false;
+                        (lightMark.GetComponent(Il2CppType.Of<SphereCollider>()).Cast<Collider>()).enabled = false;
 
                         light.gameObject.name += "_XPZ_GameLight";
 
@@ -297,7 +300,7 @@ namespace AmbientLights
             ALUtils.Log("Adding unmanaged loose lights", false);
 
             //No Manager
-            UnhollowerBaseLib.Il2CppReferenceArray<UnityEngine.Object> sclights = UnityEngine.Object.FindObjectsOfType(UnhollowerRuntimeLib.Il2CppType.Of<Light>());
+            Il2CppReferenceArray<UnityEngine.Object> sclights = UnityEngine.Object.FindObjectsOfType(Il2CppType.Of<Light>());
 
             foreach (UnityEngine.Object lightItem in sclights)
             {

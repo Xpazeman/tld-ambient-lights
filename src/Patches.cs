@@ -1,8 +1,9 @@
 ﻿using System;
-//using System.Collections.Generic;
-using Il2CppSystem.Collections.Generic;
+using System.Collections.Generic;
+//using Il2CppSystem.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
+using Il2Cpp;
 
 namespace AmbientLights
 {
@@ -98,7 +99,7 @@ namespace AmbientLights
             {
                 //AmbientLights.Update();
                 //ALUtils.Log("GameManager Update 1.", false, true);
-                if (!InterfaceManager.m_Panel_PauseMenu.IsEnabled())
+                if (!InterfaceManager.GetPanel<Panel_PauseMenu>().IsEnabled())
                 {
                     //ALUtils.Log("GameManager Update 1.", false, true);
                     AmbientLights.Update();
@@ -211,6 +212,32 @@ namespace AmbientLights
                     timeOfDayIntensity *= AmbientLights.currentLightSet.lightshaftStr;
                 }
 
+            }
+        }
+
+        [HarmonyPatch(typeof(LightShaftGimble), "UpdateLight", new Type[] { typeof(float) })]
+        internal class LightShaftGimble_GetCombinedIntensity
+        {
+            private static void Postfix(LightShaftGimble __instance, float tod)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                {
+                    if (__instance.m_Light != null)
+                        __instance.m_Light.intensity *= AmbientLights.currentLightSet.lightshaftStr;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(LightShaftTod), "Update")]
+        internal class LightShaftTod_Update
+        {
+            private static void Postfix(LightShaftGimble __instance)
+            {
+                if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
+                {
+                    if (__instance.m_Light != null)
+                        __instance.m_Light.intensity *= AmbientLights.currentLightSet.lightshaftStr;
+                }
             }
         }
 
@@ -331,7 +358,7 @@ namespace AmbientLights
                 colors[19] = new Color(1f, 0.5f, 0.5f);
                 int color_index = 0;
 
-                List<InteriorLightingGroup> lightGroups = __instance.m_LightGroupList;
+                Il2CppSystem.Collections.Generic.List<InteriorLightingGroup> lightGroups = __instance.m_LightGroupList;
 
                 foreach (InteriorLightingGroup group in lightGroups)
                 {
@@ -339,7 +366,7 @@ namespace AmbientLights
 
                     logger.Add("GROUP: " + group.gameObject.name + " - " + new_color.ToString());
 
-                    List<Light> lights = group.GetLights();
+                    Il2CppSystem.Collections.Generic.List<Light> lights = group.GetLights();
 
                     foreach (Light light in lights)
                     {

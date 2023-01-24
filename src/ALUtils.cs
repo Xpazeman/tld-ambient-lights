@@ -1,9 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using Il2CppSystem.Collections.Generic;
+//using Il2CppSystem.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using Il2Cpp;
 
 namespace AmbientLights
 {

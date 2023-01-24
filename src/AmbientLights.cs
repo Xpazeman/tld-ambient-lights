@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using MelonLoader;
+using Il2Cpp;
+using MelonLoader.Utils;
 
 namespace AmbientLights
 {
     internal class AmbientLights : MelonMod
     {
-        public static readonly string MODS_FOLDER_PATH = Path.GetFullPath(typeof(MelonMod).Assembly.Location + @"\..\..\Mods\ambient-lights");
+        //public static readonly string MODS_FOLDER_PATH = Path.GetFullPath(typeof(MelonMod).Assembly.Location + @"\..\..\Mods\ambient-lights");
+        public static readonly string MODS_FOLDER_PATH = Path.Combine(MelonEnvironment.ModsDirectory, "ambient-lights");
 
         public static string currentScene;
 
@@ -32,12 +35,9 @@ namespace AmbientLights
 
         public static LightSet currentLightSet;
 
-        public override void OnApplicationStart()
+        public override void OnInitializeMelon()
         {
             Settings.OnLoad();
-
-            Debug.Log("[ambient-lights] Version " + Assembly.GetExecutingAssembly().GetName().Version);
-                        
         }
 
         public static void Reset(bool firstPass = true)
