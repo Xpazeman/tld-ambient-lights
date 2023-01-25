@@ -55,6 +55,9 @@ Inside the ambient-lights folder there are three types of files: scene_*, global
 
 ## Updates
 
+### v2.8
+* Fixed a crash in some interiors
+
 ### v2.7
 * Updated to work with TLD 2.06
 

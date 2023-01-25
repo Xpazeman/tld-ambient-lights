@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
 using Il2Cpp;
+using MelonLoader;
 
 namespace AmbientLights
 {
@@ -231,12 +232,14 @@ namespace AmbientLights
         [HarmonyPatch(typeof(LightShaftTod), "Update")]
         internal class LightShaftTod_Update
         {
-            private static void Postfix(LightShaftGimble __instance)
+            private static void Postfix(LightShaftTod __instance)
             {
                 if (!GameManager.m_IsPaused && AmbientLights.config != null && AmbientLights.config.ready && GameLights.gameLightsReady)
                 {
                     if (__instance.m_Light != null)
+                    {
                         __instance.m_Light.intensity *= AmbientLights.currentLightSet.lightshaftStr;
+                    }
                 }
             }
         }
