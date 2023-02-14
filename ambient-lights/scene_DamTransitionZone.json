@@ -4,21 +4,21 @@
 			"description":"Offices S",
 			"position":"5.2, 4.7, -6.9",
 			"orientation":"south",
-			"size": 2,
+			"size": 1,
 			"cover": 0
 		},
 		{
 			"description":"Ceiling Stairs",
 			"position":"-7.1, 4.6, 2.6",
 			"orientation":"east",
-			"size": 2,
+			"size": 1.5,
 			"cover": 0
 		},
 		{
 			"description":"Ceiling Stairs",
 			"position":"-7.1, 4.6, 6.9",
 			"orientation":"east",
-			"size": 2,
+			"size": 1.5,
 			"cover": 0
 		},
 		{
@@ -32,28 +32,28 @@
 			"description":"Offices NW",
 			"position":"-8.5, 4.7, -10.4",
 			"orientation":"west",
-			"size": 2.2,
+			"size": 1,
 			"cover": 0
 		},
 		{
 			"description":"Offices NW",
 			"position":"-11.8, 4.7, -10.4",
 			"orientation":"west",
-			"size": 2,
+			"size": 1,
 			"cover": 0
 		},
 		{
 			"description":"Offices SW",
 			"position":"-1.8, 4.7, -10.4",
 			"orientation":"west",
-			"size": 2,
+			"size": 1,
 			"cover": 0
 		},
 		{
 			"description":"Offices SW",
 			"position":"1.5, 4.7, -10.4",
 			"orientation":"west",
-			"size": 2,
+			"size": 1,
 			"cover": 0
 		}
 	],

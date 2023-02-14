@@ -1,0 +1,34 @@
+{
+	"emitters": [
+		{
+			"position":"2.5, 1.8, 1.7",
+			"orientation":"east",
+			"cover":0.5
+		},
+		{
+			"position":"2.5, 1.8, -1.7",
+			"orientation":"east",
+			"cover": 0.25
+		},
+		{
+			"position":"-2.4, 1.8, -1.7",
+			"orientation":"west",
+			"cover":0.6
+		},
+		{
+			"position":"-2.4, 1.8, 1.7",
+			"orientation":"west",
+			"cover":0.7
+		}
+	],
+	"periods":{
+		
+	},
+	"options":{
+		"override_shadows":"",
+		"intensity_multiplier": 1,
+		"range_multiplier":0.9,
+		"aurora_intensity_multiplier": 2,
+		"aurora_range_multiplier": 4
+	}
+}

@@ -55,6 +55,11 @@ Inside the ambient-lights folder there are three types of files: scene_*, global
 
 ## Updates
 
+### v2.8.1
+* FIX: Tweaked config files for Dam and Lower Dam so windows aren't so bright when using high ambience level settings
+* FIX: Added Ash Canyon interiors
+* REMOVED: Removed mines and caves configs so the mod isn't active in them
+
 ### v2.8
 * Fixed a crash in some interiors
 

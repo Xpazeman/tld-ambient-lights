@@ -101,11 +101,11 @@ namespace AmbientLights
                     intensityMultiplier = 1.0f;
                     rangeMultiplier = 1.0f;
                     nightBrightness = 1;
-                    ambienceLevel = 0.2f;
+                    ambienceLevel = 0.3f;
                     fillLevel = 0.4f;
                     fillColorLevel = 0.5f;
                     auroraIntensity = 0.8f;
-                    auroraSaturation = 1.6f;
+                    auroraSaturation = 1.4f;
 
                     break;
 
